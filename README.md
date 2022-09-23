@@ -1,1 +1,3 @@
-# banking-and-budget-app
+## Banking and Budget App
+
+## by: nicole-drml and jhwllsantiago
