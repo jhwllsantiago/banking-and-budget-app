@@ -1,0 +1,13 @@
+.Signup {
+  position: relative;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  padding: 30px;
+
+  label,
+  input {
+    display: block;
+  }
+}

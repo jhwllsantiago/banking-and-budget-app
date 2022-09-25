@@ -6,10 +6,16 @@
 input,
 button,
 select,
-textarea {
+textarea,
+a {
   font-size: inherit;
   font-family: inherit;
 }
 ul {
   list-style-type: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
 }
