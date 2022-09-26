@@ -6,8 +6,21 @@
   width: fit-content;
   padding: 30px;
 
-  label,
-  input {
+  h3 {
+    text-align: center;
+  }
+  label {
     display: block;
+    margin-bottom: 5px;
+  }
+  input {
+    padding: 5px 10px;
+    width: 100%;
+  }
+  .form-control {
+    padding: 10px;
+  }
+  .test {
+    outline: 2px solid red;
   }
 }
