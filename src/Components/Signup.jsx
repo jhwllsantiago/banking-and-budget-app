@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import "./Signup.scss";
 import capitalize from "../Utility/capitalize.js";
-import { useNavigate } from "react-router-dom";
+import SignupModal from "./SignupModal";
 
 const Signup = () => {
   const USERS = localStorage.getItem("USERS");
   const initialUsers = USERS ? JSON.parse(USERS) : [];
 
-  const navigate = useNavigate();
   const [users, setUsers] = useState(initialUsers);
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
@@ -16,6 +15,7 @@ const Signup = () => {
   const [passwordValid, setPasswordValid] = useState(true);
   const [amount, setAmount] = useState("");
   const [checked, setChecked] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("USERS", JSON.stringify(users));
@@ -33,95 +33,101 @@ const Signup = () => {
     }
   }, [lastname]);
 
+  const handleUsername = (value) => {
+    setUsername(value);
+  };
+
   const handlePassword = (value) => {
-    setPasswordValid(() => (value.length > 7 ? true : false));
+    setPassword(value);
+    setPasswordValid(() => value.length > 7);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUsers((prev) => [
-      ...prev,
+    setUsers((currentUsers) => [
+      ...currentUsers,
       { firstname, lastname, username, password, amount },
     ]);
-    setTimeout(() => {
-      navigate("/");
-    }, 50);
+    setShowModal(true);
   };
 
   return (
-    <form className="Signup" onSubmit={handleSubmit}>
-      <h3>{firstname.trim().length ? `Hello, ${firstname}!` : `Hello!`}</h3>
-      <div className="form-control">
-        <label>First Name</label>
-        <input
-          type="text"
-          required
-          spellCheck="false"
-          autoComplete="false"
-          value={firstname}
-          onChange={(e) => setFirstname(e.target.value.replace(/[^a-z]/gi, ""))}
-        />
-      </div>
-      <div className="form-control">
-        <label>Last Name</label>
-        <input
-          type="text"
-          required
-          spellCheck="false"
-          autoComplete="false"
-          value={lastname}
-          onChange={(e) => setLastname(e.target.value.replace(/[^a-z]/gi, ""))}
-        />
-      </div>
-      <div className="form-control">
-        <label>Username</label>
-        <input
-          type="text"
-          required
-          spellCheck="false"
-          autoComplete="false"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div className="form-control">
-        <label>Password</label>
-        <input
-          type="password"
-          required
-          spellCheck="false"
-          autoComplete="false"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            handlePassword(e.target.value);
-          }}
-          onBlur={(e) => handlePassword(e.target.value)}
-          className={passwordValid ? "" : "test"}
-        />
-      </div>
-      <div className="form-control">
-        <label>Deposit amount</label>
-        <input
-          type="text"
-          spellCheck="false"
-          autoComplete="false"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))}
-        />
-      </div>
-      <div className="form-control">
-        <input
-          type="checkbox"
-          name="checkbox"
-          checked={checked}
-          onChange={() => setChecked(!checked)}
-        />
-        <label htmlFor="checkbox">I agree to the Terms and Conditions</label>
-      </div>
-
-      <button>Signup</button>
-    </form>
+    <>
+      {showModal && <SignupModal firstname={firstname} />}
+      <form className="Signup" onSubmit={handleSubmit}>
+        <h3>{firstname.trim().length ? `Hello, ${firstname}!` : `Hello!`}</h3>
+        <div className="form-control">
+          <label>First Name</label>
+          <input
+            type="text"
+            required
+            spellCheck="false"
+            autoComplete="false"
+            value={firstname}
+            onChange={(e) =>
+              setFirstname(e.target.value.replace(/[^a-z]/gi, ""))
+            }
+          />
+        </div>
+        <div className="form-control">
+          <label>Last Name</label>
+          <input
+            type="text"
+            required
+            spellCheck="false"
+            autoComplete="false"
+            value={lastname}
+            onChange={(e) =>
+              setLastname(e.target.value.replace(/[^a-z]/gi, ""))
+            }
+          />
+        </div>
+        <div className="form-control">
+          <label>Username</label>
+          <input
+            type="text"
+            required
+            spellCheck="false"
+            autoComplete="false"
+            value={username}
+            onChange={(e) => handleUsername(e.target.value.trim())}
+          />
+        </div>
+        <div className="form-control">
+          <label>Password</label>
+          <input
+            type="password"
+            required
+            spellCheck="false"
+            autoComplete="false"
+            placeholder="minimum of eight characters"
+            value={password}
+            onChange={(e) => handlePassword(e.target.value.replace(/ /g, ""))}
+            className={passwordValid ? "" : "red-outline"}
+          />
+        </div>
+        <div className="form-control">
+          <label>Deposit amount</label>
+          <input
+            type="text"
+            spellCheck="false"
+            autoComplete="false"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))}
+          />
+        </div>
+        <div className="form-control">
+          <input
+            type="checkbox"
+            name="checkbox"
+            checked={checked}
+            onChange={() => setChecked(!checked)}
+          />
+          <label htmlFor="checkbox">I agree to the Terms and Conditions</label>
+        </div>
+        <button type="submit">Signup</button>
+      </form>
+    </>
   );
 };
 
