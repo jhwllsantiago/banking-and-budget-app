@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import capitalize from "../Utility/capitalize.js";
+import "./SignUpForm.scss";
 
-const AddUserForm = ({ handleSubmitEvent }) => {
+const SignUpForm = ({ handleSubmitEvent }) => {
   const USERS = localStorage.getItem("USERS");
   const initialUsers = USERS ? JSON.parse(USERS) : [];
 
@@ -57,7 +58,7 @@ const AddUserForm = ({ handleSubmitEvent }) => {
   };
 
   return (
-    <form className="Signup" onSubmit={handleSubmit}>
+    <form className="SignUpForm" onSubmit={handleSubmit}>
       <div className="form-control">
         <label>First Name</label>
         <input
@@ -125,9 +126,9 @@ const AddUserForm = ({ handleSubmitEvent }) => {
         />
         <label htmlFor="checkbox">I agree to the Terms and Conditions</label>
       </div>
-      <button type="submit">Signup</button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 };
 
-export default AddUserForm;
+export default SignUpForm;

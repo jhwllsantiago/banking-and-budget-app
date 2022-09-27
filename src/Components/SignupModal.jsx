@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const SignupModal = () => {
+const SignUpModal = () => {
   const [USER] = JSON.parse(localStorage.getItem("USERS")).slice(-1);
   const navigateToHome = useNavigate();
   const navigateToLogin = useNavigate();
@@ -15,4 +15,4 @@ const SignupModal = () => {
   );
 };
 
-export default SignupModal;
+export default SignUpModal;

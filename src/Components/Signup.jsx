@@ -1,17 +1,16 @@
 import { useState } from "react";
-import "./Signup.scss";
-import SignupModal from "./SignupModal";
-import AddUserForm from "./SignupForm";
+import SignUpModal from "./SignUpModal";
+import SignUpForm from "./SignUpForm";
 
-const Signup = () => {
+const SignUp = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      {showModal && <SignupModal />}
-      <AddUserForm handleSubmitEvent={(boolean) => setShowModal(boolean)} />
+      {showModal && <SignUpModal />}
+      <SignUpForm handleSubmitEvent={(boolean) => setShowModal(boolean)} />
     </>
   );
 };
 
-export default Signup;
+export default SignUp;
