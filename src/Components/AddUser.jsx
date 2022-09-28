@@ -4,7 +4,6 @@ import SignUpForm from "./SignUpForm";
 
 const AddUser = () => {
   const [redirect, setRedirect] = useState(false);
-  const [color, setColor] = useState("red");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,8 +14,6 @@ const AddUser = () => {
     <div className="AddUser">
       {!redirect && (
         <div className="form-container">
-          <p style={{ textAlign: "center", color: `${color}` }}>{color}</p>
-          <button onClick={() => setColor("blue")}>sadsad</button>
           <SignUpForm
             buttonText="Update"
             watchSubmitEvent={true}
