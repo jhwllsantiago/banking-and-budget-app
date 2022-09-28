@@ -8,7 +8,13 @@ const SignUp = () => {
   return (
     <>
       {showModal && <SignUpModal />}
-      <SignUpForm handleSubmitEvent={(boolean) => setShowModal(boolean)} />
+      <SignUpForm
+        showHeader={true}
+        showCheckbox={true}
+        buttonText="Sign Up"
+        watchSubmitEvent={true}
+        handleSubmitEvent={(boolean) => setShowModal(boolean)}
+      />
     </>
   );
 };

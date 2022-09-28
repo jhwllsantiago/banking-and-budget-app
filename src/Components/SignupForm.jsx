@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import capitalize from "../Utility/capitalize.js";
 import "./SignUpForm.scss";
 
-const SignUpForm = ({ handleSubmitEvent }) => {
+const SignUpForm = ({
+  handleSubmitEvent,
+  watchSubmitEvent,
+  showHeader,
+  showCheckbox,
+  buttonText,
+}) => {
   const USERS = localStorage.getItem("USERS");
   const initialUsers = USERS ? JSON.parse(USERS) : [];
 
@@ -46,19 +52,22 @@ const SignUpForm = ({ handleSubmitEvent }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (usernameValid && passwordValid && checked) {
+    if (usernameValid && passwordValid && (checked || !showCheckbox)) {
       const updatedUsers = [
         ...users,
-        { firstName, lastName, username, password, amount },
+        { firstName, lastName, username, password, amount, status: "PENDING" },
       ];
       setUsers(updatedUsers);
       localStorage.setItem("USERS", JSON.stringify(updatedUsers));
-      handleSubmitEvent(true);
+      if (watchSubmitEvent) handleSubmitEvent(true);
     }
   };
 
   return (
     <form className="SignUpForm" onSubmit={handleSubmit}>
+      {showHeader && (
+        <h3>{firstName.trim().length ? `Hello, ${firstName}!` : `Hello!`}</h3>
+      )}
       <div className="form-control">
         <label>First Name</label>
         <input
@@ -117,16 +126,18 @@ const SignUpForm = ({ handleSubmitEvent }) => {
           onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))}
         />
       </div>
-      <div className="form-control">
-        <input
-          type="checkbox"
-          name="checkbox"
-          checked={checked}
-          onChange={() => setChecked(!checked)}
-        />
-        <label htmlFor="checkbox">I agree to the Terms and Conditions</label>
-      </div>
-      <button type="submit">Sign Up</button>
+      {showCheckbox && (
+        <div className="form-control">
+          <input
+            type="checkbox"
+            name="checkbox"
+            checked={checked}
+            onChange={() => setChecked(!checked)}
+          />
+          <label htmlFor="checkbox">I agree to the Terms and Conditions</label>
+        </div>
+      )}
+      <button type="submit">{buttonText}</button>
     </form>
   );
 };
