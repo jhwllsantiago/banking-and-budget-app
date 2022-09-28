@@ -1,37 +1,42 @@
 import { useState, useEffect } from "react";
 import capitalize from "../Utility/capitalize.js";
+import "./SignUpForm.scss";
 
-const AddUser = () => {
+const SignUpForm = ({ handleSubmitEvent }) => {
   const USERS = localStorage.getItem("USERS");
   const initialUsers = USERS ? JSON.parse(USERS) : [];
 
   const [users, setUsers] = useState(initialUsers);
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
+  const [usernameValid, setUsernameValid] = useState(true);
   const [password, setPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState(true);
   const [amount, setAmount] = useState("");
   const [checked, setChecked] = useState(false);
 
+  const handleFirstName = (value) => {
+    setFirstName(value.replace(/[^a-z, ]/gi, "").replace(/\s+/g, " "));
+  };
   useEffect(() => {
-    localStorage.setItem("USERS", JSON.stringify(users));
-  }, [users]);
-
-  useEffect(() => {
-    if (firstname.trim().length > 0) {
-      setFirstname(capitalize(firstname));
+    if (firstName.trim().length > 0) {
+      setFirstName(capitalize(firstName));
     }
-  }, [firstname]);
+  }, [firstName]);
 
+  const handleLastName = (value) => {
+    setLastName(value.replace(/[^a-z, ]/gi, "").replace(/\s+/g, " "));
+  };
   useEffect(() => {
-    if (lastname.trim().length > 0) {
-      setLastname(capitalize(lastname));
+    if (lastName.trim().length > 0) {
+      setLastName(capitalize(lastName));
     }
-  }, [lastname]);
+  }, [lastName]);
 
   const handleUsername = (value) => {
     setUsername(value);
+    setUsernameValid(!initialUsers.some((user) => user.username === value));
   };
 
   const handlePassword = (value) => {
@@ -41,15 +46,19 @@ const AddUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUsers((prev) => [
-      ...prev,
-      { firstname, lastname, username, password, amount },
-    ]);
+    if (usernameValid && passwordValid && checked) {
+      const updatedUsers = [
+        ...users,
+        { firstName, lastName, username, password, amount },
+      ];
+      setUsers(updatedUsers);
+      localStorage.setItem("USERS", JSON.stringify(updatedUsers));
+      handleSubmitEvent(true);
+    }
   };
 
   return (
-    <form className="Signup" onSubmit={handleSubmit}>
-      <h3>{firstname.trim().length ? `Hello, ${firstname}!` : `Hello!`}</h3>
+    <form className="SignUpForm" onSubmit={handleSubmit}>
       <div className="form-control">
         <label>First Name</label>
         <input
@@ -57,8 +66,8 @@ const AddUser = () => {
           required
           spellCheck="false"
           autoComplete="false"
-          value={firstname}
-          onChange={(e) => setFirstname(e.target.value.replace(/[^a-z]/gi, ""))}
+          value={firstName}
+          onChange={(e) => handleFirstName(e.target.value)}
         />
       </div>
       <div className="form-control">
@@ -68,8 +77,8 @@ const AddUser = () => {
           required
           spellCheck="false"
           autoComplete="false"
-          value={lastname}
-          onChange={(e) => setLastname(e.target.value.replace(/[^a-z]/gi, ""))}
+          value={lastName}
+          onChange={(e) => handleLastName(e.target.value)}
         />
       </div>
       <div className="form-control">
@@ -81,6 +90,7 @@ const AddUser = () => {
           autoComplete="false"
           value={username}
           onChange={(e) => handleUsername(e.target.value.trim())}
+          className={usernameValid ? "" : "red-outline"}
         />
       </div>
       <div className="form-control">
@@ -92,7 +102,7 @@ const AddUser = () => {
           autoComplete="false"
           placeholder="minimum of eight characters"
           value={password}
-          onChange={(e) => handlePassword(e.target.value.replace(/ /g, ""))}
+          onChange={(e) => handlePassword(e.target.value.trim())}
           className={passwordValid ? "" : "red-outline"}
         />
       </div>
@@ -100,6 +110,7 @@ const AddUser = () => {
         <label>Deposit amount</label>
         <input
           type="text"
+          required
           spellCheck="false"
           autoComplete="false"
           value={amount}
@@ -115,9 +126,9 @@ const AddUser = () => {
         />
         <label htmlFor="checkbox">I agree to the Terms and Conditions</label>
       </div>
-      <button type="submit">Signup</button>
+      <button type="submit">Sign Up</button>
     </form>
   );
 };
 
-export default AddUser;
+export default SignUpForm;

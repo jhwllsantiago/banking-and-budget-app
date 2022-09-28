@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-const SignupModal = ({ firstname }) => {
+const SignUpModal = () => {
+  const [USER] = JSON.parse(localStorage.getItem("USERS")).slice(-1);
   const navigateToHome = useNavigate();
   const navigateToLogin = useNavigate();
 
   return (
     <div className="SignupModal">
-      <p>Thank you {firstname} for using this app.</p>
+      <p>Thank you {USER.firstName} for using this app.</p>
       <p>Your request is under review.</p>
       <button onClick={() => navigateToHome("/")}>Home</button>
       <button onClick={() => navigateToLogin("/login")}>Login</button>
@@ -14,4 +15,4 @@ const SignupModal = ({ firstname }) => {
   );
 };
 
-export default SignupModal;
+export default SignUpModal;
