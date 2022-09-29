@@ -7,6 +7,9 @@ import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { GiConfirmed } from "react-icons/gi";
 import { TbMoodEmpty } from "react-icons/tb";
+import { FcMoneyTransfer } from "react-icons/fc";
+import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
 
 const Manage = ({ users, setUsers }) => {
   const navigate = useNavigate();
@@ -36,13 +39,38 @@ const Manage = ({ users, setUsers }) => {
     navigate(`/admin/manage/user/${accountNumber}`);
   };
 
+  let unsorted = useRef([...users]);
+  useEffect(() => {
+    unsorted.current = [...users];
+  }, [users]);
+  const [balanceSort, setBalanceSort] = useState("none");
+  const handleBalanceSort = () => {
+    if (balanceSort === "none") {
+      setBalanceSort("descending");
+      users.sort((a, b) => parseInt(b.amount) - parseInt(a.amount));
+    } else if (balanceSort === "descending") {
+      setBalanceSort("ascending");
+      users.sort((a, b) => parseInt(a.amount) - parseInt(b.amount));
+    } else {
+      setBalanceSort("none");
+      setUsers([...unsorted.current]);
+    }
+  };
+
   return (
     <div className="Manage">
       <ul>
         <div className="header-container">
           <h3>NAME</h3>
           <h3>ACCOUNT NO.</h3>
-          <h3>BALANCE</h3>
+          <h3>
+            <i onClick={handleBalanceSort}>
+              {balanceSort === "none" && <FaSort />}
+              {balanceSort === "descending" && <FaSortDown />}
+              {balanceSort === "ascending" && <FaSortUp />}
+            </i>{" "}
+            BALANCE
+          </h3>
           <h3>STATUS</h3>
           <h3>ACTIONS</h3>
         </div>
@@ -75,6 +103,9 @@ const Manage = ({ users, setUsers }) => {
               <div className="actions">
                 {user.status === "ACTIVE" && (
                   <>
+                    <i>
+                      <FcMoneyTransfer />
+                    </i>
                     <i onClick={() => handleEdit(user.accountNumber)}>
                       <AiFillEdit />
                     </i>

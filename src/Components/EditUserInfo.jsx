@@ -11,6 +11,16 @@ const EditUserInfo = ({ users, setUsers }) => {
     (user) => user.accountNumber === accountNumber
   );
 
+  const [firstName, setFirstName] = useState(user.firstName);
+  const handleFirstName = (value) => {
+    setFirstName(value.replace(/[^a-z, ]/gi, "").replace(/\s+/g, " "));
+  };
+  useEffect(() => {
+    if (firstName.trim().length > 0) {
+      setFirstName(capitalize(firstName));
+    }
+  }, [firstName]);
+
   const [lastName, setLastName] = useState(user.lastName);
   const handleLastName = (value) => {
     setLastName(value.replace(/[^a-z, ]/gi, "").replace(/\s+/g, " "));
@@ -20,6 +30,13 @@ const EditUserInfo = ({ users, setUsers }) => {
       setLastName(capitalize(lastName));
     }
   }, [lastName]);
+
+  const [username, setUsername] = useState(user.username);
+  const [usernameValid, setUsernameValid] = useState(true);
+  const handleUsername = (value) => {
+    setUsername(value);
+    setUsernameValid(!users.some((user) => user.username === value));
+  };
 
   const [email, setEmail] = useState(user.email);
   const [emailValid, setEmailValid] = useState(true);
@@ -38,8 +55,15 @@ const EditUserInfo = ({ users, setUsers }) => {
   const handleButtonClick = () => {
     if (emailValid && passwordValid) {
       let currentUsers = [...users];
-      currentUsers[userIndex] = { ...user, lastName, email, password };
-      localStorage.setItem("users", JSON.stringify(currentUsers));
+      currentUsers[userIndex] = {
+        ...user,
+        firstName,
+        lastName,
+        username,
+        email,
+        password,
+      };
+      localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
       navigate("/admin/manage");
     }
@@ -50,7 +74,15 @@ const EditUserInfo = ({ users, setUsers }) => {
       <h3>Account No. {accountNumber}</h3>
       <div>
         <label>First Name</label>
-        <input type="text" disabled value={user.firstName} />
+        <input
+          type="text"
+          required
+          maxLength="50"
+          spellCheck="false"
+          autoComplete="false"
+          value={firstName}
+          onChange={(e) => handleFirstName(e.target.value)}
+        />
       </div>
       <div>
         <label>Last Name</label>
@@ -66,7 +98,17 @@ const EditUserInfo = ({ users, setUsers }) => {
       </div>
       <div>
         <label>Username</label>
-        <input type="text" disabled value={user.username} />
+        <input
+          type="text"
+          required
+          minLength="6"
+          maxLength="20"
+          spellCheck="false"
+          autoComplete="false"
+          value={username}
+          onChange={(e) => handleUsername(e.target.value.trim())}
+          className={usernameValid ? "" : "red-outline"}
+        />
       </div>
       <div>
         <label>Email</label>
