@@ -4,6 +4,7 @@ import Configure from "../Components/Configure";
 import Dashboard from "../Components/Dashboard";
 import Manage from "../Components/Manage";
 import AddUser from "../Components/AddUser";
+import EditUserInfo from "../Components/EditUserInfo";
 
 //Icons//
 import { MdOutlineDashboard } from "react-icons/md";
@@ -39,6 +40,15 @@ const Admin = () => {
       <Routes>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="manage" element={<Manage />} />
+        <Route
+          path="manage/user/:id"
+          element={
+            <>
+              <Manage />
+              <EditUserInfo />
+            </>
+          }
+        />
         <Route path="add" element={<AddUser />} />
         <Route path="configure" element={<Configure />} />
       </Routes>

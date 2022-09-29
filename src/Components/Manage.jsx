@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Manage.scss";
 
 //Icons//
@@ -12,6 +13,7 @@ const Manage = () => {
   const USERS = localStorage.getItem("USERS");
   const initialUsers = USERS ? JSON.parse(USERS) : [];
   const [users, setUsers] = useState(initialUsers);
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("USERS", JSON.stringify(users));
@@ -20,8 +22,6 @@ const Manage = () => {
   const handleStatusChange = (idx, status) => {
     const [userToBeApproved] = users.filter((_, index) => index === idx);
     const allUsers = [...users];
-    //const otherUsers = users.filter((_, index) => index !== idx);
-    // setUsers([...otherUsers, { ...userToBeApproved, status }]);
     allUsers[idx] = { ...userToBeApproved, status };
     setUsers(allUsers);
   };
@@ -29,6 +29,10 @@ const Manage = () => {
     setUsers((users) => {
       return users.filter((_, index) => index !== idx);
     });
+  };
+
+  const handleEdit = (idx) => {
+    navigate(`/admin/manage/user/${idx}`);
   };
 
   return (
@@ -66,7 +70,7 @@ const Manage = () => {
               <div className="actions">
                 {user.status === "ACTIVE" && (
                   <>
-                    <i>
+                    <i onClick={() => handleEdit(idx)}>
                       <AiFillEdit />
                     </i>
                     <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
@@ -84,14 +88,6 @@ const Manage = () => {
                     </i>
                   </>
                 )}
-                {/* {user.status === "ACTIVE" && (
-                  <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
-                    <BiBlock />
-                  </i>
-                )}
-                <i onClick={() => handleDelete(idx)}>
-                  <RiDeleteBinLine />
-                </i> */}
               </div>
             </li>
           );
