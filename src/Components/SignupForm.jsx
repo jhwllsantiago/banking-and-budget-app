@@ -50,7 +50,7 @@ const SignUpForm = ({
   const handleEmail = (value) => {
     setEmail(value);
     setEmailValid(!initialUsers.some((user) => user.email === value));
-  }
+  };
 
   const handlePassword = (value) => {
     setPassword(value);
@@ -59,10 +59,24 @@ const SignUpForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (usernameValid && emailValid && passwordValid && (checked || !showCheckbox)) {
+    if (
+      usernameValid &&
+      emailValid &&
+      passwordValid &&
+      (checked || !showCheckbox)
+    ) {
       const updatedUsers = [
         ...users,
-        { firstName, lastName, username, email, password, amount, status: "PENDING" },
+        {
+          firstName,
+          lastName,
+          username,
+          email,
+          password,
+          amount,
+          status: "PENDING",
+          accountNumber: "-"
+        },
       ];
       setUsers(updatedUsers);
       localStorage.setItem("USERS", JSON.stringify(updatedUsers));
@@ -80,7 +94,7 @@ const SignUpForm = ({
         <input
           type="text"
           required
-          maxlenth="50"
+          maxLength="50"
           spellCheck="false"
           autoComplete="false"
           value={firstName}
@@ -92,7 +106,7 @@ const SignUpForm = ({
         <input
           type="text"
           required
-          maxlenth="50"
+          maxLength="50"
           spellCheck="false"
           autoComplete="false"
           value={lastName}
@@ -104,8 +118,8 @@ const SignUpForm = ({
         <input
           type="text"
           required
-          minlenth="6"
-          maxlenth="20"
+          minLength="6"
+          maxLength="20"
           spellCheck="false"
           autoComplete="false"
           value={username}
@@ -115,17 +129,17 @@ const SignUpForm = ({
       </div>
       <div className="form-control">
         <label>Email</label>
-        <input 
-        type="email"
-        required
-        minlength="3"
-        maxlength="254"
-        spellCheck="false"
-        autoComplete="false"
-        placeholder="name@domain.com"
-        value={email}
-        onChange={(e) => handleEmail(e.target.value.trim())}
-        className={emailValid ? "" : "red-outline"}
+        <input
+          type="email"
+          required
+          minLength="3"
+          maxLength="254"
+          spellCheck="false"
+          autoComplete="false"
+          placeholder="name@domain.com"
+          value={email}
+          onChange={(e) => handleEmail(e.target.value.trim())}
+          className={emailValid ? "" : "red-outline"}
         />
       </div>
       <div className="form-control">
@@ -153,17 +167,22 @@ const SignUpForm = ({
         />
       </div>
       {showCheckbox && (
-        <div className="form-control">
+        <div className="form-control checkbox-container">
           <input
             type="checkbox"
             name="checkbox"
+            className="checkbox"
             checked={checked}
             onChange={() => setChecked(!checked)}
           />
-          <label htmlFor="checkbox">I agree to the Terms and Conditions</label>
+          <label htmlFor="checkbox" className="checkbox-label">
+            I agree to the <a className="terms-link">Terms and Conditions</a>
+          </label>
         </div>
       )}
-      <button type="submit">{buttonText}</button>
+      <button type="submit" id="sign-up-button">
+        {buttonText}
+      </button>
     </form>
   );
 };

@@ -1,10 +1,19 @@
+@import '../Assets/scss/styles';
+
+body {
+  background-color: $color-lightgrey;
+  accent-color: $color-violet;
+}
+
 .SignUpForm {
   position: relative;
   top: 50vh;
   left: 50vw;
   transform: translate(-50%, -50%);
-  width: fit-content;
+  width: 400px;
   padding: 30px;
+  background-color: rgba($color-darkblue, 0.2);
+  box-shadow: 5px 5px 5px rgb(194, 192, 192);
 
   h3 {
     text-align: center;
@@ -18,9 +27,58 @@
     width: 100%;
   }
   .form-control {
-    padding: 10px;
+    padding: 5px;
   }
   .red-outline {
     outline: 2px solid red;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: baseline;
+    gap: 5%;
+
+    .checkbox {
+      width: 5%;
+      transform: scale(1.5);
+      margin-left: 2px;
+      cursor: pointer;
+      padding: 3px;
+    }
+    
+    #checkbox:hover {
+      background-color: rgba($color-lightgrey, 0.9);
+    }
+
+    .checkbox-label {
+      font-size: 1em;
+    }
+
+    .terms-link {
+      cursor: pointer;
+    }    
+  }
+  .checkbox-container:hover > .checkbox-label {
+    .terms-link {
+      color: $color-violet;
+      text-decoration: underline;
+    }
+  
+  }
+  #sign-up-button {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1px 10px 1px 10px;
+    border-color: $color-darkblue;
+    border-radius: 10px;
+    transition: 500ms ease;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+
+  #sign-up-button:hover {
+    background-color: rgba($color-violet, 0.5);
   }
 }

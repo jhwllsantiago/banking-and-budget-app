@@ -18,11 +18,17 @@ const Manage = () => {
   }, [users]);
 
   const handleStatusChange = (idx, status) => {
-    const [userToBeApproved] = users.filter((_, index) => index === idx);
+    let [userToBeUpdated] = users.filter((_, index) => index === idx);
     const allUsers = [...users];
-    //const otherUsers = users.filter((_, index) => index !== idx);
-    // setUsers([...otherUsers, { ...userToBeApproved, status }]);
-    allUsers[idx] = { ...userToBeApproved, status };
+    let  accountNumber= ''
+    if (userToBeUpdated.status === "PENDING") {
+      for (let i = 0; i < 10; i++) {
+        accountNumber += Math.floor(Math.random() * 10)
+      }
+      userToBeUpdated = { ...userToBeUpdated, accountNumber }
+      console.log(accountNumber)
+    }
+    allUsers[idx] = { ...userToBeUpdated, status };
     setUsers(allUsers);
   };
   const handleDelete = (idx) => {
@@ -36,6 +42,7 @@ const Manage = () => {
       <ul>
         <div className="header-container">
           <h3>NAME</h3>
+          <h3>ACCOUNT NO.</h3>
           <h3>BALANCE</h3>
           <h3>STATUS</h3>
           <h3>ACTIONS</h3>
@@ -55,6 +62,11 @@ const Manage = () => {
               <div className="name">
                 <p>
                   {user.firstName} {user.lastName}
+                </p>
+              </div>
+              <div className="accountNumber">
+                <p>
+                  {user.accountNumber}
                 </p>
               </div>
               <div className="balance">
