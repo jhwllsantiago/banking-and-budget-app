@@ -41,7 +41,7 @@ const Admin = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="manage" element={<Manage />} />
         <Route
-          path="manage/user/:id"
+          path="manage/user/:accountNumber"
           element={
             <>
               <Manage />

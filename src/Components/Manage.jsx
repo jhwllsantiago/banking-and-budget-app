@@ -40,8 +40,8 @@ const Manage = () => {
     });
   };
 
-  const handleEdit = (idx) => {
-    navigate(`/admin/manage/user/${idx}`);
+  const handleEdit = (accountNumber) => {
+    navigate(`/admin/manage/user/${accountNumber}`);
   };
 
   return (
@@ -83,7 +83,7 @@ const Manage = () => {
               <div className="actions">
                 {user.status === "ACTIVE" && (
                   <>
-                    <i onClick={() => handleEdit(idx)}>
+                    <i onClick={() => handleEdit(user.accountNumber)}>
                       <AiFillEdit />
                     </i>
                     <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
