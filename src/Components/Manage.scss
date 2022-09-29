@@ -1,7 +1,7 @@
 .Manage {
   .header-container {
     display: grid;
-    grid-template-columns: repeat(4, 200px);
+    grid-template-columns: repeat(5, 200px);
     place-items: center;
   }
 
@@ -20,7 +20,7 @@
 
   li {
     display: grid;
-    grid-template-columns: repeat(4, 200px);
+    grid-template-columns: repeat(5, 200px);
     place-items: center;
     margin: 10px 0;
 

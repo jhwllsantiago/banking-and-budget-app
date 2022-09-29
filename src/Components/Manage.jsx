@@ -20,7 +20,7 @@ const Manage = () => {
   }, [users]);
 
   const handleStatusChange = (idx, status) => {
-    const [userToBeApproved] = users.filter((_, index) => index === idx);
+    let [userToBeUpdated] = users.filter((_, index) => index === idx);
     const allUsers = [...users];
     allUsers[idx] = { ...userToBeApproved, status };
     setUsers(allUsers);
@@ -40,6 +40,7 @@ const Manage = () => {
       <ul>
         <div className="header-container">
           <h3>NAME</h3>
+          <h3>ACCOUNT NO.</h3>
           <h3>BALANCE</h3>
           <h3>STATUS</h3>
           <h3>ACTIONS</h3>
@@ -60,6 +61,9 @@ const Manage = () => {
                 <p>
                   {user.firstName} {user.lastName}
                 </p>
+              </div>
+              <div className="accountNumber">
+                <p>{user.accountNumber}</p>
               </div>
               <div className="balance">
                 <p>{user.amount}</p>
