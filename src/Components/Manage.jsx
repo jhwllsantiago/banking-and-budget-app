@@ -22,7 +22,7 @@ const Manage = () => {
   const handleStatusChange = (idx, status) => {
     let [userToBeUpdated] = users.filter((_, index) => index === idx);
     const allUsers = [...users];
-    allUsers[idx] = { ...userToBeApproved, status };
+    allUsers[idx] = { ...userToBeUpdated, status };
     setUsers(allUsers);
   };
   const handleDelete = (idx) => {
