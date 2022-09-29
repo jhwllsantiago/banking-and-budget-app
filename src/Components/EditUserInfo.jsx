@@ -3,12 +3,11 @@ import { useState, useEffect } from "react";
 import capitalize from "../Utility/capitalize";
 import "./EditUserInfo.scss";
 
-const EditUserInfo = () => {
+const EditUserInfo = ({ users, setUsers }) => {
   let navigate = useNavigate();
   const { accountNumber } = useParams();
-  const USERS = JSON.parse(localStorage.getItem("USERS"));
-  let user = USERS.find((user) => user.accountNumber === accountNumber);
-  let userIndex = USERS.findIndex(
+  let user = users.find((user) => user.accountNumber === accountNumber);
+  let userIndex = users.findIndex(
     (user) => user.accountNumber === accountNumber
   );
 
@@ -26,7 +25,7 @@ const EditUserInfo = () => {
   const [emailValid, setEmailValid] = useState(true);
   const handleEmail = (value) => {
     setEmail(value);
-    setEmailValid(!USERS.some((user) => user.email === value));
+    setEmailValid(!users.some((user) => user.email === value));
   };
 
   const [password, setPassword] = useState(user.password);
@@ -38,8 +37,10 @@ const EditUserInfo = () => {
 
   const handleButtonClick = () => {
     if (emailValid && passwordValid) {
-      USERS[userIndex] = { ...user, lastName, email, password };
-      localStorage.setItem("USERS", JSON.stringify(USERS));
+      let currentUsers = [...users];
+      currentUsers[userIndex] = { ...user, lastName, email, password };
+      localStorage.setItem("users", JSON.stringify(currentUsers));
+      setUsers(currentUsers);
       navigate("/admin/manage");
     }
   };

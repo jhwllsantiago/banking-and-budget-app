@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Manage.scss";
 
@@ -9,15 +8,8 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { GiConfirmed } from "react-icons/gi";
 import { TbMoodEmpty } from "react-icons/tb";
 
-const Manage = () => {
-  const USERS = localStorage.getItem("USERS");
-  const initialUsers = USERS ? JSON.parse(USERS) : [];
-  const [users, setUsers] = useState(initialUsers);
+const Manage = ({ users, setUsers }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    localStorage.setItem("USERS", JSON.stringify(users));
-  }, [users]);
 
   const handleStatusChange = (idx, status) => {
     let [userToBeUpdated] = users.filter((_, index) => index === idx);

@@ -1,4 +1,5 @@
 import { Routes, Route, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import "./Admin.scss";
 import Configure from "../Components/Configure";
 import Dashboard from "../Components/Dashboard";
@@ -13,6 +14,13 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { GrConfigure } from "react-icons/gr";
 
 const Admin = () => {
+  const USERS = localStorage.getItem("USERS");
+  const initialUsers = USERS ? JSON.parse(USERS) : [];
+  const [users, setUsers] = useState(initialUsers);
+  useEffect(() => {
+    localStorage.setItem("USERS", JSON.stringify(users));
+  }, [users]);
+
   return (
     <div className="Admin">
       <nav>
@@ -39,17 +47,23 @@ const Admin = () => {
       </nav>
       <Routes>
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="manage" element={<Manage />} />
+        <Route
+          path="manage"
+          element={<Manage users={users} setUsers={setUsers} />}
+        />
         <Route
           path="manage/user/:accountNumber"
           element={
             <>
-              <Manage />
-              <EditUserInfo />
+              <Manage users={users} setUsers={setUsers} />
+              <EditUserInfo users={users} setUsers={setUsers} />
             </>
           }
         />
-        <Route path="add" element={<AddUser />} />
+        <Route
+          path="add"
+          element={<AddUser users={users} setUsers={setUsers} />}
+        />
         <Route path="configure" element={<Configure />} />
       </Routes>
     </div>
