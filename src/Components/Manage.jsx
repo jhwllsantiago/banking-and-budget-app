@@ -22,9 +22,18 @@ const Manage = () => {
   const handleStatusChange = (idx, status) => {
     let [userToBeUpdated] = users.filter((_, index) => index === idx);
     const allUsers = [...users];
+    let accountNumber = "";
+    if (userToBeUpdated.status === "PENDING") {
+      for (let i = 0; i < 10; i++) {
+        accountNumber += Math.floor(Math.random() * 10);
+      }
+      userToBeUpdated = { ...userToBeUpdated, accountNumber };
+      console.log(accountNumber);
+    }
     allUsers[idx] = { ...userToBeUpdated, status };
     setUsers(allUsers);
   };
+
   const handleDelete = (idx) => {
     setUsers((users) => {
       return users.filter((_, index) => index !== idx);

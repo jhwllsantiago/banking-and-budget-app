@@ -75,7 +75,7 @@ const SignUpForm = ({
           password,
           amount,
           status: "PENDING",
-          accountNumber: "-"
+          accountNumber: "-",
         },
       ];
       setUsers(updatedUsers);
@@ -176,7 +176,10 @@ const SignUpForm = ({
             onChange={() => setChecked(!checked)}
           />
           <label htmlFor="checkbox" className="checkbox-label">
-            I agree to the <a className="terms-link">Terms and Conditions</a>
+            I agree to the{" "}
+            <a href="/" className="terms-link">
+              Terms and Conditions
+            </a>
           </label>
         </div>
       )}
