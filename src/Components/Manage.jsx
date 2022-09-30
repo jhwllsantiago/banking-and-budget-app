@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Manage.scss";
 
 //Icons//
@@ -7,15 +7,12 @@ import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { GiConfirmed } from "react-icons/gi";
 import { TbMoodEmpty } from "react-icons/tb";
+import { FcMoneyTransfer } from "react-icons/fc";
+import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
 
-const Manage = () => {
-  const USERS = localStorage.getItem("USERS");
-  const initialUsers = USERS ? JSON.parse(USERS) : [];
-  const [users, setUsers] = useState(initialUsers);
-
-  useEffect(() => {
-    localStorage.setItem("USERS", JSON.stringify(users));
-  }, [users]);
+const Manage = ({ users, setUsers }) => {
+  const navigate = useNavigate();
 
   const handleStatusChange = (idx, status) => {
     let [userToBeUpdated] = users.filter((_, index) => index === idx);
@@ -31,10 +28,37 @@ const Manage = () => {
     allUsers[idx] = { ...userToBeUpdated, status };
     setUsers(allUsers);
   };
+
   const handleDelete = (idx) => {
     setUsers((users) => {
       return users.filter((_, index) => index !== idx);
     });
+  };
+
+  const handleEdit = (accountNumber) => {
+    navigate(`/admin/manage/user/${accountNumber}`);
+  };
+
+  let unsorted = useRef([...users]);
+  useEffect(() => {
+    unsorted.current = [...users];
+  }, [users]);
+  const [balanceSort, setBalanceSort] = useState("none");
+  const handleBalanceSort = () => {
+    if (balanceSort === "none") {
+      setBalanceSort("descending");
+      users.sort((a, b) => parseInt(b.amount) - parseInt(a.amount));
+    } else if (balanceSort === "descending") {
+      setBalanceSort("ascending");
+      users.sort((a, b) => parseInt(a.amount) - parseInt(b.amount));
+    } else {
+      setBalanceSort("none");
+      setUsers([...unsorted.current]);
+    }
+  };
+
+  const handleTransfer = (accountNumber) => {
+    navigate(`/admin/manage/transfer/user/${accountNumber}`);
   };
 
   return (
@@ -43,7 +67,14 @@ const Manage = () => {
         <div className="manage-header">
           <h3>NAME</h3>
           <h3>ACCOUNT NO.</h3>
-          <h3>BALANCE</h3>
+          <h3>
+            <i onClick={handleBalanceSort}>
+              {balanceSort === "none" && <FaSort />}
+              {balanceSort === "descending" && <FaSortDown />}
+              {balanceSort === "ascending" && <FaSortUp />}
+            </i>{" "}
+            BALANCE
+          </h3>
           <h3>STATUS</h3>
           <h3>ACTIONS</h3>
         </div>
@@ -55,58 +86,53 @@ const Manage = () => {
             </p>
           )}
         </div>
-        <ul users-list>
-          {users.map((user, idx) => {
-            return (
-              <li key={idx}>
-                <div className="name">
-                  <p>
-                    {user.firstName} {user.lastName}
-                  </p>
-                </div>
-                <div className="accountNumber">
-                  <p>{user.accountNumber}</p>
-                </div>
-                <div className="balance">
-                  <p>{user.amount}</p>
-                </div>
-                <div className="status">
-                  <p>{user.status}</p>
-                </div>
-                <div className="actions">
-                  {user.status === "ACTIVE" && (
-                    <>
-                      <i>
-                        <AiFillEdit />
-                      </i>
-                      <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
-                        <BiBlock />
-                      </i>
-                    </>
-                  )}
-                  {user.status !== "ACTIVE" && (
-                    <>
-                      <i onClick={() => handleStatusChange(idx, "ACTIVE")}>
-                        <GiConfirmed />
-                      </i>
-                      <i onClick={() => handleDelete(idx)}>
-                        <RiDeleteBinLine />
-                      </i>
-                    </>
-                  )}
-                  {/* {user.status === "ACTIVE" && (
-                  <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
-                    <BiBlock />
-                  </i>
+   <ul className="users-list">
+        {users.map((user, idx) => {
+          return (
+            <li key={idx}>
+              <div className="name">
+                <p>
+                  {user.firstName} {user.lastName}
+                </p>
+              </div>
+              <div className="accountNumber">
+                <p>{user.accountNumber}</p>
+              </div>
+              <div className="balance">
+                <p>{user.amount}</p>
+              </div>
+              <div className="status">
+                <p>{user.status}</p>
+              </div>
+              <div className="actions">
+                {user.status === "ACTIVE" && (
+                  <>
+                    <i onClick={() => handleTransfer(user.accountNumber)}>
+                      <FcMoneyTransfer />
+                    </i>
+                    <i onClick={() => handleEdit(user.accountNumber)}>
+                      <AiFillEdit />
+                    </i>
+                    <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
+                      <BiBlock />
+                    </i>
+                  </>
                 )}
-                <i onClick={() => handleDelete(idx)}>
-                  <RiDeleteBinLine />
-                </i> */}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                {user.status !== "ACTIVE" && (
+                  <>
+                    <i onClick={() => handleStatusChange(idx, "ACTIVE")}>
+                      <GiConfirmed />
+                    </i>
+                    <i onClick={() => handleDelete(idx)}>
+                      <RiDeleteBinLine />
+                    </i>
+                  </>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
       </div>
     </div>
   );

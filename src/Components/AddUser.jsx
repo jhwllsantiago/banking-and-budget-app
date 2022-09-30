@@ -2,21 +2,23 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
 
-const AddUser = () => {
+const AddUser = ({ users, setUsers }) => {
   const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (redirect) navigate("/admin/manage");
-  }, [redirect]);
+  });
 
   return (
     <div className="AddUser">
       {!redirect && (
         <div className="form-container">
           <SignUpForm
+            users={users}
+            setUsers={setUsers}
+            buttonText="Confirm"
             form="add-user-form"
-            buttonText="Update"
             watchSubmitEvent={true}
             handleSubmitEvent={(boolean) => setRedirect(boolean)}
           />

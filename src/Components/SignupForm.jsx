@@ -8,12 +8,10 @@ const SignUpForm = ({
   showHeader,
   showCheckbox,
   buttonText,
+  users,
+  setUsers,
   form,
 }) => {
-  const USERS = localStorage.getItem("USERS");
-  const initialUsers = USERS ? JSON.parse(USERS) : [];
-
-  const [users, setUsers] = useState(initialUsers);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -45,12 +43,12 @@ const SignUpForm = ({
 
   const handleUsername = (value) => {
     setUsername(value);
-    setUsernameValid(!initialUsers.some((user) => user.username === value));
+    setUsernameValid(!users.some((user) => user.username === value));
   };
 
   const handleEmail = (value) => {
     setEmail(value);
-    setEmailValid(!initialUsers.some((user) => user.email === value));
+    setEmailValid(!users.some((user) => user.email === value));
   };
 
   const handlePassword = (value) => {
@@ -177,7 +175,10 @@ const SignUpForm = ({
             onChange={() => setChecked(!checked)}
           />
           <label htmlFor="checkbox" className="checkbox-label">
-            I agree to the <a className="terms-link">Terms and Conditions</a>
+            I agree to the{" "}
+            <a href="/" className="terms-link">
+              Terms and Conditions
+            </a>
           </label>
         </div>
       )}

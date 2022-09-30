@@ -1,0 +1,22 @@
+.money-transfer {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 444;
+  padding: 10px;
+
+  div {
+    padding-bottom: 10px;
+  }
+
+  label,
+  input {
+    padding-right: 10px;
+  }
+
+  .red-outline {
+    outline: 2px solid red;
+  }
+}
