@@ -1,7 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Admin.scss";
-import Configure from "../Components/Configure";
+import GlobalTransactions from "../Components/GlobalTransactions";
 import Dashboard from "../Components/Dashboard";
 import Manage from "../Components/Manage";
 import AddUser from "../Components/AddUser";
@@ -12,7 +12,7 @@ import MoneyTransfer from "../Components/MoneyTransfer";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaListUl } from "react-icons/fa";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { GrConfigure } from "react-icons/gr";
+import { GrTransaction } from "react-icons/gr";
 
 const Admin = () => {
   const USERS = localStorage.getItem("USERS");
@@ -40,9 +40,9 @@ const Admin = () => {
             <AiOutlineUserAdd /> Add User
           </p>
         </Link>
-        <Link to="/admin/configure">
+        <Link to="/admin/transactions">
           <p>
-            <GrConfigure /> Configure
+            <GrTransaction /> Transactions
           </p>
         </Link>
       </nav>
@@ -74,7 +74,7 @@ const Admin = () => {
           path="add"
           element={<AddUser users={users} setUsers={setUsers} />}
         />
-        <Route path="configure" element={<Configure />} />
+        <Route path="transactions" element={<GlobalTransactions />} />
       </Routes>
     </div>
   );

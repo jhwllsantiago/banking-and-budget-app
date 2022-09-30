@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./MoneyTransfer.scss";
 
 const MoneyTransfer = ({ users, setUsers }) => {
+  const GLOBAL_TRANSACTIONS = localStorage.getItem("GLOBAL_TRANSACTIONS");
+  const global = GLOBAL_TRANSACTIONS ? JSON.parse(GLOBAL_TRANSACTIONS) : [];
+
   const navigate = useNavigate();
   const { accountNumber } = useParams();
   let user = users.find((user) => user.accountNumber === accountNumber);
@@ -31,6 +34,7 @@ const MoneyTransfer = ({ users, setUsers }) => {
       setUsers(currentUsers);
       navigate("/admin/manage");
     }
+    //const transactionLog = { accountNumber,type: "Deposit", from: `${user.}`}
   };
 
   const handleWithdrawChange = (value) => {
@@ -72,7 +76,7 @@ const MoneyTransfer = ({ users, setUsers }) => {
       transferAccountNoValid &&
       transferAccountNo &&
       transferAmountValid &&
-      transferAmountValid > 0
+      parseInt(transferAmount) > 0
     ) {
       let currentUsers = [...users];
       currentUsers[fundsReceiverIndex] = {
