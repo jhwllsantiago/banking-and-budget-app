@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import capitalize from "../Utility/capitalize";
+import capitalize from "../utility/capitalize";
 import "./EditUserInfo.scss";
 
 const EditUserInfo = ({ users, setUsers }) => {

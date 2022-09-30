@@ -2,12 +2,12 @@ import { Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Admin.scss";
 
-import GlobalTransactions from "../Components/GlobalTransactions";
-import Dashboard from "../Components/Dashboard";
-import Manage from "../Components/Manage";
-import AddUser from "../Components/AddUser";
-import EditUserInfo from "../Components/EditUserInfo";
-import MoneyTransfer from "../Components/MoneyTransfer";
+import GlobalTransactions from "../components/GlobalTransactions";
+import Dashboard from "../components/Dashboard";
+import Manage from "../components/Manage";
+import AddUser from "../components/AddUser";
+import EditUserInfo from "../components/EditUserInfo";
+import MoneyTransfer from "../components/MoneyTransfer";
 
 //Icons//
 import { MdOutlineDashboard } from "react-icons/md";
