@@ -57,6 +57,10 @@ const Manage = ({ users, setUsers }) => {
     }
   };
 
+  const handleTransfer = (accountNumber) => {
+    navigate(`/admin/manage/transfer/user/${accountNumber}`);
+  };
+
   return (
     <div className="Manage">
       <ul>
@@ -103,7 +107,7 @@ const Manage = ({ users, setUsers }) => {
               <div className="actions">
                 {user.status === "ACTIVE" && (
                   <>
-                    <i>
+                    <i onClick={() => handleTransfer(user.accountNumber)}>
                       <FcMoneyTransfer />
                     </i>
                     <i onClick={() => handleEdit(user.accountNumber)}>

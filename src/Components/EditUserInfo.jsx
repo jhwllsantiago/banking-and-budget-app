@@ -139,6 +139,7 @@ const EditUserInfo = ({ users, setUsers }) => {
         />
       </div>
       <button onClick={handleButtonClick}>Save</button>
+      <button onClick={() => navigate("/admin/manage")}>Cancel</button>
     </div>
   );
 };

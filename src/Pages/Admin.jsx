@@ -6,6 +6,7 @@ import Dashboard from "../Components/Dashboard";
 import Manage from "../Components/Manage";
 import AddUser from "../Components/AddUser";
 import EditUserInfo from "../Components/EditUserInfo";
+import MoneyTransfer from "../Components/MoneyTransfer";
 
 //Icons//
 import { MdOutlineDashboard } from "react-icons/md";
@@ -57,6 +58,15 @@ const Admin = () => {
             <>
               <Manage users={users} setUsers={setUsers} />
               <EditUserInfo users={users} setUsers={setUsers} />
+            </>
+          }
+        />
+        <Route
+          path="manage/transfer/user/:accountNumber"
+          element={
+            <>
+              <Manage users={users} setUsers={setUsers} />
+              <MoneyTransfer users={users} setUsers={setUsers} />
             </>
           }
         />
