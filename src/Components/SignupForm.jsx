@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import capitalize from "../Utility/capitalize.js";
+import capitalize from "../utility/capitalize.js";
 import "./SignUpForm.scss";
 
 const SignUpForm = ({
@@ -10,6 +10,7 @@ const SignUpForm = ({
   buttonText,
   users,
   setUsers,
+  form,
 }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -83,7 +84,7 @@ const SignUpForm = ({
   };
 
   return (
-    <form className="SignUpForm" onSubmit={handleSubmit}>
+    <form className={form} onSubmit={handleSubmit}>
       {showHeader && (
         <h3>{firstName.trim().length ? `Hello, ${firstName}!` : `Hello!`}</h3>
       )}
@@ -181,7 +182,7 @@ const SignUpForm = ({
           </label>
         </div>
       )}
-      <button type="submit" id="sign-up-button">
+      <button type="submit" className="sign-up-button">
         {buttonText}
       </button>
     </form>

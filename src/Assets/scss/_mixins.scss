@@ -1,0 +1,33 @@
+@mixin center-element-in-viewport($z-index) {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index;
+}
+
+@mixin modal-and-signin-container {
+  border-radius: 20px;
+  background-color: rgba($color-violet, 1);
+  box-shadow: 5px 5px 5px $color-blackish;
+  color: $color-lightgrey;
+}
+
+@mixin buttons($background-color, $border-color, $font-color, $font-weight) {
+  cursor: pointer;
+  background-color: $background-color;
+  transition: 300ms ease;
+  border: 3px solid $border-color;
+  color: $font-color;
+  font-weight: $font-weight;
+}
+
+@mixin button-hover ($background-color, $border-color, $font-color) {
+    background-color: $background-color;
+    color: $font-color;
+    border: 3px solid $border-color;
+}

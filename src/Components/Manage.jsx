@@ -62,9 +62,9 @@ const Manage = ({ users, setUsers }) => {
   };
 
   return (
-    <div className="Manage">
-      <ul>
-        <div className="header-container">
+    <div className="manage">
+      <div className="user-table">
+        <div className="manage-header">
           <h3>NAME</h3>
           <h3>ACCOUNT NO.</h3>
           <h3>
@@ -86,7 +86,7 @@ const Manage = ({ users, setUsers }) => {
             </p>
           )}
         </div>
-
+   <ul className="users-list">
         {users.map((user, idx) => {
           return (
             <li key={idx}>
@@ -133,6 +133,7 @@ const Manage = ({ users, setUsers }) => {
           );
         })}
       </ul>
+      </div>
     </div>
   );
 };

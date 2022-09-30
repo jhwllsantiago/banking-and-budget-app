@@ -18,6 +18,7 @@ const AddUser = ({ users, setUsers }) => {
             users={users}
             setUsers={setUsers}
             buttonText="Confirm"
+            form="add-user-form"
             watchSubmitEvent={true}
             handleSubmitEvent={(boolean) => setRedirect(boolean)}
           />
