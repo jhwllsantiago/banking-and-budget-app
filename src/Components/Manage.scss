@@ -1,31 +1,82 @@
-.Manage {
-  .header-container {
-    display: grid;
-    grid-template-columns: repeat(5, 200px);
-    place-items: center;
-  }
+@import "../Assets/scss/styles";
 
-  .no-users {
-    font-size: 30px;
+.manage {
+  display: grid;
+  grid-template-columns: repeat(12, 6%);
+  column-gap: 2%;
+  grid-template-rows: repeat(12, 6%);
+  row-gap: 2%;
+  width: 100vw;
+  height: 100vh;
+  margin: 2%;
+
+  .user-table {
+    background-color: rgba($color-lightpurple, 0.1);
+    box-shadow: -15px -15px 25px rgba($color-white, 0.5),
+      15px 15px 25px rgba($color-darkblue, 0.08);
+    border-radius: 25px;
+    border: 5px solid rgba($color-lightpurple, 0.06);
+    grid-column: 3/13;
+    grid-row: 2/12;
+    overflow-y: scroll;
+    overflow-x: hidden;
     position: relative;
-    top: 50px;
-    text-align: center;
-  }
+    border-bottom: 10px;
 
-  ul {
-    position: absolute;
-    top: 100px;
-    right: 10px;
-  }
+    &::-webkit-scrollbar {
+      margin: 3px;
+      width: 5px;
+    }
 
-  li {
-    display: grid;
-    grid-template-columns: repeat(5, 200px);
-    place-items: center;
-    margin: 10px 0;
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-darkblue;
+      border-radius: 20px;
+    }
+    &::-webkit-scrollbar-track {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
 
-    i {
-      margin: 0 5px;
+    .manage-header {
+      display: grid;
+      position: absolute;
+      width: 100%;
+      grid-template-columns: repeat(5, 20%);
+      place-items: center;
+      background-color: $color-lightgrey;
+      padding: 5px;
+    }
+
+    .no-users {
+      font-size: 30px;
+      top: 50px;
+      text-align: center;
+    }
+
+    ul {
+      margin-top: 50px;
+      margin-bottom: 20px;
+
+      li {
+        display: grid;
+        grid-template-columns: repeat(5, 20%);
+        padding: 2px 1px;
+        place-items: center;
+        cursor: pointer;
+        background-color: rgba($color-darkblue, 0.07);
+        border: 2px solid rgba($color-darkblue, 0.2);
+        margin-top: 5px;
+
+        &:hover {
+          border: 2px solid rgba($color-darkblue, 0.09);
+          color: $color-yellowgreen;
+          background-color: rgba($color-darkblue, 0.9);
+        }
+
+        i {
+          margin: 0 5px;
+        }
+      }
     }
   }
 }

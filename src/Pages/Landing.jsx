@@ -1,10 +1,10 @@
-import Body from "../Parts/Body";
-import Header from "../Parts/Header";
+import Body from "../parts/Body";
+import Header from "../parts/Header";
 import "./Landing.scss";
 
 const Landing = () => {
   return (
-    <div className="Landing">
+    <div className="landing">
       <Header />
       <Body />
     </div>

@@ -1,21 +1,25 @@
 @import '../Assets/scss/styles';
 
-.Header {
+.header {
   display: flex;
   width: 100vw;
   justify-content: space-between;
   align-items: center;
   padding: 5px;
-  background-color: $color-lightgrey;
+  background-color: $color-yellowgreen;
   box-shadow: 5px 5px 5px rgb(194, 192, 192);
   position: absolute;
   top: 0;
 
   .centavi {
     margin-left: $margin-landing;
-    color: $color-darkblue;
+    color: $color-violet;
     font-weight: 900;
     font-size: x-large;
+
+    &:hover {
+      color: $color-violet;
+    }
 }
 
   .links {
@@ -25,15 +29,21 @@
     margin-right: $margin-landing;
 
     a {
-      padding: 5px;
+      padding: 0 5px;
       font-weight: 900;
       margin-right: 15px;
-      color: $color-darkblue;
+      color: $color-violet;
       transition: 500ms ease;
+      border: 3px solid $color-yellowgreen;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: rgba($color-accentgreen, .4);
+        border: 3px solid rgba($color-accentgreen, .2);
+        border-radius: 10px;
+      }
     }
 
-    a:hover {
-      color: $color-violet;
-    }
+
   }
 }
