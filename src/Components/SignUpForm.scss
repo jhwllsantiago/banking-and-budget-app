@@ -1,11 +1,12 @@
-@import '../Assets/scss/styles';
+@import "../Assets/scss/styles";
+@import "../Assets/scss/mixins";
 
 body {
   background-color: $color-lightgrey;
   accent-color: $color-violet;
 }
 
-.SignUpForm {
+.sign-up-form {
   position: relative;
   top: 50vh;
   left: 50vw;
@@ -25,6 +26,8 @@ body {
   input {
     padding: 5px 10px;
     width: 100%;
+    color: $color-darkblue;
+    caret-color: $color-darkblue;
   }
   .form-control {
     padding: 5px;
@@ -38,16 +41,23 @@ body {
     align-items: baseline;
     gap: 5%;
 
+    &:hover > .checkbox-label {
+      .terms-link {
+        color: $color-violet;
+        text-decoration: underline;
+      }
+    }
+
     .checkbox {
       width: 5%;
       transform: scale(1.5);
       margin-left: 2px;
       cursor: pointer;
       padding: 3px;
-    }
-    
-    #checkbox:hover {
-      background-color: rgba($color-lightgrey, 0.9);
+
+      &:hover {
+        background-color: rgba($color-lightgrey, 0.9);
+      }
     }
 
     .checkbox-label {
@@ -56,29 +66,19 @@ body {
 
     .terms-link {
       cursor: pointer;
-    }    
-  }
-  .checkbox-container:hover > .checkbox-label {
-    .terms-link {
-      color: $color-violet;
-      text-decoration: underline;
     }
-  
   }
-  #sign-up-button {
+
+  .sign-up-button {
     display: flex;
     margin-left: auto;
     margin-right: auto;
     padding: 1px 10px 1px 10px;
-    border-color: $color-darkblue;
     border-radius: 10px;
-    transition: 500ms ease;
-    font-weight: 700;
-    cursor: pointer;
-  }
+    @include buttons($color-lightgrey, $color-lightgrey, $color-violet, 700);
 
-
-  #sign-up-button:hover {
-    background-color: rgba($color-violet, 0.5);
+    &:hover {
+      @include button-hover($color-violet, $color-violet, $color-lightgrey);
+    }
   }
 }

@@ -1,12 +1,79 @@
-.Admin {
-  nav {
-    width: 300px;
+@import "../Assets/scss/styles";
+
+.admin {
+  .admin-header {
     position: absolute;
-    left: 20px;
-    top: 100px;
+    left: 0px;
+    top: 0;
+    bottom: 0;
     font-size: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    background-color: $color-violet;
+
+    .centavi-logo {
+      margin-left: $margin-landing;
+      color: $color-yellowgreen;
+      font-weight: 700;
+      font-size: x-large;
+      text-align: center;
+    }
+
+    Link {
+      box-sizing: content-box;
+    }
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: auto;
+      margin-bottom: auto;
+      width: 100%;
+      font-weight: 500;
+
+      p {
+        color: $color-darkblue;
+        font-size: 20px;
+        cursor: pointer;
+        border: 3px solid rgba($color-violet, 0);
+        transition: 300ms ease;
+        padding: 4px 8px;
+  
+        &:hover {
+          color: $color-darkblue;
+          background-color: rgba($color-lightgrey, .85);
+          border: 3px solid rgba($color-lightgrey, .3);
+        }
+
+        // .logo {
+        //   color: $color-yellowgreen;
+        // }
+      }
+    }
+
+    .sign-out {
+      display: flex;
+      align-items: center;
+      color: $color-darkblue;
+      background-color: rgba($color-yellowgreen, 0.1);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 5px;
+      transition: 300ms ease;
+
+      .sign-out-text {
+        margin-left: 10px;
+        font-weight: 600;
+      }
+
+      .sign-out-logo {
+        margin-left: auto;
+        margin-right: 15px;
+      }
+
+      &:hover {
+      background-color: rgba($color-yellowgreen, 1);
+      }
+    }
   }
 }

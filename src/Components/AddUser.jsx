@@ -15,6 +15,7 @@ const AddUser = () => {
       {!redirect && (
         <div className="form-container">
           <SignUpForm
+            form="add-user-form"
             buttonText="Update"
             watchSubmitEvent={true}
             handleSubmitEvent={(boolean) => setRedirect(boolean)}
@@ -26,8 +27,3 @@ const AddUser = () => {
 };
 
 export default AddUser;
-<div className="AddUser">
-  <div className="form-container">
-    <SignUpForm />
-  </div>
-</div>;

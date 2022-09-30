@@ -1,0 +1,32 @@
+@import "../Assets/scss/styles";
+@import "../Assets/scss/mixins";
+
+.SignupModal {
+  @include center-element-in-viewport (1);
+  background-color: rgba($color-blackish, 0.6);
+
+  .sign-up-modal-container {
+    padding: 40px;
+    border-radius: 20px;
+    background-color: rgba($color-violet, 1);
+    box-shadow: 5px 5px 5px $color-blackish;
+    color: $color-lightgrey;
+
+    .sign-up-modal-buttons-container {
+      display: flex;
+      justify-content: center;
+      gap: 5%;
+      margin-top: 5%;
+
+      button {
+        @include buttons ($color-lightgrey, $color-violet, $color-violet, 500);
+        padding: 0 5px 0 5px;
+        border-radius: 10px;
+
+        &:hover {
+          @include button-hover($color-yellowgreen, $color-yellowgreen, $color-violet);
+        }
+      }
+    }
+  }
+}

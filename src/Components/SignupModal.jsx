@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./SignUpModal.scss";
 
 const SignUpModal = () => {
   const [USER] = JSON.parse(localStorage.getItem("USERS")).slice(-1);
@@ -7,10 +8,14 @@ const SignUpModal = () => {
 
   return (
     <div className="SignupModal">
-      <p>Thank you {USER.firstName} for using this app.</p>
-      <p>Your request is under review.</p>
-      <button onClick={() => navigateToHome("/")}>Home</button>
-      <button onClick={() => navigateToLogin("/login")}>Login</button>
+      <div className="sign-up-modal-container">
+        <p>Thank you {USER.firstName} for using this app.</p>
+        <p>Your request is under review.</p>
+        <div className="sign-up-modal-buttons-container">
+          <button onClick={() => navigateToHome("/")}>Home</button>
+          <button onClick={() => navigateToLogin("/login")}>Login</button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,1 +1,51 @@
-@import '../Assets/scss/styles';
+@import "../Assets/scss/styles";
+@import "../Assets/scss/mixins";
+
+.login {
+  @include center-element-in-viewport (-1);
+
+  .login-form-container {
+    @include modal-and-signin-container;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: $color-white;
+
+    h2 {
+      text-align: center;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+
+      input {
+        border-radius: 10px;
+        border: none;
+        padding: 5px 10px;
+        color: $color-darkblue;
+      }
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 300ms ease;
+      border: 1.5px solid $color-violet;
+      font-weight: 900;
+      background-color: rgba($color-yellowgreen, .85);
+      color: rgba($color-violet, 1);
+      letter-spacing: 1px;
+
+      &:hover {
+        border: 1.5px solid $color-yellowgreen;
+        background-color: $color-yellowgreen;
+        // color: $color-lightgrey;
+      }
+    }
+  }
+}

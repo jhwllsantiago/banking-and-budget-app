@@ -1,5 +1,5 @@
 const User = () => {
-    return ( <div className="User">
+    return ( <div className="user">
         
     </div> );
 }

@@ -1,7 +1,6 @@
 @import "../Assets/scss/styles";
-@import "../Assets/scss/keyframes";
 
-.Body {
+.body {
   display: grid;
   grid-template-columns: repeat(12, 6%);
   column-gap: 2%;
@@ -27,6 +26,5 @@
     font-weight: 900;
     line-height: 1.3em;
     color: $color-violet;
-    text-shadow: -1px 1px 3px $color-purple;
   }
 }
