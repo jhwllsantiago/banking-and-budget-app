@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./MoneyTransfer.scss";
+import timestamp from "../utility/timestamp";
 
-const MoneyTransfer = ({ users, setUsers }) => {
-  const GLOBAL_TRANSACTIONS = localStorage.getItem("GLOBAL_TRANSACTIONS");
-  const global = GLOBAL_TRANSACTIONS ? JSON.parse(GLOBAL_TRANSACTIONS) : [];
+const MoneyTransfer = ({ users, setUsers, channel }) => {
+  const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
+    ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
+    : [];
 
   const navigate = useNavigate();
   const { accountNumber } = useParams();
@@ -23,6 +25,24 @@ const MoneyTransfer = ({ users, setUsers }) => {
   const [fundsReceiver, setFundsReceiver] = useState("");
   const [fundsReceiverIndex, setFundsReceiverIndex] = useState(-1);
 
+  const newTransaction = (
+    type,
+    sender = "centavi",
+    recipient = "centavi",
+    amount
+  ) => {
+    const transaction = {
+      type: type,
+      sender: sender,
+      recipient: recipient,
+      amount: amount,
+      time: timestamp(),
+      channel: channel,
+    };
+    const transactions = [...TRANSACTIONS, transaction];
+    localStorage.setItem("TRANSACTIONS", JSON.stringify(transactions));
+  };
+
   const handleDeposit = () => {
     if (parseInt(depositAmount) > 0) {
       let currentUsers = [...users];
@@ -32,9 +52,9 @@ const MoneyTransfer = ({ users, setUsers }) => {
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
+      newTransaction("Deposit", accountNumber, undefined, depositAmount);
       navigate("/admin/manage");
     }
-    //const transactionLog = { accountNumber,type: "Deposit", from: `${user.}`}
   };
 
   const handleWithdrawChange = (value) => {
@@ -50,6 +70,7 @@ const MoneyTransfer = ({ users, setUsers }) => {
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
+      newTransaction("Withdraw", undefined, accountNumber, withdrawAmount);
       navigate("/admin/manage");
     }
   };
@@ -89,6 +110,12 @@ const MoneyTransfer = ({ users, setUsers }) => {
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
+      newTransaction(
+        "Transfer",
+        accountNumber,
+        fundsReceiver.accountNumber,
+        transferAmount
+      );
       navigate("/admin/manage");
     }
   };

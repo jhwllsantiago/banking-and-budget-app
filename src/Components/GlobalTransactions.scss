@@ -1,0 +1,32 @@
+.global-transactions {
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  text-align: center;
+
+  .transactions-table {
+    width: 1000px;
+  }
+
+  .transactions-header {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    place-items: center;
+  }
+  .transactions-list li {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    place-items: center;
+  }
+
+  .transactions-controls {
+   
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    input[type="checkbox"] {
+      margin-right: 5px;
+    }
+  }
+}

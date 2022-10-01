@@ -17,9 +17,10 @@ import { GrTransaction } from "react-icons/gr";
 import { VscSignOut } from "react-icons/vsc";
 
 const Admin = () => {
-  const USERS = localStorage.getItem("USERS");
-  const initialUsers = USERS ? JSON.parse(USERS) : [];
-  const [users, setUsers] = useState(initialUsers);
+  const USERS = localStorage.getItem("USERS")
+    ? JSON.parse(localStorage.getItem("USERS"))
+    : [];
+  const [users, setUsers] = useState(USERS);
   useEffect(() => {
     localStorage.setItem("USERS", JSON.stringify(users));
   }, [users]);
@@ -46,11 +47,11 @@ const Admin = () => {
               <AiOutlineUserAdd className="logo" /> Add User
             </p>
           </Link>
-        <Link to="/admin/transactions">
-          <p>
-            <GrTransaction /> Transactions
-          </p>
-        </Link>
+          <Link to="/admin/transactions">
+            <p>
+              <GrTransaction /> Transactions
+            </p>
+          </Link>
         </nav>
         <div className="sign-out">
           <p className="sign-out-text">Sign out</p>
@@ -77,7 +78,11 @@ const Admin = () => {
           element={
             <>
               <Manage users={users} setUsers={setUsers} />
-              <MoneyTransfer users={users} setUsers={setUsers} />
+              <MoneyTransfer
+                users={users}
+                setUsers={setUsers}
+                channel="ADMIN"
+              />
             </>
           }
         />
