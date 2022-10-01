@@ -56,12 +56,20 @@ const SignUpForm = ({
     setPasswordValid(() => value.length > 7);
   };
 
+  const handleDeposit = (value) => {
+    value =
+      value.indexOf(".") >= 0 ? value.slice(0, value.indexOf(".") + 3) : value;
+
+    setAmount(value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
       usernameValid &&
       emailValid &&
       passwordValid &&
+      amount !== "." &&
       (checked || !showCheckbox)
     ) {
       const updatedUsers = [
@@ -72,7 +80,7 @@ const SignUpForm = ({
           username,
           email,
           password,
-          amount,
+          balance: parseFloat(amount).toFixed(2),
           status: "PENDING",
           accountNumber: "-",
         },
@@ -161,8 +169,15 @@ const SignUpForm = ({
           required
           spellCheck="false"
           autoComplete="false"
+          maxLength="8"
           value={amount}
-          onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))}
+          onChange={(e) =>
+            handleDeposit(
+              e.target.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1")
+            )
+          }
         />
       </div>
       {showCheckbox && (

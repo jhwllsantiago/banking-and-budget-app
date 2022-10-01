@@ -48,7 +48,7 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       let currentUsers = [...users];
       currentUsers[userIndex] = {
         ...user,
-        amount: parseInt(user.amount) + parseInt(depositAmount),
+        balance: parseInt(user.balance) + parseInt(depositAmount),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
@@ -59,14 +59,14 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
 
   const handleWithdrawChange = (value) => {
     setWithdrawAmount(value);
-    setWithdrawAmountValid(parseInt(value) <= parseInt(user.amount));
+    setWithdrawAmountValid(parseInt(value) <= parseInt(user.balance));
   };
   const handleWithdrawClick = () => {
     if (withdrawAmountValid && parseInt(withdrawAmount) > 0) {
       let currentUsers = [...users];
       currentUsers[userIndex] = {
         ...user,
-        amount: parseInt(user.amount) - parseInt(withdrawAmount),
+        balance: parseInt(user.balance) - parseInt(withdrawAmount),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
@@ -92,7 +92,7 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
   };
   const handleTransferAmount = (value) => {
     setTransferAmount(value);
-    setTransferAmountValid(parseInt(value) <= parseInt(user.amount));
+    setTransferAmountValid(parseInt(value) <= parseInt(user.balance));
   };
   const handleTransfer = () => {
     if (
@@ -104,11 +104,11 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       let currentUsers = [...users];
       currentUsers[fundsRecipientIndex] = {
         ...fundsRecipient,
-        amount: parseInt(fundsRecipient.amount) + parseInt(transferAmount),
+        balance: parseInt(fundsRecipient.balance) + parseInt(transferAmount),
       };
       currentUsers[userIndex] = {
         ...user,
-        amount: parseInt(user.amount) - parseInt(transferAmount),
+        balance: parseInt(user.balance) - parseInt(transferAmount),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
@@ -128,7 +128,7 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       <h3>
         Name: {user.firstName} {user.lastName}
       </h3>
-      <h3>Balance: {user.amount}</h3>
+      <h3>Balance: {user.balance}</h3>
       <div>
         <label>Deposit</label>
         <input
