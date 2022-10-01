@@ -35,14 +35,16 @@ const EditUserInfo = ({ users, setUsers }) => {
   const [usernameValid, setUsernameValid] = useState(true);
   const handleUsername = (value) => {
     setUsername(value);
-    setUsernameValid(!users.some((user) => user.username === value));
+    const checker = users.some((user) => user.username === value);
+    setUsernameValid(!checker || user.username === value);
   };
 
   const [email, setEmail] = useState(user.email);
   const [emailValid, setEmailValid] = useState(true);
   const handleEmail = (value) => {
     setEmail(value);
-    setEmailValid(!users.some((user) => user.email === value));
+    const checker = users.some((user) => user.email === value);
+    setEmailValid(!checker || user.email === value);
   };
 
   const [password, setPassword] = useState(user.password);
@@ -53,7 +55,7 @@ const EditUserInfo = ({ users, setUsers }) => {
   };
 
   const handleButtonClick = () => {
-    if (emailValid && passwordValid) {
+    if (usernameValid && emailValid && passwordValid) {
       let currentUsers = [...users];
       currentUsers[userIndex] = {
         ...user,
