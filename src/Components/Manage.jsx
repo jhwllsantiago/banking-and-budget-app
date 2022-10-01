@@ -9,6 +9,9 @@ import { GiConfirmed } from "react-icons/gi";
 import { TbMoodEmpty } from "react-icons/tb";
 import { FcMoneyTransfer } from "react-icons/fc";
 import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
+import { RiVipCrownFill } from "react-icons/ri";
+import { RiStarFill } from "react-icons/ri";
+
 import { useState, useEffect, useRef } from "react";
 
 const Manage = ({ users, setUsers }) => {
@@ -23,7 +26,6 @@ const Manage = ({ users, setUsers }) => {
         accountNumber += Math.floor(Math.random() * 10);
       }
       userToBeUpdated = { ...userToBeUpdated, accountNumber };
-      console.log(accountNumber);
     }
     allUsers[idx] = { ...userToBeUpdated, status };
     setUsers(allUsers);
@@ -86,53 +88,59 @@ const Manage = ({ users, setUsers }) => {
             </p>
           )}
         </div>
-   <ul className="users-list">
-        {users.map((user, idx) => {
-          return (
-            <li key={idx}>
-              <div className="name">
-                <p>
-                  {user.firstName} {user.lastName}
-                </p>
-              </div>
-              <div className="accountNumber">
-                <p>{user.accountNumber}</p>
-              </div>
-              <div className="balance">
-                <p>{user.amount}</p>
-              </div>
-              <div className="status">
-                <p>{user.status}</p>
-              </div>
-              <div className="actions">
-                {user.status === "ACTIVE" && (
-                  <>
-                    <i onClick={() => handleTransfer(user.accountNumber)}>
-                      <FcMoneyTransfer />
-                    </i>
-                    <i onClick={() => handleEdit(user.accountNumber)}>
-                      <AiFillEdit />
-                    </i>
-                    <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
-                      <BiBlock />
-                    </i>
-                  </>
-                )}
-                {user.status !== "ACTIVE" && (
-                  <>
-                    <i onClick={() => handleStatusChange(idx, "ACTIVE")}>
-                      <GiConfirmed />
-                    </i>
-                    <i onClick={() => handleDelete(idx)}>
-                      <RiDeleteBinLine />
-                    </i>
-                  </>
-                )}
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+        <ul className="users-list">
+          {users.map((user, idx) => {
+            return (
+              <li key={idx}>
+                <div className="name">
+                  {parseInt(user.amount) >= 1000000 &&
+                    user.status === "ACTIVE" && <RiVipCrownFill />}
+                  {user.firstName + " " + user.lastName ===
+                    "Jhowell Santiago" && <RiStarFill />}
+                  {user.firstName + " " + user.lastName ===
+                    "Nicole Doromal" && <RiStarFill />}
+                  <p>
+                    {user.firstName} {user.lastName}
+                  </p>
+                </div>
+                <div className="accountNumber">
+                  <p>{user.accountNumber}</p>
+                </div>
+                <div className="balance">
+                  <p>{user.amount}</p>
+                </div>
+                <div className="status">
+                  <p>{user.status}</p>
+                </div>
+                <div className="actions">
+                  {user.status === "ACTIVE" && (
+                    <>
+                      <i onClick={() => handleTransfer(user.accountNumber)}>
+                        <FcMoneyTransfer />
+                      </i>
+                      <i onClick={() => handleEdit(user.accountNumber)}>
+                        <AiFillEdit />
+                      </i>
+                      <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
+                        <BiBlock />
+                      </i>
+                    </>
+                  )}
+                  {user.status !== "ACTIVE" && (
+                    <>
+                      <i onClick={() => handleStatusChange(idx, "ACTIVE")}>
+                        <GiConfirmed />
+                      </i>
+                      <i onClick={() => handleDelete(idx)}>
+                        <RiDeleteBinLine />
+                      </i>
+                    </>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </div>
   );
