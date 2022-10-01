@@ -47,10 +47,10 @@ const Manage = ({ users, setUsers }) => {
   const handleBalanceSort = () => {
     if (balanceSort === "none") {
       setBalanceSort("descending");
-      users.sort((a, b) => parseInt(b.balance) - parseInt(a.balance));
+      users.sort((a, b) => parseFloat(b.balance) - parseFloat(a.balance));
     } else if (balanceSort === "descending") {
       setBalanceSort("ascending");
-      users.sort((a, b) => parseInt(a.balance) - parseInt(b.balance));
+      users.sort((a, b) => parseFloat(a.balance) - parseFloat(b.balance));
     } else {
       setBalanceSort("none");
       setUsers([...unsorted.current]);

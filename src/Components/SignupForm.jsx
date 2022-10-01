@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import capitalize from "../utility/capitalize.js";
 import "./SignUpForm.scss";
+import toTwoDecimal from "../utility/toTwoDecimal.js";
 
 const SignUpForm = ({
   handleSubmitEvent,
@@ -57,9 +58,7 @@ const SignUpForm = ({
   };
 
   const handleDeposit = (value) => {
-    value =
-      value.indexOf(".") >= 0 ? value.slice(0, value.indexOf(".") + 3) : value;
-
+    value = toTwoDecimal(value);
     setAmount(value);
   };
 
@@ -169,7 +168,7 @@ const SignUpForm = ({
           required
           spellCheck="false"
           autoComplete="false"
-          maxLength="8"
+          maxLength="9"
           value={amount}
           onChange={(e) =>
             handleDeposit(

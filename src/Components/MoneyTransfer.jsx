@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./MoneyTransfer.scss";
 import timestamp from "../utility/timestamp";
+import toTwoDecimal from "../utility/toTwoDecimal";
 
 const MoneyTransfer = ({ users, setUsers, channel }) => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
@@ -35,7 +36,7 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       type: type,
       sender: sender,
       recipient: recipient,
-      amount: amount,
+      amount: parseFloat(amount).toFixed(2),
       time: timestamp(),
       channel: channel,
     };
@@ -43,12 +44,18 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
     localStorage.setItem("TRANSACTIONS", JSON.stringify(transactions));
   };
 
-  const handleDeposit = () => {
-    if (parseInt(depositAmount) > 0) {
+  const handleDepositChange = (value) => {
+    value = toTwoDecimal(value);
+    setDepositAmount(value);
+  };
+  const handleDepositClick = () => {
+    if (parseFloat(depositAmount) > 0) {
       let currentUsers = [...users];
       currentUsers[userIndex] = {
         ...user,
-        balance: parseInt(user.balance) + parseInt(depositAmount),
+        balance: (parseFloat(user.balance) + parseFloat(depositAmount)).toFixed(
+          2
+        ),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
@@ -58,15 +65,18 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
   };
 
   const handleWithdrawChange = (value) => {
+    value = toTwoDecimal(value);
     setWithdrawAmount(value);
-    setWithdrawAmountValid(parseInt(value) <= parseInt(user.balance));
+    setWithdrawAmountValid(parseFloat(value) <= parseFloat(user.balance));
   };
   const handleWithdrawClick = () => {
-    if (withdrawAmountValid && parseInt(withdrawAmount) > 0) {
+    if (withdrawAmountValid && parseFloat(withdrawAmount) > 0) {
       let currentUsers = [...users];
       currentUsers[userIndex] = {
         ...user,
-        balance: parseInt(user.balance) - parseInt(withdrawAmount),
+        balance: (
+          parseFloat(user.balance) - parseFloat(withdrawAmount)
+        ).toFixed(2),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
@@ -91,24 +101,29 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
     }
   };
   const handleTransferAmount = (value) => {
+    value = toTwoDecimal(value);
     setTransferAmount(value);
-    setTransferAmountValid(parseInt(value) <= parseInt(user.balance));
+    setTransferAmountValid(parseFloat(value) <= parseFloat(user.balance));
   };
   const handleTransfer = () => {
     if (
       transferAccountNoValid &&
       transferAccountNo &&
       transferAmountValid &&
-      parseInt(transferAmount) > 0
+      parseFloat(transferAmount) > 0
     ) {
       let currentUsers = [...users];
       currentUsers[fundsRecipientIndex] = {
         ...fundsRecipient,
-        balance: parseInt(fundsRecipient.balance) + parseInt(transferAmount),
+        balance: (
+          parseFloat(fundsRecipient.balance) + parseFloat(transferAmount)
+        ).toFixed(2),
       };
       currentUsers[userIndex] = {
         ...user,
-        balance: parseInt(user.balance) - parseInt(transferAmount),
+        balance: (
+          parseFloat(user.balance) - parseFloat(transferAmount)
+        ).toFixed(2),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
@@ -134,25 +149,34 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
         <input
           type="text"
           required
-          maxLength="7"
           spellCheck="false"
           autoComplete="false"
+          maxLength="9"
           value={depositAmount}
-          onChange={(e) => setDepositAmount(e.target.value.replace(/\D/g, ""))}
+          onChange={(e) =>
+            handleDepositChange(
+              e.target.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1")
+            )
+          }
         />
-        <button onClick={handleDeposit}>Deposit</button>
+        <button onClick={handleDepositClick}>Deposit</button>
       </div>
       <div>
         <label>Withdraw</label>
         <input
           type="text"
           required
-          maxLength="7"
           spellCheck="false"
           autoComplete="false"
           value={withdrawAmount}
           onChange={(e) =>
-            handleWithdrawChange(e.target.value.replace(/\D/g, ""))
+            handleWithdrawChange(
+              e.target.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1")
+            )
           }
           className={withdrawAmountValid ? "" : "red-outline"}
         />
@@ -178,12 +202,15 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
           <input
             type="text"
             required
-            maxLength="7"
             spellCheck="false"
             autoComplete="false"
             value={transferAmount}
             onChange={(e) =>
-              handleTransferAmount(e.target.value.replace(/\D/g, ""))
+              handleTransferAmount(
+                e.target.value
+                  .replace(/[^0-9.]/g, "")
+                  .replace(/(\..*?)\..*/g, "$1")
+              )
             }
             className={transferAmountValid ? "" : "red-outline"}
           />
