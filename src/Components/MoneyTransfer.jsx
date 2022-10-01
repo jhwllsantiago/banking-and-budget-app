@@ -22,8 +22,8 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
   const [transferAccountNoValid, setTransferAccountNoValid] = useState(true);
   const [transferAmount, setTransferAmount] = useState("");
   const [transferAmountValid, setTransferAmountValid] = useState(true);
-  const [fundsReceiver, setFundsReceiver] = useState("");
-  const [fundsReceiverIndex, setFundsReceiverIndex] = useState(-1);
+  const [fundsRecipient, setFundsRecipient] = useState("");
+  const [fundsRecipientIndex, setFundsRecipientIndex] = useState(-1);
 
   const newTransaction = (
     type,
@@ -77,13 +77,15 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
 
   const handleAccountNo = (value) => {
     setTransferAccountNo(value);
+    const fundsRecipient = users.find((user) => user.accountNumber === value);
     setTransferAccountNoValid(
-      users.some((user) => user.accountNumber === value)
+      users.some((user) => user.accountNumber === value) &&
+        fundsRecipient.accountNumber !== accountNumber &&
+        fundsRecipient.status === "ACTIVE"
     );
-    const fundsReceiver = users.find((user) => user.accountNumber === value);
-    if (fundsReceiver) {
-      setFundsReceiver(fundsReceiver);
-      setFundsReceiverIndex(
+    if (fundsRecipient) {
+      setFundsRecipient(fundsRecipient);
+      setFundsRecipientIndex(
         users.findIndex((user) => user.accountNumber === value)
       );
     }
@@ -100,9 +102,9 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       parseInt(transferAmount) > 0
     ) {
       let currentUsers = [...users];
-      currentUsers[fundsReceiverIndex] = {
-        ...fundsReceiver,
-        amount: parseInt(fundsReceiver.amount) + parseInt(transferAmount),
+      currentUsers[fundsRecipientIndex] = {
+        ...fundsRecipient,
+        amount: parseInt(fundsRecipient.amount) + parseInt(transferAmount),
       };
       currentUsers[userIndex] = {
         ...user,
@@ -113,7 +115,7 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       newTransaction(
         "Transfer",
         accountNumber,
-        fundsReceiver.accountNumber,
+        fundsRecipient.accountNumber,
         transferAmount
       );
       navigate("/admin/manage");
@@ -186,10 +188,10 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
             className={transferAmountValid ? "" : "red-outline"}
           />
         </div>
-        {!transferAccountNoValid && <p>Account does not exist</p>}
-        {transferAccountNoValid && fundsReceiver && (
+        {!transferAccountNoValid && <p>Invalid account number.</p>}
+        {transferAccountNoValid && fundsRecipient && (
           <p>
-            {`Transfering funds to ${fundsReceiver.firstName} ${fundsReceiver.lastName}`}
+            {`Transfering funds to ${fundsRecipient.firstName} ${fundsRecipient.lastName}`}
           </p>
         )}
         <button onClick={handleTransfer}>Transfer</button>
