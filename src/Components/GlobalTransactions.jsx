@@ -13,7 +13,12 @@ const GlobalTransactions = () => {
   const [transferChecked, setTransferChecked] = useState(true);
   const [filteredTypes, setFilteredTypes] = useState([]);
 
+  const [senderSearch, setSenderSearch] = useState("");
+  const [recipientSearch, setRecipientSearch] = useState("");
+
   const handleChange = (type) => {
+    setSenderSearch("");
+    setRecipientSearch("");
     if (filteredTypes.includes(type)) {
       const updated = filteredTypes.filter((filtered) => filtered !== type);
       setFilteredTypes(updated);
@@ -28,9 +33,34 @@ const GlobalTransactions = () => {
     setTransactions(filtered);
   }, [filteredTypes]);
 
+  const resetChecked = () => {
+    setFilteredTypes([]);
+    setDepositChecked(true);
+    setWithdrawChecked(true);
+    setTransferChecked(true);
+  };
+
   const handleDelete = () => {
     setTransactions([]);
     localStorage.setItem("TRANSACTIONS", JSON.stringify([]));
+  };
+
+  const handleSenderSearch = (value) => {
+    setSenderSearch(value);
+    const filtered = TRANSACTIONS.filter((transaction) =>
+      transaction.sender.includes(value)
+    );
+    setTransactions(filtered);
+    if (value === "") setTransactions(TRANSACTIONS);
+  };
+
+  const handleRecipientSearch = (value) => {
+    setRecipientSearch(value);
+    const filtered = TRANSACTIONS.filter((transaction) =>
+      transaction.recipient.includes(value)
+    );
+    setTransactions(filtered);
+    if (value === "") setTransactions(TRANSACTIONS);
   };
 
   return (
@@ -71,8 +101,32 @@ const GlobalTransactions = () => {
             </div>
           </div>
           <h3>AMOUNT</h3>
-          <h3>SENDER</h3>
-          <h3>RECIPIENT</h3>
+          <div>
+            <h3>SENDER</h3>
+            <input
+              type="text"
+              maxLength="10"
+              value={senderSearch}
+              onChange={(e) => handleSenderSearch(e.target.value)}
+              onFocus={() => {
+                setRecipientSearch("");
+                resetChecked();
+              }}
+            />
+          </div>
+          <div>
+            <h3>RECIPIENT</h3>
+            <input
+              type="text"
+              maxLength="10"
+              value={recipientSearch}
+              onChange={(e) => handleRecipientSearch(e.target.value)}
+              onFocus={() => {
+                setSenderSearch("");
+                resetChecked();
+              }}
+            />
+          </div>
           <h3>CHANNEL</h3>
         </div>
 
