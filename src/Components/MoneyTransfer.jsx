@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./MoneyTransfer.scss";
+import timestamp from "../utility/timestamp";
+import toTwoDecimal from "../utility/toTwoDecimal";
 
-const MoneyTransfer = ({ users, setUsers }) => {
-  const GLOBAL_TRANSACTIONS = localStorage.getItem("GLOBAL_TRANSACTIONS");
-  const global = GLOBAL_TRANSACTIONS ? JSON.parse(GLOBAL_TRANSACTIONS) : [];
+const MoneyTransfer = ({ users, setUsers, channel }) => {
+  const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
+    ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
+    : [];
 
   const navigate = useNavigate();
   const { accountNumber } = useParams();
@@ -20,75 +23,116 @@ const MoneyTransfer = ({ users, setUsers }) => {
   const [transferAccountNoValid, setTransferAccountNoValid] = useState(true);
   const [transferAmount, setTransferAmount] = useState("");
   const [transferAmountValid, setTransferAmountValid] = useState(true);
-  const [fundsReceiver, setFundsReceiver] = useState("");
-  const [fundsReceiverIndex, setFundsReceiverIndex] = useState(-1);
+  const [fundsRecipient, setFundsRecipient] = useState("");
+  const [fundsRecipientIndex, setFundsRecipientIndex] = useState(-1);
 
-  const handleDeposit = () => {
-    if (parseInt(depositAmount) > 0) {
+  const newTransaction = (
+    type,
+    sender = "centavi",
+    recipient = "centavi",
+    amount
+  ) => {
+    const transaction = {
+      type: type,
+      sender: sender,
+      recipient: recipient,
+      amount: parseFloat(amount).toFixed(2),
+      time: timestamp(),
+      channel: channel,
+    };
+    const transactions = [...TRANSACTIONS, transaction];
+    localStorage.setItem("TRANSACTIONS", JSON.stringify(transactions));
+  };
+
+  const handleDepositChange = (value) => {
+    value = toTwoDecimal(value);
+    setDepositAmount(value);
+  };
+  const handleDepositClick = () => {
+    if (parseFloat(depositAmount) > 0) {
       let currentUsers = [...users];
       currentUsers[userIndex] = {
         ...user,
-        amount: parseInt(user.amount) + parseInt(depositAmount),
+        balance: (parseFloat(user.balance) + parseFloat(depositAmount)).toFixed(
+          2
+        ),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
+      newTransaction("Deposit", accountNumber, undefined, depositAmount);
       navigate("/admin/manage");
     }
-    //const transactionLog = { accountNumber,type: "Deposit", from: `${user.}`}
   };
 
   const handleWithdrawChange = (value) => {
+    value = toTwoDecimal(value);
     setWithdrawAmount(value);
-    setWithdrawAmountValid(parseInt(value) <= parseInt(user.amount));
+    setWithdrawAmountValid(parseFloat(value) <= parseFloat(user.balance));
   };
   const handleWithdrawClick = () => {
-    if (withdrawAmountValid && parseInt(withdrawAmount) > 0) {
+    if (withdrawAmountValid && parseFloat(withdrawAmount) > 0) {
       let currentUsers = [...users];
       currentUsers[userIndex] = {
         ...user,
-        amount: parseInt(user.amount) - parseInt(withdrawAmount),
+        balance: (
+          parseFloat(user.balance) - parseFloat(withdrawAmount)
+        ).toFixed(2),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
+      newTransaction("Withdraw", undefined, accountNumber, withdrawAmount);
       navigate("/admin/manage");
     }
   };
 
   const handleAccountNo = (value) => {
     setTransferAccountNo(value);
+    const fundsRecipient = users.find((user) => user.accountNumber === value);
     setTransferAccountNoValid(
-      users.some((user) => user.accountNumber === value)
+      users.some((user) => user.accountNumber === value) &&
+        fundsRecipient.accountNumber !== accountNumber &&
+        fundsRecipient.status === "ACTIVE"
     );
-    const fundsReceiver = users.find((user) => user.accountNumber === value);
-    if (fundsReceiver) {
-      setFundsReceiver(fundsReceiver);
-      setFundsReceiverIndex(
+    if (fundsRecipient) {
+      setFundsRecipient(fundsRecipient);
+      setFundsRecipientIndex(
         users.findIndex((user) => user.accountNumber === value)
       );
     }
   };
   const handleTransferAmount = (value) => {
+    value = toTwoDecimal(value);
     setTransferAmount(value);
-    setTransferAmountValid(parseInt(value) <= parseInt(user.amount));
+    setTransferAmountValid(parseFloat(value) <= parseFloat(user.balance));
   };
   const handleTransfer = () => {
     if (
       transferAccountNoValid &&
       transferAccountNo &&
       transferAmountValid &&
-      parseInt(transferAmount) > 0
+      parseFloat(transferAmount) > 0
     ) {
       let currentUsers = [...users];
-      currentUsers[fundsReceiverIndex] = {
-        ...fundsReceiver,
-        amount: parseInt(fundsReceiver.amount) + parseInt(transferAmount),
+      currentUsers[fundsRecipientIndex] = {
+        ...fundsRecipient,
+        balance: (
+          parseFloat(fundsRecipient.balance) + parseFloat(transferAmount)
+        ).toFixed(2),
       };
       currentUsers[userIndex] = {
         ...user,
-        amount: parseInt(user.amount) - parseInt(transferAmount),
+        balance: (
+          parseFloat(user.balance) - parseFloat(transferAmount)
+        ).toFixed(2),
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
+      newTransaction(
+        "Transfer",
+        accountNumber,
+        fundsRecipient.accountNumber,
+        transferAmount
+      );
       navigate("/admin/manage");
     }
   };
@@ -99,31 +143,40 @@ const MoneyTransfer = ({ users, setUsers }) => {
       <h3>
         Name: {user.firstName} {user.lastName}
       </h3>
-      <h3>Balance: {user.amount}</h3>
+      <h3>Balance: {user.balance}</h3>
       <div>
         <label>Deposit</label>
         <input
           type="text"
           required
-          maxLength="7"
           spellCheck="false"
           autoComplete="false"
+          maxLength="9"
           value={depositAmount}
-          onChange={(e) => setDepositAmount(e.target.value.replace(/\D/g, ""))}
+          onChange={(e) =>
+            handleDepositChange(
+              e.target.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1")
+            )
+          }
         />
-        <button onClick={handleDeposit}>Deposit</button>
+        <button onClick={handleDepositClick}>Deposit</button>
       </div>
       <div>
         <label>Withdraw</label>
         <input
           type="text"
           required
-          maxLength="7"
           spellCheck="false"
           autoComplete="false"
           value={withdrawAmount}
           onChange={(e) =>
-            handleWithdrawChange(e.target.value.replace(/\D/g, ""))
+            handleWithdrawChange(
+              e.target.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1")
+            )
           }
           className={withdrawAmountValid ? "" : "red-outline"}
         />
@@ -149,20 +202,23 @@ const MoneyTransfer = ({ users, setUsers }) => {
           <input
             type="text"
             required
-            maxLength="7"
             spellCheck="false"
             autoComplete="false"
             value={transferAmount}
             onChange={(e) =>
-              handleTransferAmount(e.target.value.replace(/\D/g, ""))
+              handleTransferAmount(
+                e.target.value
+                  .replace(/[^0-9.]/g, "")
+                  .replace(/(\..*?)\..*/g, "$1")
+              )
             }
             className={transferAmountValid ? "" : "red-outline"}
           />
         </div>
-        {!transferAccountNoValid && <p>Account does not exist</p>}
-        {transferAccountNoValid && fundsReceiver && (
+        {!transferAccountNoValid && <p>Invalid account number.</p>}
+        {transferAccountNoValid && fundsRecipient && (
           <p>
-            {`Transfering funds to ${fundsReceiver.firstName} ${fundsReceiver.lastName}`}
+            {`Transfering funds to ${fundsRecipient.firstName} ${fundsRecipient.lastName}`}
           </p>
         )}
         <button onClick={handleTransfer}>Transfer</button>

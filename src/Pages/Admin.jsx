@@ -6,8 +6,6 @@ import GlobalTransactions from "../components/GlobalTransactions";
 import Dashboard from "../components/Dashboard";
 import Manage from "../components/Manage";
 import AddUser from "../components/AddUser";
-import EditUserInfo from "../components/EditUserInfo";
-import MoneyTransfer from "../components/MoneyTransfer";
 
 //Icons//
 import { MdOutlineDashboard } from "react-icons/md";
@@ -17,9 +15,10 @@ import { AiOutlineFileSync } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
 
 const Admin = () => {
-  const USERS = localStorage.getItem("USERS");
-  const initialUsers = USERS ? JSON.parse(USERS) : [];
-  const [users, setUsers] = useState(initialUsers);
+  const USERS = localStorage.getItem("USERS")
+    ? JSON.parse(localStorage.getItem("USERS"))
+    : [];
+  const [users, setUsers] = useState(USERS);
   useEffect(() => {
     localStorage.setItem("USERS", JSON.stringify(users));
   }, [users]);
@@ -33,7 +32,7 @@ const Admin = () => {
           </p>
         </Link>
         <nav>
-          <NavLink to="/admin/dashboard">
+          <NavLink to="/admin">
             <p>
               <MdOutlineDashboard className="logo" /> Dashboard
             </p>
@@ -60,28 +59,10 @@ const Admin = () => {
         </Link>
       </header>
       <Routes>
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route index element={<Dashboard />} />
         <Route
-          path="manage"
+          path="manage/*"
           element={<Manage users={users} setUsers={setUsers} />}
-        />
-        <Route
-          path="manage/user/:accountNumber"
-          element={
-            <>
-              <Manage users={users} setUsers={setUsers} />
-              <EditUserInfo users={users} setUsers={setUsers} />
-            </>
-          }
-        />
-        <Route
-          path="manage/transfer/user/:accountNumber"
-          element={
-            <>
-              <Manage users={users} setUsers={setUsers} />
-              <MoneyTransfer users={users} setUsers={setUsers} />
-            </>
-          }
         />
         <Route
           path="add"

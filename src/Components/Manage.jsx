@@ -1,5 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
 import "./Manage.scss";
+import EditUserInfo from "../components/EditUserInfo";
+import MoneyTransfer from "../components/MoneyTransfer";
 
 //Icons//
 import { BiBlock } from "react-icons/bi";
@@ -49,10 +51,10 @@ const Manage = ({ users, setUsers }) => {
   const handleBalanceSort = () => {
     if (balanceSort === "none") {
       setBalanceSort("descending");
-      users.sort((a, b) => parseInt(b.amount) - parseInt(a.amount));
+      users.sort((a, b) => parseFloat(b.balance) - parseFloat(a.balance));
     } else if (balanceSort === "descending") {
       setBalanceSort("ascending");
-      users.sort((a, b) => parseInt(a.amount) - parseInt(b.amount));
+      users.sort((a, b) => parseFloat(a.balance) - parseFloat(b.balance));
     } else {
       setBalanceSort("none");
       setUsers([...unsorted.current]);
@@ -107,7 +109,7 @@ const Manage = ({ users, setUsers }) => {
                   <p>{user.accountNumber}</p>
                 </div>
                 <div className="balance">
-                  <p>{user.amount}</p>
+                  <p>{user.balance}</p>
                 </div>
                 <div className="status">
                   <p>{user.status}</p>
@@ -142,6 +144,18 @@ const Manage = ({ users, setUsers }) => {
           })}
         </ul>
       </div>
+      <Routes>
+        <Route
+          path="user/:accountNumber"
+          element={<EditUserInfo users={users} setUsers={setUsers} />}
+        />
+        <Route
+          path="transfer/user/:accountNumber"
+          element={
+            <MoneyTransfer users={users} setUsers={setUsers} channel="ADMIN" />
+          }
+        />
+      </Routes>
     </div>
   );
 };
