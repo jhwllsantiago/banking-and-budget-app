@@ -25,29 +25,27 @@
     nav {
       display: flex;
       flex-direction: column;
-      gap: 2px;
       margin-top: auto;
       margin-bottom: auto;
       width: 100%;
       font-weight: 500;
 
       p {
-        color: $color-darkblue;
+        color: $color-lightgrey;
         font-size: 20px;
         cursor: pointer;
-        border: 3px solid rgba($color-violet, 0);
         transition: 300ms ease;
-        padding: 4px 8px;
-  
+        padding: 8px 8px;
+
         &:hover {
           color: $color-darkblue;
-          background-color: rgba($color-lightgrey, .85);
-          border: 3px solid rgba($color-lightgrey, .3);
+          background-color: rgba($color-lightgrey, 0.65);
         }
+      }
 
-        // .logo {
-        //   color: $color-yellowgreen;
-        // }
+      a.active p {
+        color: $color-darkblue;
+        background-color: $color-lightgrey;
       }
     }
 
@@ -72,7 +70,7 @@
       }
 
       &:hover {
-      background-color: rgba($color-yellowgreen, 1);
+        background-color: rgba($color-yellowgreen, 1);
       }
     }
   }

@@ -1,4 +1,4 @@
-@import '../assets/scss/styles';
+@import "../assets/scss/styles";
 
 .header {
   display: flex;
@@ -20,7 +20,7 @@
     &:hover {
       color: $color-violet;
     }
-}
+  }
 
   .links {
     display: flex;
@@ -28,22 +28,38 @@
     align-items: center;
     margin-right: $margin-landing;
 
-    a {
-      padding: 0 5px;
+    .header-links {
+      padding: 0 7px;
       font-weight: 900;
       margin-right: 15px;
       color: $color-violet;
       transition: 500ms ease;
       border: 3px solid $color-yellowgreen;
       border-radius: 10px;
+      cursor: pointer;
+      box-shadow: -3px -3px 6px rgba($color-white, 0.5),
+        3px 3px 6px rgba($color-accentgreen, 0.6);
+      border: 3px solid rgba($color-accentgreen, 0.06);
+      border-radius: 10px;
+      background-color: $color-yellowgreen;
 
       &:hover {
-        background-color: rgba($color-accentgreen, .4);
-        border: 3px solid rgba($color-accentgreen, .2);
-        border-radius: 10px;
+        box-shadow: -12px -12px 24px rgba($color-white, 0.3),
+          inset -5px -5px 10px rgba($color-darkblue, 0.09),
+          inset 5px 5px 10px rgba($color-darkblue, 0.09),
+          12px 12px 24px rgba($color-darkblue, 0.06);
+        border: 3px solid rgba($color-accentgreen, 0.3);
+        background-color: rgba($color-accentgreen, 0.08);
       }
     }
 
-
+    .active {
+      box-shadow: -12px -12px 24px rgba($color-white, 0.3),
+        inset -5px -5px 10px rgba($color-darkblue, 0.09),
+        inset 5px 5px 10px rgba($color-darkblue, 0.09),
+        12px 12px 24px rgba($color-darkblue, 0.06);
+      border: 3px solid rgba($color-accentgreen, 0.3);
+      background-color: rgba($color-accentgreen, 0.09);
+    }
   }
 }
