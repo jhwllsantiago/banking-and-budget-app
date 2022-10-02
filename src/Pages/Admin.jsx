@@ -32,7 +32,7 @@ const Admin = () => {
           </p>
         </Link>
         <nav>
-          <NavLink to="/admin">
+          <NavLink to="/admin" end>
             <p>
               <MdOutlineDashboard className="logo" /> Dashboard
             </p>

@@ -95,7 +95,7 @@ const Manage = ({ users, setUsers }) => {
             return (
               <li key={idx}>
                 <div className="name">
-                  {parseFloat(user.amount) >= 1000000 &&
+                  {parseFloat(user.balance) >= 1000000 &&
                     user.status === "ACTIVE" && <RiVipCrownFill />}
                   {user.firstName + " " + user.lastName ===
                     "Jhowell Santiago" && <RiStarFill />}
