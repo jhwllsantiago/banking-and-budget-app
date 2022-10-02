@@ -28,7 +28,7 @@
     align-items: center;
     margin-right: $margin-landing;
 
-    a {
+    .header-links {
       padding: 0 5px;
       font-weight: 900;
       margin-right: 15px;
@@ -36,6 +36,7 @@
       transition: 500ms ease;
       border: 3px solid $color-yellowgreen;
       border-radius: 10px;
+      cursor: pointer;
 
       &:hover {
         background-color: rgba($color-accentgreen, .4);
