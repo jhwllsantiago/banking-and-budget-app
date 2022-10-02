@@ -1,0 +1,53 @@
+.personal-transactions {
+  text-align: center;
+  width: fit-content;
+
+  h3 {
+    margin-bottom: 10px;
+  }
+  .table {
+    position: absolute;
+    padding: 10px;
+    background-color: lightcyan;
+    width: 400px;
+    height: 300px;
+  }
+  .table-header {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    place-items: center;
+  }
+  .table-list li {
+    display: grid;
+    grid-template-columns: 55% 45%;
+    place-items: center;
+  }
+  .deposits-table {
+    top: 100px;
+    left: 300px;
+  }
+  .withdrawals-table {
+    top: 100px;
+    left: 800px;
+  }
+
+  .transfers-table {
+    position: absolute;
+    padding: 10px;
+    background-color: lightcyan;
+    width: 900px;
+    height: 400px;
+    top: 450px;
+    left: 300px;
+  }
+  .transfers-header {
+    display: grid;
+    grid-template-columns: 25% 15% 20% 20% 20%;
+    place-items: center;
+  }
+  .transfers-list li {
+    display: grid;
+    grid-template-columns: 25% 15% 20% 20% 20%;
+    place-items: center;
+  }
+}

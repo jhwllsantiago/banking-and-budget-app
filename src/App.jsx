@@ -4,6 +4,7 @@ import SignUp from "./components/SignUp";
 import Admin from "./pages/Admin";
 import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
+import User from "./pages/User";
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/admin/*" element={<Admin />} />
+        <Route path="/user/*" element={<User />} />
         <Route path="login/client" element={<Login usersData="USERS" />} />
         <Route path="login/admin" element={<Login usersData="ADMINS" />} />
         <Route path="/signup" element={<SignUp />} />
