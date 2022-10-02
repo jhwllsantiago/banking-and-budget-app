@@ -7,7 +7,7 @@ const LoginModal = () => {
   return (
     <div className="login-modal">
       <div
-        className="login-client-button login-button"
+        className="login-button login-button"
         onClick={() => {
           navigate("/login/client");
         }}
@@ -15,7 +15,7 @@ const LoginModal = () => {
         CLIENT
       </div>
       <div
-        className="login-admin-button login-button"
+        className="admin-login-button login-button"
         onClick={() => navigate("/login/admin")}
       >
         ADMIN
@@ -25,3 +25,4 @@ const LoginModal = () => {
 };
 
 export default LoginModal;
+

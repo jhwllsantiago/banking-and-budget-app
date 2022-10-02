@@ -81,13 +81,7 @@ const Manage = ({ users, setUsers }) => {
           <h3>ACTIONS</h3>
         </div>
 
-        <div className="no-users">
-          {users.length === 0 && (
-            <p>
-              NO USERS FOUND <TbMoodEmpty />
-            </p>
-          )}
-        </div>
+
         <ul className="users-list">
           {users.map((user, idx) => {
             return (
@@ -142,6 +136,13 @@ const Manage = ({ users, setUsers }) => {
           })}
         </ul>
       </div>
+      <div className="no-users">
+          {users.length === 0 && (
+            <p>
+              NO USERS FOUND <TbMoodEmpty />
+            </p>
+          )}
+        </div>
     </div>
   );
 };

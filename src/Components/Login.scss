@@ -2,7 +2,7 @@
 @import "../assets/scss/mixins";
 
 .login {
-  @include center-element-in-viewport (-1);
+  @include center-element-in-viewport(-1);
 
   .login-form-container {
     @include modal-and-signin-container;
@@ -35,16 +35,22 @@
       border-radius: 10px;
       cursor: pointer;
       transition: 300ms ease;
-      border: 1.5px solid $color-violet;
+      border: 2px solid rgba($color-yellowgreen, 0.25);
       font-weight: 900;
-      background-color: rgba($color-yellowgreen, .85);
-      color: rgba($color-violet, 1);
+      color: $color-lightgrey;
       letter-spacing: 1px;
+      background-color: rgba($color-violet, 0.95);
+      box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.3),
+        3px 3px 6px rgba($color-darkblue, 0.6);
+      border: 3px solid rgba($color-accentgreen, 0.06);
 
       &:hover {
-        border: 1.5px solid $color-yellowgreen;
-        background-color: $color-yellowgreen;
-        // color: $color-lightgrey;
+        box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.08),
+          inset -5px -5px 10px rgba($color-darkblue, 0.1),
+          inset 5px 5px 10px rgba($color-darkblue, 0.1),
+          12px 12px 24px rgba($color-darkblue, 0.06);
+        border: 3px solid rgba($color-accentgreen, 0.05);
+        background-color: rgba($color-violet, 0.8);
       }
     }
   }
