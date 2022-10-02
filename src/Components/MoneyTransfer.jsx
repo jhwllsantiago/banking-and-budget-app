@@ -4,7 +4,12 @@ import "./MoneyTransfer.scss";
 import timestamp from "../utility/timestamp";
 import toTwoDecimal from "../utility/toTwoDecimal";
 
-const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
+const MoneyTransfer = ({
+  users,
+  setUsers,
+  navigatePath,
+  showChannelSelect,
+}) => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
     ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
     : [];
@@ -25,15 +30,18 @@ const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
   const [transferAmountValid, setTransferAmountValid] = useState(true);
   const [fundsRecipient, setFundsRecipient] = useState("");
   const [fundsRecipientIndex, setFundsRecipientIndex] = useState(-1);
+  const [selectedChannel, setSelectedChannel] = useState("GCASH");
 
   const newTransaction = (
     type,
     sender = "N/A",
-    senderName = "centavi",
+    senderName = "N/A",
     recipient = "N/A",
-    recipientName = "centavi",
-    amount
+    recipientName = "N/A",
+    amount,
+    channel
   ) => {
+    const channelToSave = showChannelSelect ? channel : "ADMIN";
     const transaction = {
       type: type,
       sender: sender,
@@ -42,9 +50,9 @@ const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
       recipientName: recipientName,
       amount: parseFloat(amount).toFixed(2),
       time: timestamp(),
-      channel: channel,
+      channel: channelToSave,
     };
-    const transactions = [...TRANSACTIONS, transaction];
+    const transactions = [transaction, ...TRANSACTIONS];
     localStorage.setItem("TRANSACTIONS", JSON.stringify(transactions));
   };
 
@@ -69,7 +77,8 @@ const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
         `${user.firstName} ${user.lastName}`,
         undefined,
         undefined,
-        depositAmount
+        depositAmount,
+        selectedChannel
       );
       navigate(navigatePath);
     }
@@ -97,7 +106,8 @@ const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
         undefined,
         accountNumber,
         `${user.firstName} ${user.lastName}`,
-        withdrawAmount
+        withdrawAmount,
+        selectedChannel
       );
       navigate(navigatePath);
     }
@@ -151,7 +161,8 @@ const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
         `${user.firstName} ${user.lastName}`,
         fundsRecipient.accountNumber,
         `${fundsRecipient.firstName} ${fundsRecipient.lastName}`,
-        transferAmount
+        transferAmount,
+        "CENTAVI"
       );
       navigate(navigatePath);
     }
@@ -181,7 +192,6 @@ const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
             )
           }
         />
-        <button onClick={handleDepositClick}>Deposit</button>
       </div>
       <div>
         <label>Withdraw</label>
@@ -200,8 +210,24 @@ const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
           }
           className={withdrawAmountValid ? "" : "red-outline"}
         />
-        <button onClick={handleWithdrawClick}>Withdraw</button>
       </div>
+      {showChannelSelect && (
+        <div>
+          <label>Channel</label>
+          <select
+            value={selectedChannel}
+            onChange={(e) => setSelectedChannel(e.target.value)}
+          >
+            <option value="GCASH">GCASH</option>
+            <option value="MAYA">MAYA</option>
+            <option value="PAYPAL">PAYPAL</option>
+            <option value="BDO">BDO</option>
+            <option value="BPI">BPI</option>
+          </select>
+        </div>
+      )}
+      <button onClick={handleDepositClick}>Deposit</button>
+      <button onClick={handleWithdrawClick}>Withdraw</button>
       <div>
         <h4>Transfer Funds</h4>
         <div>

@@ -156,7 +156,7 @@ const Manage = ({ users, setUsers }) => {
               users={users}
               setUsers={setUsers}
               navigatePath="/admin/manage"
-              channel="ADMIN"
+              showChannelSelect={false}
             />
           }
         />

@@ -79,7 +79,7 @@ const User = () => {
               users={USERS}
               setUsers={() => {}}
               navigatePath="/user/transactions"
-              channel="CLIENT"
+              showChannelSelect={true}
             />
           }
         />
