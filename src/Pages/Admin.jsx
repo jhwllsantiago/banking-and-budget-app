@@ -6,8 +6,6 @@ import GlobalTransactions from "../components/GlobalTransactions";
 import Dashboard from "../components/Dashboard";
 import Manage from "../components/Manage";
 import AddUser from "../components/AddUser";
-import EditUserInfo from "../components/EditUserInfo";
-import MoneyTransfer from "../components/MoneyTransfer";
 
 //Icons//
 import { MdOutlineDashboard } from "react-icons/md";
@@ -32,7 +30,7 @@ const Admin = () => {
           <p className="centavi-logo">centavi</p>
         </Link>
         <nav>
-          <Link to="/admin/dashboard">
+          <Link to="/admin">
             <p>
               <MdOutlineDashboard className="logo" /> Dashboard
             </p>
@@ -59,32 +57,10 @@ const Admin = () => {
         </div>
       </header>
       <Routes>
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route index element={<Dashboard />} />
         <Route
-          path="manage"
+          path="manage/*"
           element={<Manage users={users} setUsers={setUsers} />}
-        />
-        <Route
-          path="manage/user/:accountNumber"
-          element={
-            <>
-              <Manage users={users} setUsers={setUsers} />
-              <EditUserInfo users={users} setUsers={setUsers} />
-            </>
-          }
-        />
-        <Route
-          path="manage/transfer/user/:accountNumber"
-          element={
-            <>
-              <Manage users={users} setUsers={setUsers} />
-              <MoneyTransfer
-                users={users}
-                setUsers={setUsers}
-                channel="ADMIN"
-              />
-            </>
-          }
         />
         <Route
           path="add"

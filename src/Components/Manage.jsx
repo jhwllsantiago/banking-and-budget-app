@@ -1,5 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
 import "./Manage.scss";
+import EditUserInfo from "../components/EditUserInfo";
+import MoneyTransfer from "../components/MoneyTransfer";
 
 //Icons//
 import { BiBlock } from "react-icons/bi";
@@ -134,6 +136,18 @@ const Manage = ({ users, setUsers }) => {
           })}
         </ul>
       </div>
+      <Routes>
+        <Route
+          path="user/:accountNumber"
+          element={<EditUserInfo users={users} setUsers={setUsers} />}
+        />
+        <Route
+          path="transfer/user/:accountNumber"
+          element={
+            <MoneyTransfer users={users} setUsers={setUsers} channel="ADMIN" />
+          }
+        />
+      </Routes>
     </div>
   );
 };
