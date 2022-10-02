@@ -11,10 +11,10 @@
   margin: 2%;
 
   .user-table {
-    background-color:  rgba($color-lightgrey, .095);
+    background-color: rgba($color-lightgrey, 0.095);
     box-shadow: -12px -12px 24px rgba($color-white, 0.3),
-    inset 15px 15px 50px rgba($color-white, 0.1),
-    12px 12px 24px rgba($color-darkblue, 0.06);
+      inset 15px 15px 50px rgba($color-white, 0.1),
+      12px 12px 24px rgba($color-darkblue, 0.06);
     border-radius: 25px;
     grid-column: 3/13;
     grid-row: 2/12;
@@ -51,6 +51,9 @@
       font-size: 30px;
       top: 50px;
       text-align: center;
+      z-index: 1000;
+      color: $color-darkblue;
+      position: absolute;
     }
 
     ul {
@@ -81,11 +84,12 @@
           align-items: center;
           gap: 5px;
         }
-        .accountNumber, .balance > p {
-          font-family: 'Open Sans', sans-serif;
+        .accountNumber,
+        .balance > p {
+          font-family: "Open Sans", sans-serif;
         }
 
-        .balance  {
+        .balance {
           display: flex;
           margin-left: auto;
           margin-right: 35%;
@@ -96,7 +100,6 @@
           margin-left: auto;
           margin-right: 35%;
         }
-
       }
     }
   }

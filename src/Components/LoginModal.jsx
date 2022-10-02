@@ -2,23 +2,21 @@ import { useNavigate } from "react-router-dom";
 import "./LoginModal.scss";
 
 const LoginModal = () => {
-  const navigateToClientLogin = useNavigate();
-  const navigateToAdminLogin = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div className="login-modal">
-      {console.log("hello")}
       <div
-        className="client-login-button login-button"
+        className="login-client-button login-button"
         onClick={() => {
-          navigateToClientLogin("/login/client");
+          navigate("/login/client");
         }}
       >
         CLIENT
       </div>
       <div
-        className="admin-login-button login-button"
-        onClick={() => navigateToAdminLogin("/login/admin")}
+        className="login-admin-button login-button"
+        onClick={() => navigate("/login/admin")}
       >
         ADMIN
       </div>

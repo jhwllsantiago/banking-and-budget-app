@@ -28,7 +28,9 @@ const Admin = () => {
     <div className="admin">
       <header className="admin-header">
         <Link to="/admin">
-          <p className="centavi-logo" translate="no">centavi</p>
+          <p className="centavi-logo" translate="no">
+            centavi
+          </p>
         </Link>
         <nav>
           <NavLink to="/admin/dashboard">
@@ -46,11 +48,11 @@ const Admin = () => {
               <AiOutlineUserAdd className="logo" /> Add User
             </p>
           </NavLink>
-        <NavLink to="/admin/transactions">
-          <p>
-            <AiOutlineFileSync /> Transactions
-          </p>
-        </NavLink>
+          <NavLink to="/admin/transactions">
+            <p>
+              <AiOutlineFileSync /> Transactions
+            </p>
+          </NavLink>
         </nav>
         <Link to="/" className="sign-out">
           <p className="sign-out-text">Sign out</p>
