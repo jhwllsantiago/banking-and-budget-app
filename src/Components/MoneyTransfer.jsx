@@ -4,7 +4,7 @@ import "./MoneyTransfer.scss";
 import timestamp from "../utility/timestamp";
 import toTwoDecimal from "../utility/toTwoDecimal";
 
-const MoneyTransfer = ({ users, setUsers, channel }) => {
+const MoneyTransfer = ({ users, setUsers, navigatePath, channel }) => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
     ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
     : [];
@@ -28,14 +28,18 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
 
   const newTransaction = (
     type,
-    sender = "centavi",
-    recipient = "centavi",
+    sender = "N/A",
+    senderName = "centavi",
+    recipient = "N/A",
+    recipientName = "centavi",
     amount
   ) => {
     const transaction = {
       type: type,
       sender: sender,
+      senderName: senderName,
       recipient: recipient,
+      recipientName: recipientName,
       amount: parseFloat(amount).toFixed(2),
       time: timestamp(),
       channel: channel,
@@ -59,8 +63,15 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
-      newTransaction("Deposit", accountNumber, undefined, depositAmount);
-      navigate("/admin/manage");
+      newTransaction(
+        "Deposit",
+        accountNumber,
+        `${user.firstName} ${user.lastName}`,
+        undefined,
+        undefined,
+        depositAmount
+      );
+      navigate(navigatePath);
     }
   };
 
@@ -80,8 +91,15 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
-      newTransaction("Withdraw", undefined, accountNumber, withdrawAmount);
-      navigate("/admin/manage");
+      newTransaction(
+        "Withdraw",
+        undefined,
+        undefined,
+        accountNumber,
+        `${user.firstName} ${user.lastName}`,
+        withdrawAmount
+      );
+      navigate(navigatePath);
     }
   };
 
@@ -130,10 +148,12 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       newTransaction(
         "Transfer",
         accountNumber,
+        `${user.firstName} ${user.lastName}`,
         fundsRecipient.accountNumber,
+        `${fundsRecipient.firstName} ${fundsRecipient.lastName}`,
         transferAmount
       );
-      navigate("/admin/manage");
+      navigate(navigatePath);
     }
   };
 
@@ -223,7 +243,7 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
         )}
         <button onClick={handleTransfer}>Transfer</button>
       </div>
-      <button onClick={() => navigate("/admin/manage")}>Cancel</button>
+      <button onClick={() => navigate(navigatePath)}>Cancel</button>
     </div>
   );
 };

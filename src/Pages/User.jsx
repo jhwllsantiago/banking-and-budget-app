@@ -1,38 +1,38 @@
-import { Link, NavLink, Routes, Route } from "react-router-dom";
+import { Link, NavLink, Routes, Route, useNavigate } from "react-router-dom";
 import UserDashboard from "../components/UserDashboard";
 import PersonalTransactions from "../components/PersonalTransactions";
+import MoneyTransfer from "../components/MoneyTransfer";
+import { useEffect } from "react";
 import "./User.scss";
 
 //Icons//
 import { MdOutlineDashboard } from "react-icons/md";
 import { AiOutlineFileSync } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
-import { useState } from "react";
+import { GiMoneyStack } from "react-icons/gi";
+import { MdSavings } from "react-icons/md";
 
 const User = () => {
-  //   const USERS = localStorage.getItem("USERS")
-  //     ? JSON.parse(localStorage.getItem("USERS"))
-  //     : [];
-  const data = {
-    firstName: "Jhowell",
-    lastName: "Santiago",
-    username: "jhowell",
-    email: "jho@san",
-    password: "jhowellsantiago",
-    balance: "1000",
-    status: "ACTIVE",
-    accountNumber: "4794812595",
-  };
-  const [user, setUser] = useState(data);
-  let TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
-    ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
+  const navigate = useNavigate();
+  const USERS = localStorage.getItem("USERS")
+    ? JSON.parse(localStorage.getItem("USERS"))
     : [];
-  TRANSACTIONS = TRANSACTIONS.filter(
-    (transaction) =>
-      transaction.sender === user.accountNumber ||
-      transaction.recipient === user.accountNumber
-  );
-  const [transactions, setTransactions] = useState(TRANSACTIONS);
+  const LOGGED_IN = localStorage.getItem("LOGGED_IN")
+    ? JSON.parse(localStorage.getItem("LOGGED_IN"))
+    : {};
+  //const LOGGED_IN.user = "jhowell";
+  const loggedInUser = USERS.find((user) => user.username === LOGGED_IN.user);
+  let TRANSACTIONS = [];
+  if (loggedInUser && localStorage.getItem("TRANSACTIONS")) {
+    TRANSACTIONS = JSON.parse(localStorage.getItem("TRANSACTIONS")).filter(
+      (transaction) =>
+        transaction.sender === loggedInUser.accountNumber ||
+        transaction.recipient === loggedInUser.accountNumber
+    );
+  }
+  useEffect(() => {
+    if (!loggedInUser) navigate("/login/client");
+  });
 
   return (
     <div className="user">
@@ -48,6 +48,16 @@ const User = () => {
               <MdOutlineDashboard className="logo" /> Dashboard
             </p>
           </NavLink>
+          <NavLink to="/user/budget">
+            <p>
+              <MdSavings className="logo" /> Budget
+            </p>
+          </NavLink>
+          <NavLink to={`/user/transfer/${loggedInUser.accountNumber}`}>
+            <p>
+              <GiMoneyStack className="logo" /> Transfer
+            </p>
+          </NavLink>
           <NavLink to="/user/transactions">
             <p>
               <AiOutlineFileSync /> Transactions
@@ -61,10 +71,25 @@ const User = () => {
       </header>
       <Routes>
         <Route index element={<UserDashboard />} />
+        <Route path="budget" element={<UserDashboard />} />
+        <Route
+          path="transfer/:accountNumber"
+          element={
+            <MoneyTransfer
+              users={USERS}
+              setUsers={() => {}}
+              navigatePath="/user/transactions"
+              channel="CLIENT"
+            />
+          }
+        />
         <Route
           path="transactions"
           element={
-            <PersonalTransactions user={user} transactions={transactions} />
+            <PersonalTransactions
+              user={loggedInUser}
+              transactions={TRANSACTIONS}
+            />
           }
         />
       </Routes>

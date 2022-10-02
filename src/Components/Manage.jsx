@@ -152,7 +152,12 @@ const Manage = ({ users, setUsers }) => {
         <Route
           path="transfer/user/:accountNumber"
           element={
-            <MoneyTransfer users={users} setUsers={setUsers} channel="ADMIN" />
+            <MoneyTransfer
+              users={users}
+              setUsers={setUsers}
+              navigatePath="/admin/manage"
+              channel="ADMIN"
+            />
           }
         />
       </Routes>

@@ -79,7 +79,11 @@ const PersonalTransactions = ({ user, transactions }) => {
                       : "INCOMING"}
                   </div>
                   <div>{transaction.amount}</div>
-                  <div>NAME edit this</div>
+                  <div>
+                    {transaction.sender === user.accountNumber
+                      ? transaction.recipientName
+                      : transaction.senderName}
+                  </div>
                   <div>
                     {transaction.sender === user.accountNumber
                       ? transaction.recipient
