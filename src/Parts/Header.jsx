@@ -5,6 +5,7 @@ import "./Header.scss";
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
+  const [activeButton, setActiveButton] =useState(false)
 
   return (
     <header className="header">
@@ -18,11 +19,22 @@ const Header = () => {
         <Link className="header-links" to="/signup">
           SIGN UP
         </Link>
-        <span className="header-links" onClick={() => setShowModal(true)}>
+        <span
+          className="header-links"
+          onClick={() => {
+            if (showModal === false) {
+              setShowModal(true);
+              setActiveButton(true);
+            } else {
+              setShowModal(false);
+              setActiveButton(false)
+            }
+          }}
+        // className= {activeButton ? "login-active" : ""}
+        >
           LOGIN
         </span>
-        { showModal && <LoginModal /> }
-        {/* <Link to="/login">LOGIN</Link> */}
+        {showModal && <LoginModal />};
       </div>
     </header>
   );

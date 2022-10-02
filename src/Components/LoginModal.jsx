@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./LoginModal.scss";
 
 const LoginModal = () => {
   const navigateToClientLogin = useNavigate();
@@ -8,18 +9,18 @@ const LoginModal = () => {
     <div className="login-modal">
       {console.log("hello")}
       <div
-        className="client-login-button"
+        className="client-login-button login-button"
         onClick={() => {
           navigateToClientLogin("/login/client");
         }}
       >
-        Client
+        CLIENT
       </div>
       <div
-        className="admin-login-button"
+        className="admin-login-button login-button"
         onClick={() => navigateToAdminLogin("/login/admin")}
       >
-        Admin
+        ADMIN
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-@import '../assets/scss/styles';
+@import "../assets/scss/styles";
 
 .header {
   display: flex;
@@ -20,7 +20,7 @@
     &:hover {
       color: $color-violet;
     }
-}
+  }
 
   .links {
     display: flex;
@@ -29,7 +29,7 @@
     margin-right: $margin-landing;
 
     .header-links {
-      padding: 0 5px;
+      padding: 0 7px;
       font-weight: 900;
       margin-right: 15px;
       color: $color-violet;
@@ -37,14 +37,16 @@
       border: 3px solid $color-yellowgreen;
       border-radius: 10px;
       cursor: pointer;
+      box-shadow: -3px -3px 6px rgba($color-white, 0.1),
+        3px 3px 6px rgba($color-darkblue, 0.07);
+      border: 3px solid rgba($color-accentgreen, 0.15);
+      border-radius: 10px;
 
       &:hover {
-        background-color: rgba($color-accentgreen, .4);
-        border: 3px solid rgba($color-accentgreen, .2);
-        border-radius: 10px;
+        box-shadow: inset -5px -5px 10px rgba($color-darkblue, 0.08),
+          inset 5px 5px 10px rgba($color-darkblue, 0.08);
+        border: 3px solid rgba($color-accentgreen, 0.3);
       }
     }
-
-
   }
 }
