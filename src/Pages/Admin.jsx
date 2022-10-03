@@ -1,4 +1,4 @@
-import { Routes, Route, Link, NavLink } from "react-router-dom";
+import { Routes, Route, Link, NavLink, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Admin.scss";
 
@@ -15,13 +15,27 @@ import { AiOutlineFileSync } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
 
 const Admin = () => {
-  const USERS = localStorage.getItem("USERS")
-    ? JSON.parse(localStorage.getItem("USERS"))
+  const navigate = useNavigate();
+  const ADMINS = localStorage.getItem("ADMINS")
+    ? JSON.parse(localStorage.getItem("ADMINS"))
     : [];
-  const [users, setUsers] = useState(USERS);
+  const LOGGED_IN = localStorage.getItem("LOGGED_IN")
+    ? JSON.parse(localStorage.getItem("LOGGED_IN"))
+    : {};
+  const loggedInAdmin = ADMINS.find(
+    (admin) => admin.username === LOGGED_IN.user
+  );
+  const [users, setUsers] = useState(ADMINS);
+
   useEffect(() => {
-    localStorage.setItem("USERS", JSON.stringify(users));
-  }, [users]);
+    if (!loggedInAdmin) navigate("/login/admin");
+  });
+
+  const logoutAdmin = () => {
+    console.log("working now");
+    navigate("/");
+    localStorage.removeItem("LOGGED_IN");
+  };
 
   return (
     <div className="admin">
@@ -53,10 +67,10 @@ const Admin = () => {
             </p>
           </NavLink>
         </nav>
-        <Link to="/" className="sign-out">
+        <div className="sign-out" onClick={logoutAdmin}>
           <p className="sign-out-text">Sign out</p>
           <VscSignOut className="sign-out-logo" />
-        </Link>
+        </div>
       </header>
       <Routes>
         <Route index element={<Dashboard />} />

@@ -34,6 +34,11 @@ const User = () => {
     if (!loggedInUser) navigate("/login/client");
   });
 
+  const logoutUser = () => {
+    navigate('/')
+    localStorage.removeItem("LOGGED_IN");
+  };
+
   return (
     <div className="user">
       <header className="user-header">
@@ -64,10 +69,10 @@ const User = () => {
             </p>
           </NavLink>
         </nav>
-        <Link to="/" className="sign-out">
+        <div className="sign-out" onClick={logoutUser}>
           <p className="sign-out-text">Sign out</p>
           <VscSignOut className="sign-out-logo" />
-        </Link>
+        </div>
       </header>
       <Routes>
         <Route index element={<UserDashboard />} />

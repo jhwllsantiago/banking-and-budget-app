@@ -6,9 +6,15 @@ import { useState, useEffect } from "react";
 const Login = ({ data }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const adminArray = [
+    {username: "admin", password: "admin"},
+    {username: "admin_log", password: "thisisadmin"}
+  ]
+  localStorage.setItem("ADMINS", JSON.stringify(adminArray))
   const savedData = localStorage.getItem(data)
     ? JSON.parse(localStorage.getItem(data))
     : [];
+
 
   const [detailsValid, setDetailsValid] = useState(false);
 
@@ -17,30 +23,22 @@ const Login = ({ data }) => {
     password: "",
   });
 
+
+
+
+
   useEffect(() => {
-    let active = savedData.find((data) => {
-      return data.username === details.username
-    })
-    console.log("active_obj", active)
-    // console.log("active_user", active['accountNumber'])
+ const user  = location.pathname.split("/").pop();
 
     if (detailsValid) {
       localStorage.setItem("LOGGED_IN", JSON.stringify({user: details.username}));
-      navigate(`/user`);
+      if ( user === "client" ) {
+        navigate(`/user`);
+      } else if ( user === "admin" ) {
+        navigate(`/admin/dashboard`);
+      }
     }
   }, [detailsValid]);
-
-  // const path = location.pathname.split("/").pop();
-
-
-  // const getAccountNumber = () => {
-  //   savedData.some((data) => {
-  //     if (data.username === details.username) {
-  //       return data.accountNumber;
-  //     }
-  //   });
-  // };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,11 +50,6 @@ const Login = ({ data }) => {
         );
       })
     );
-
-    setDetailsValid ? console.log(data.accountNumber) : console.log("non");
-    console.log("current location", location.pathname);
-    // console.log("path", path);
-    // console.log('active', active)
   };
 
   return (
