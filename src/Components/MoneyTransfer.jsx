@@ -4,7 +4,12 @@ import "./MoneyTransfer.scss";
 import timestamp from "../utility/timestamp";
 import toTwoDecimal from "../utility/toTwoDecimal";
 
-const MoneyTransfer = ({ users, setUsers, channel }) => {
+const MoneyTransfer = ({
+  users,
+  setUsers,
+  navigatePath,
+  showChannelSelect,
+}) => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
     ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
     : [];
@@ -25,22 +30,29 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
   const [transferAmountValid, setTransferAmountValid] = useState(true);
   const [fundsRecipient, setFundsRecipient] = useState("");
   const [fundsRecipientIndex, setFundsRecipientIndex] = useState(-1);
+  const [selectedChannel, setSelectedChannel] = useState("GCASH");
 
   const newTransaction = (
     type,
-    sender = "centavi",
-    recipient = "centavi",
-    amount
+    sender = "N/A",
+    senderName = "N/A",
+    recipient = "N/A",
+    recipientName = "N/A",
+    amount,
+    channel
   ) => {
+    const channelToSave = showChannelSelect ? channel : "ADMIN";
     const transaction = {
       type: type,
       sender: sender,
+      senderName: senderName,
       recipient: recipient,
+      recipientName: recipientName,
       amount: parseFloat(amount).toFixed(2),
       time: timestamp(),
-      channel: channel,
+      channel: channelToSave,
     };
-    const transactions = [...TRANSACTIONS, transaction];
+    const transactions = [transaction, ...TRANSACTIONS];
     localStorage.setItem("TRANSACTIONS", JSON.stringify(transactions));
   };
 
@@ -59,8 +71,16 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
-      newTransaction("Deposit", accountNumber, undefined, depositAmount);
-      navigate("/admin/manage");
+      newTransaction(
+        "Deposit",
+        accountNumber,
+        `${user.firstName} ${user.lastName}`,
+        undefined,
+        undefined,
+        depositAmount,
+        selectedChannel
+      );
+      navigate(navigatePath);
     }
   };
 
@@ -80,8 +100,16 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       };
       localStorage.setItem("USERS", JSON.stringify(currentUsers));
       setUsers(currentUsers);
-      newTransaction("Withdraw", undefined, accountNumber, withdrawAmount);
-      navigate("/admin/manage");
+      newTransaction(
+        "Withdraw",
+        undefined,
+        undefined,
+        accountNumber,
+        `${user.firstName} ${user.lastName}`,
+        withdrawAmount,
+        selectedChannel
+      );
+      navigate(navigatePath);
     }
   };
 
@@ -130,10 +158,13 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
       newTransaction(
         "Transfer",
         accountNumber,
+        `${user.firstName} ${user.lastName}`,
         fundsRecipient.accountNumber,
-        transferAmount
+        `${fundsRecipient.firstName} ${fundsRecipient.lastName}`,
+        transferAmount,
+        "CENTAVI"
       );
-      navigate("/admin/manage");
+      navigate(navigatePath);
     }
   };
 
@@ -161,7 +192,6 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
             )
           }
         />
-        <button onClick={handleDepositClick}>Deposit</button>
       </div>
       <div>
         <label>Withdraw</label>
@@ -180,8 +210,24 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
           }
           className={withdrawAmountValid ? "" : "red-outline"}
         />
-        <button onClick={handleWithdrawClick}>Withdraw</button>
       </div>
+      {showChannelSelect && (
+        <div>
+          <label>Channel</label>
+          <select
+            value={selectedChannel}
+            onChange={(e) => setSelectedChannel(e.target.value)}
+          >
+            <option value="GCASH">GCASH</option>
+            <option value="MAYA">MAYA</option>
+            <option value="PAYPAL">PAYPAL</option>
+            <option value="BDO">BDO</option>
+            <option value="BPI">BPI</option>
+          </select>
+        </div>
+      )}
+      <button onClick={handleDepositClick}>Deposit</button>
+      <button onClick={handleWithdrawClick}>Withdraw</button>
       <div>
         <h4>Transfer Funds</h4>
         <div>
@@ -223,7 +269,7 @@ const MoneyTransfer = ({ users, setUsers, channel }) => {
         )}
         <button onClick={handleTransfer}>Transfer</button>
       </div>
-      <button onClick={() => navigate("/admin/manage")}>Cancel</button>
+      <button onClick={() => navigate(navigatePath)}>Cancel</button>
     </div>
   );
 };
