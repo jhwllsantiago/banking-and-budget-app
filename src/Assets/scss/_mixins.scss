@@ -13,9 +13,8 @@
 @mixin modal-and-signin-container {
   border-radius: 20px;
   background-color: rgba($color-violet, 1);
-  box-shadow: 
-  6px 6px 1px rgba($color-violet, 0.5),
-  7.5px 7.5px 1px rgba($color-violet, 0.6);
+  box-shadow: 6px 6px 1px rgba($color-violet, 0.5),
+    7.5px 7.5px 1px rgba($color-violet, 0.6);
   border: 3px solid rgba($color-darkblue, 0.04);
   color: $color-lightgrey;
 }
@@ -29,8 +28,8 @@
   font-weight: $font-weight;
 }
 
-@mixin button-hover ($background-color, $border-color, $font-color) {
-    background-color: $background-color;
-    color: $font-color;
-    border: 3px solid $border-color;
+@mixin button-hover($background-color, $border-color, $font-color) {
+  background-color: $background-color;
+  color: $font-color;
+  border: 3px solid $border-color;
 }

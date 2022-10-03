@@ -35,7 +35,7 @@ const User = () => {
   });
 
   const logoutUser = () => {
-    navigate('/')
+    navigate("/");
     localStorage.removeItem("LOGGED_IN");
   };
 

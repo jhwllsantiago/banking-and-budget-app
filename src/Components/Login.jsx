@@ -7,14 +7,13 @@ const Login = ({ data }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const adminArray = [
-    {username: "admin", password: "admin"},
-    {username: "admin_log", password: "thisisadmin"}
-  ]
-  localStorage.setItem("ADMINS", JSON.stringify(adminArray))
+    { username: "admin", password: "admin" },
+    { username: "admin_log", password: "thisisadmin" },
+  ];
+  localStorage.setItem("ADMINS", JSON.stringify(adminArray));
   const savedData = localStorage.getItem(data)
     ? JSON.parse(localStorage.getItem(data))
     : [];
-
 
   const [detailsValid, setDetailsValid] = useState(false);
 
@@ -23,18 +22,17 @@ const Login = ({ data }) => {
     password: "",
   });
 
-
-
-
-
   useEffect(() => {
- const user  = location.pathname.split("/").pop();
+    const user = location.pathname.split("/").pop();
 
     if (detailsValid) {
-      localStorage.setItem("LOGGED_IN", JSON.stringify({user: details.username}));
-      if ( user === "client" ) {
+      localStorage.setItem(
+        "LOGGED_IN",
+        JSON.stringify({ user: details.username })
+      );
+      if (user === "client") {
         navigate(`/user`);
-      } else if ( user === "admin" ) {
+      } else if (user === "admin") {
         navigate(`/admin/dashboard`);
       }
     }

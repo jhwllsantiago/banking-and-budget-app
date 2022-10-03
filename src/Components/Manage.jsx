@@ -138,12 +138,12 @@ const Manage = ({ users, setUsers }) => {
         </ul>
       </div>
       <div className="no-users">
-          {users.length === 0 && (
-            <p>
-              NO USERS FOUND <TbMoodEmpty />
-            </p>
-          )}
-        </div>
+        {users.length === 0 && (
+          <p>
+            NO USERS FOUND <TbMoodEmpty />
+          </p>
+        )}
+      </div>
       <Routes>
         <Route
           path="user/:accountNumber"

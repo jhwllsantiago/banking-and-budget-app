@@ -13,8 +13,14 @@ const App = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/user/*" element={<User />} />
-        <Route path="login/client" element={<Login data="USERS" logged="user" />} />
-        <Route path="login/admin" element={<Login data="ADMINS" logged="admin" />} />
+        <Route
+          path="login/client"
+          element={<Login data="USERS" logged="user" />}
+        />
+        <Route
+          path="login/admin"
+          element={<Login data="ADMINS" logged="admin" />}
+        />
         <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
