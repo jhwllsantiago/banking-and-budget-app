@@ -47,15 +47,6 @@
       padding: 5px;
     }
 
-    .no-users {
-      font-size: 30px;
-      top: 50px;
-      text-align: center;
-      z-index: 1000;
-      color: $color-darkblue;
-      position: absolute;
-    }
-
     ul {
       margin-top: 50px;
       margin-bottom: 20px;
@@ -102,5 +93,20 @@
         }
       }
     }
+  }
+
+  .no-users {
+    font-size: 30px;
+    top: 50px;
+    text-align: center;
+    z-index: 1000;
+    color: $color-darkblue;
+    font-size: xx-large;
+    grid-column: 5/11;
+    grid-row: 4/7;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
