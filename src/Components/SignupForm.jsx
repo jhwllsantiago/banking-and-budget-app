@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import capitalize from "../utility/capitalize.js";
 import "./SignUpForm.scss";
+import toTwoDecimal from "../utility/toTwoDecimal.js";
 
 const SignUpForm = ({
   handleSubmitEvent,
@@ -56,12 +57,18 @@ const SignUpForm = ({
     setPasswordValid(() => value.length > 7);
   };
 
+  const handleDeposit = (value) => {
+    value = toTwoDecimal(value);
+    setAmount(value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
       usernameValid &&
       emailValid &&
       passwordValid &&
+      amount !== "." &&
       (checked || !showCheckbox)
     ) {
       const updatedUsers = [
@@ -72,7 +79,7 @@ const SignUpForm = ({
           username,
           email,
           password,
-          amount,
+          balance: parseFloat(amount).toFixed(2),
           status: "PENDING",
           accountNumber: "-",
         },
@@ -161,8 +168,15 @@ const SignUpForm = ({
           required
           spellCheck="false"
           autoComplete="false"
+          maxLength="9"
           value={amount}
-          onChange={(e) => setAmount(e.target.value.replace(/\D/g, ""))}
+          onChange={(e) =>
+            handleDeposit(
+              e.target.value
+                .replace(/[^0-9.]/g, "")
+                .replace(/(\..*?)\..*/g, "$1")
+            )
+          }
         />
       </div>
       {showCheckbox && (

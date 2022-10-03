@@ -21,15 +21,10 @@ const Header = () => {
         </Link>
         <span
           onClick={() => {
-            if (showModal === false) {
-              setShowModal(true);
-              setActiveButton(true);
-            } else {
-              setShowModal(false);
-              setActiveButton(false);
-            }
+            setShowModal(!showModal);
+            setActiveButton(!activeButton);
           }}
-          className={"header-links" + " " + (activeButton ? "active" : "")}
+          className={"header-links " + (activeButton ? "active" : "")}
         >
           LOGIN
         </span>
