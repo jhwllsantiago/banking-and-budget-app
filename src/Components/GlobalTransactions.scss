@@ -1,33 +1,114 @@
+@import "../assets/scss/styles";
+
 .global-transactions {
-  position: absolute;
-  top: 100px;
-  right: 0px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(12, 6%);
+  column-gap: 2%;
+  grid-template-rows: repeat(12, 6%);
+  row-gap: 2%;
+  width: 100vw;
+  height: 100vh;
+  margin: 2%;
 
   .transactions-table {
-    width: 1000px;
+    background-color: rgba($color-lightgrey, 0.095);
+    box-shadow: -12px -12px 24px rgba($color-white, 0.3),
+      inset 15px 15px 50px rgba($color-white, 0.1),
+      12px 12px 24px rgba($color-darkblue, 0.06);
+    border-radius: 25px;
+    grid-column: 3/13;
+    grid-row: 2/12;
+    overflow-x: hidden;
+    position: relative;
+    border-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+
+    .transactions-header {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      place-items: center;
+      background-color: antiquewhite;
+      background-color: $color-lightgrey;
+      padding: 0.5%;
+      overflow-y: none;
+
+      
+      .transaction-type {
+        position: relative;
+        text-align: end;
+
+        .transactions-label {
+          display: flex;
+          align-items: center;
+
+          .dropdown-icon {
+            font-size: 2em;
+          }
+        }
+
+        .transactions-controls {
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+          position: absolute;
+          background-color: $color-lightgrey;
+          width: max-content;
+          padding: 10%;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+
+          input[type="checkbox"] {
+            margin-right: 5px;
+          }
+        }
+      }
+
+      .sender-container,
+      .recepient-container {
+        position: relative;
+        width: 100%;
+        text-align: center;
+
+        .search-icon {
+          font-size: 0.8em;
+          margin-right: 10px;
+        }
+
+        .transactions-searchbar {
+          position: absolute;
+          background-color: $color-lightgrey;
+          padding: 8%;
+          border-radius: 10px;
+          border: 3px solid $color-lightgrey;
+          width: 140px;
+          height: 30px;
+          font-size: 1em;
+
+          margin-left: auto;
+          margin-right: auto;
+          left: 0;
+          right: 0;
+        }
+      }
+    }
   }
 
-  .transactions-header {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    place-items: center;
-  }
   .transactions-list li {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     place-items: center;
+
+.float-value {
+  font-family: "Open Sans", sans-serif;
+}
+.transaction-amount {
+  display: flex;
+  margin-left: auto;
+  margin-right: 20%;
+}
   }
 
-  .transactions-controls {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-
-    input[type="checkbox"] {
-      margin-right: 5px;
-    }
-  }
   input[type="text"] {
     width: 80%;
   }

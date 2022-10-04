@@ -3,6 +3,10 @@ import "./GlobalTransactions.scss";
 import { TbMoodEmpty } from "react-icons/tb";
 import { useEffect } from "react";
 
+//Icons//
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { FaSearch } from "react-icons/fa";
+
 const GlobalTransactions = () => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
     ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
@@ -68,8 +72,11 @@ const GlobalTransactions = () => {
       <div className="transactions-table">
         <div className="transactions-header">
           <h3>TIME</h3>
-          <div>
-            <h3>TYPE</h3>
+          <div className="transaction-type">
+            <h3 className="transactions-label">
+              <RiArrowDropDownLine className="dropdown-icon" />
+              TYPE
+            </h3>
             <div className="transactions-controls">
               <div>
                 <input
@@ -101,11 +108,15 @@ const GlobalTransactions = () => {
             </div>
           </div>
           <h3>AMOUNT</h3>
-          <div>
-            <h3>SENDER</h3>
+          <div className="sender-container">
+            <h3>
+              <FaSearch className="search-icon"/>
+              SENDER
+            </h3>
             <input
               type="text"
               maxLength="10"
+              className="transactions-searchbar"
               value={senderSearch}
               onChange={(e) => handleSenderSearch(e.target.value)}
               onFocus={() => {
@@ -114,11 +125,17 @@ const GlobalTransactions = () => {
               }}
             />
           </div>
-          <div>
-            <h3>RECIPIENT</h3>
+          <div className="recepient-container">
+            <h3>
+              {" "}
+              <FaSearch className="search-icon"/>
+              RECIPIENT
+            </h3>
+
             <input
               type="text"
               maxLength="10"
+              className="transactions-searchbar"
               value={recipientSearch}
               onChange={(e) => handleRecipientSearch(e.target.value)}
               onFocus={() => {
@@ -142,11 +159,11 @@ const GlobalTransactions = () => {
           {transactions.map((transaction, idx) => {
             return (
               <li key={idx}>
-                <div>{transaction.time}</div>
+                <div className="float-value">{transaction.time}</div>
                 <div>{transaction.type}</div>
-                <div>{transaction.amount}</div>
-                <div>{transaction.sender}</div>
-                <div>{transaction.recipient}</div>
+                <div className="float-value transaction-amount">{transaction.amount}</div>
+                <div className="float-value">{transaction.sender}</div>
+                <div className="float-value">{transaction.recipient}</div>
                 <div>{transaction.channel}</div>
               </li>
             );

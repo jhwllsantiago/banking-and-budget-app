@@ -12,7 +12,7 @@
 
   .dashboard-graph {
     border-radius: 20px;
-    background-color: rgba($color-lightgrey, 1);
+    background-color: $color-lightgrey;
     box-shadow: 2.5px 2.5px 1px rgba($color-lightgrey, 0.2),
       3px 3px 1px rgba($color-lightgrey, 0.3),
       4.5px 4.5px 1px rgba($color-lightgrey, 0.3),

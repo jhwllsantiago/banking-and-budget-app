@@ -25,18 +25,3 @@
   border: 3px solid rgba($color-darkblue, 0.04);
   color: $color-lightgrey;
 }
-
-@mixin buttons($background-color, $border-color, $font-color, $font-weight) {
-  cursor: pointer;
-  background-color: $background-color;
-  transition: 300ms ease;
-  border: 3px solid $border-color;
-  color: $font-color;
-  font-weight: $font-weight;
-}
-
-@mixin button-hover($background-color, $border-color, $font-color) {
-  background-color: $background-color;
-  color: $font-color;
-  border: 3px solid $border-color;
-}
