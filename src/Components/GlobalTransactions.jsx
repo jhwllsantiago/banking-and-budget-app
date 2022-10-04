@@ -20,6 +20,8 @@ const GlobalTransactions = () => {
   const [senderSearch, setSenderSearch] = useState("");
   const [recipientSearch, setRecipientSearch] = useState("");
 
+  const [showDropdown, setShowDropdown] = useState(false);
+
   const handleChange = (type) => {
     setSenderSearch("");
     setRecipientSearch("");
@@ -74,49 +76,58 @@ const GlobalTransactions = () => {
           <h3>TIME</h3>
           <div className="transaction-type">
             <h3 className="transactions-label">
-              <RiArrowDropDownLine className="dropdown-icon" />
+              <RiArrowDropDownLine
+                className="dropdown-icon"
+                onClick={() => {
+                  setShowDropdown(!showDropdown);
+                }}
+              />
               TYPE
             </h3>
-            <div className="transactions-controls">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={depositChecked}
-                  onClick={() => setDepositChecked(!depositChecked)}
-                  onChange={() => handleChange("Deposit")}
-                />
-                <label>Deposits</label>
+            {showDropdown && (
+              <div className="transactions-controls">
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={depositChecked}
+                    onClick={() => setDepositChecked(!depositChecked)}
+                    onChange={() => handleChange("Deposit")}
+                  />
+                  <label>Deposits</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={withdrawChecked}
+                    onClick={() => setWithdrawChecked(!withdrawChecked)}
+                    onChange={() => handleChange("Withdraw")}
+                  />
+                  <label>Withdrawals</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={transferChecked}
+                    onClick={() => setTransferChecked(!transferChecked)}
+                    onChange={() => handleChange("Transfer")}
+                  />
+                  <label>Transfers</label>
+                </div>
               </div>
-              <div>
-                <input
-                  type="checkbox"
-                  checked={withdrawChecked}
-                  onClick={() => setWithdrawChecked(!withdrawChecked)}
-                  onChange={() => handleChange("Withdraw")}
-                />
-                <label>Withdrawals</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  checked={transferChecked}
-                  onClick={() => setTransferChecked(!transferChecked)}
-                  onChange={() => handleChange("Transfer")}
-                />
-                <label>Transfers</label>
-              </div>
-            </div>
+            )}
           </div>
+
           <h3>AMOUNT</h3>
           <div className="sender-container">
             <h3>
-              <FaSearch className="search-icon"/>
+              <FaSearch className="search-icon" />
               SENDER
             </h3>
             <input
               type="text"
               maxLength="10"
               className="transactions-searchbar"
+              placeholder="account number"
               value={senderSearch}
               onChange={(e) => handleSenderSearch(e.target.value)}
               onFocus={() => {
@@ -128,7 +139,7 @@ const GlobalTransactions = () => {
           <div className="recepient-container">
             <h3>
               {" "}
-              <FaSearch className="search-icon"/>
+              <FaSearch className="search-icon" />
               RECIPIENT
             </h3>
 
@@ -136,6 +147,7 @@ const GlobalTransactions = () => {
               type="text"
               maxLength="10"
               className="transactions-searchbar"
+              placeholder="account number"
               value={recipientSearch}
               onChange={(e) => handleRecipientSearch(e.target.value)}
               onFocus={() => {
@@ -161,7 +173,9 @@ const GlobalTransactions = () => {
               <li key={idx}>
                 <div className="float-value">{transaction.time}</div>
                 <div>{transaction.type}</div>
-                <div className="float-value transaction-amount">{transaction.amount}</div>
+                <div className="float-value transaction-amount">
+                  {transaction.amount}
+                </div>
                 <div className="float-value">{transaction.sender}</div>
                 <div className="float-value">{transaction.recipient}</div>
                 <div>{transaction.channel}</div>

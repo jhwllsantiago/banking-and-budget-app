@@ -11,11 +11,6 @@
   margin: 2%;
 
   .transactions-table {
-    background-color: rgba($color-lightgrey, 0.095);
-    box-shadow: -12px -12px 24px rgba($color-white, 0.3),
-      inset 15px 15px 50px rgba($color-white, 0.1),
-      12px 12px 24px rgba($color-darkblue, 0.06);
-    border-radius: 25px;
     grid-column: 3/13;
     grid-row: 2/12;
     overflow-x: hidden;
@@ -23,17 +18,27 @@
     border-bottom: 10px;
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
+    background-color: $color-lightgrey;
+    box-shadow: 2.5px 2.5px 1px rgba($color-lightgrey, 0.2),
+      3px 3px 1px rgba($color-white, 0.3),
+      4.5px 4.5px 1px rgba($color-lightgrey, 0.3),
+      5.5px 5.5px 1px rgba($color-white, 0.4),
+      6.5px 6.5px 1px rgba($color-darkblue, 0.1),
+      8.5px 8.5px 1px rgba($color-darkblue, 0.13);
+    border: 3px solid rgba($color-darkblue, 0.04);
+    color: $color-violet;
 
     .transactions-header {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
       place-items: center;
+      align-items: flex-end;
       background-color: antiquewhite;
       background-color: $color-lightgrey;
-      padding: 0.5%;
+      padding: 1.7%;
       overflow-y: none;
 
-      
       .transaction-type {
         position: relative;
         text-align: end;
@@ -84,32 +89,75 @@
           width: 140px;
           height: 30px;
           font-size: 1em;
-
           margin-left: auto;
           margin-right: auto;
+          margin-bottom: 3px;
           left: 0;
           right: 0;
+          text-align: center;
+
+          box-shadow: -12px -12px 24px rgba($color-white, 0.3),
+            inset -5px -5px 10px rgba($color-darkblue, 0.07),
+            inset 5px 5px 10px rgba($color-darkblue, 0.07),
+            12px 12px 24px rgba($color-darkblue, 0.06);
+          border: 3px solid rgba($color-darkblue, 0.07);
+          background-color: rgba($color-darkblue, 0.06);
+        }
+
+        ::placeholder {
+          font-size: 0.75em;
+          color: rgba($color-violet, 0.4);
         }
       }
     }
   }
 
-  .transactions-list li {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    place-items: center;
+  .transactions-list {
+    margin-top: 15px;
+    margin-bottom: 20px;
+    overflow-y: scroll;
 
-.float-value {
-  font-family: "Open Sans", sans-serif;
-}
-.transaction-amount {
-  display: flex;
-  margin-left: auto;
-  margin-right: 20%;
-}
-  }
+    &::-webkit-scrollbar {
+      margin: 3px;
+      width: 5px;
+    }
 
-  input[type="text"] {
-    width: 80%;
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-darkblue;
+      border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin-top: 5px;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      place-items: center;
+      padding: 2px 5px;
+      cursor: pointer;
+      background-color: rgba($color-darkblue, 0.07);
+      border: 2px solid rgba($color-darkblue, 0.2);
+      border-left: none;
+      border-right: none;
+      margin-top: 5px;
+      font-size: 1em;
+
+      &:hover {
+        border: 2px solid rgba($color-accentviolet, 0.2);
+        color: $color-lightgrey;
+        background-color: $color-accentviolet;
+      }
+
+      .float-value {
+        font-family: "Open Sans", sans-serif;
+      }
+      .transaction-amount {
+        display: flex;
+        margin-left: auto;
+        margin-right: 20%;
+      }
+    }
   }
 }
