@@ -48,11 +48,6 @@ const GlobalTransactions = () => {
     setTransferChecked(true);
   };
 
-  const handleDelete = () => {
-    setTransactions([]);
-    localStorage.setItem("TRANSACTIONS", JSON.stringify([]));
-  };
-
   const handleSenderSearch = (value) => {
     setSenderSearch(value);
     const filtered = TRANSACTIONS.filter((transaction) =>
@@ -79,7 +74,7 @@ const GlobalTransactions = () => {
           <div className="transaction-type">
             <h3 className="transactions-label">
               <RiArrowDropDownLine
-                className="dropdown-icon icon"
+                className="dropdown-icon"
                 onClick={() => {
                   setShowDropdown(!showDropdown);
                 }}
@@ -199,8 +194,6 @@ const GlobalTransactions = () => {
           })}
         </ul>
       </div>
-
-      <button onClick={handleDelete}>Clear Transactions</button>
     </div>
   );
 };
