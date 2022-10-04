@@ -1,84 +1,115 @@
 @import "../assets/scss/styles";
 @import "../assets/scss/mixins";
 
-body {
-  background-color: $color-lightgrey;
-  accent-color: $color-violet;
-}
+.signUpContainer {
+  @include center-element-in-viewport(-1);
+  accent-color: $color-yellowgreen;
 
-.sign-up-form {
-  position: relative;
-  top: 50vh;
-  left: 50vw;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  padding: 30px;
-  background-color: rgba($color-darkblue, 0.2);
-  box-shadow: 5px 5px 5px rgb(194, 192, 192);
-
-  h3 {
-    text-align: center;
+  ::placeholder {
+    font-size: 0.8em;
   }
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  input {
-    padding: 5px 10px;
-    width: 100%;
-    color: $color-darkblue;
-    caret-color: $color-darkblue;
-  }
-  .form-control {
-    padding: 5px;
-  }
-  .red-outline {
-    outline: 2px solid red;
-  }
-
-  .checkbox-container {
+  .sign-up-form,
+  .add-user-form {
+    @include modal-and-signin-container;
+    padding: 30px;
     display: flex;
-    align-items: baseline;
-    gap: 5%;
+    flex-direction: column;
+    gap: 5px;
+    color: $color-white;
+    width: 30%;
 
-    &:hover > .checkbox-label {
+    h3 {
+      text-align: center;
+    }
+
+    .form-control {
+      padding: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 5%;
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        white-space: pre;
+      }
+      input {
+        // padding: 5px 10px;
+        width: 80%;
+        // display: flex;
+        // align-self: flex-end;
+        // justify-self: flex-end;
+        // color: $color-darkblue;
+        // caret-color: $color-darkblue;
+        border-radius: 10px;
+        border: none;
+        padding: 5px 5px;
+        color: $color-darkblue;
+      }
+    }
+    .red-outline {
+      outline: 2px solid red;
+    }
+
+    .checkbox-container {
+      display: flex;
+      align-items: baseline;
+      gap: 5%;
+
+      &:hover > .checkbox-label {
+        .terms-link {
+          color: $color-yellowgreen;
+          text-decoration: underline;
+        }
+      }
+
+      .checkbox {
+        width: 5%;
+        transform: scale(1.5);
+        margin-left: 2px;
+        cursor: pointer;
+        padding: 3px;
+
+        &:hover {
+          background-color: rgba($color-lightgrey, 0.9);
+        }
+      }
+
+      .checkbox-label {
+        font-size: 1em;
+      }
+
       .terms-link {
-        color: $color-violet;
-        text-decoration: underline;
+        cursor: pointer;
       }
     }
 
-    .checkbox {
-      width: 5%;
-      transform: scale(1.5);
-      margin-left: 2px;
+    .sign-up-button {
+      margin-left: auto;
+      margin-right: auto;
+      width: 70%;
+      margin-top: 20px;
+      padding: 5px;
+      border-radius: 10px;
       cursor: pointer;
-      padding: 3px;
+      transition: 300ms ease;
+      font-weight: 900;
+      color: $color-lightgrey;
+      letter-spacing: 1px;
+      background-color: rgba($color-violet, 0.95);
+      box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.3),
+        3px 3px 6px rgba($color-darkblue, 0.6);
+      border: 3px solid rgba($color-accentgreen, 0.06);
 
       &:hover {
-        background-color: rgba($color-lightgrey, 0.9);
+        box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.08),
+          inset -8px -8px 10px rgba($color-darkblue, 0.1),
+          inset 8px 8px 10px rgba($color-darkblue, 0.1),
+          12px 12px 24px rgba($color-darkblue, 0.06);
+        border: 3px solid rgba($color-violet, 0.5);
+        background-color: rgba($color-darkblue, 0.08);
       }
-    }
-
-    .checkbox-label {
-      font-size: 1em;
-    }
-
-    .terms-link {
-      cursor: pointer;
-    }
-  }
-
-  .sign-up-button {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1px 10px 1px 10px;
-    border-radius: 10px;
-    @include buttons($color-lightgrey, $color-lightgrey, $color-violet, 700);
-
-    &:hover {
-      @include button-hover($color-violet, $color-violet, $color-lightgrey);
     }
   }
 }
