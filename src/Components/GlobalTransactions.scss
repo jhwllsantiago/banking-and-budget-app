@@ -48,7 +48,16 @@
           align-items: center;
 
           .dropdown-icon {
-            font-size: 2em;
+            font-size: 1.5em;
+            cursor: pointer;
+            border-radius: 50%;
+
+            &:hover {
+              box-shadow: -12px -12px 24px rgba($color-white, 0.3),
+                inset -5px -5px 10px rgba($color-darkblue, 0.07),
+                inset 5px 5px 10px rgba($color-darkblue, 0.07),
+                12px 12px 24px rgba($color-darkblue, 0.06);
+            }
           }
         }
 
@@ -59,9 +68,10 @@
           position: absolute;
           background-color: $color-lightgrey;
           width: max-content;
-          padding: 10%;
+          padding: 20% 20% 10% 20%;
           border-bottom-left-radius: 10px;
           border-bottom-right-radius: 10px;
+          accent-color: $color-violet;
 
           input[type="checkbox"] {
             margin-right: 5px;
@@ -72,12 +82,25 @@
       .sender-container,
       .recepient-container {
         position: relative;
-        width: 100%;
+        width: 80%;
         text-align: center;
 
         .search-icon {
-          font-size: 0.8em;
-          margin-right: 10px;
+          font-size: 0.9em;
+          cursor: pointer;
+          border-radius: 50%;
+          box-sizing: content-box;
+          padding: 6px;
+          display: flex;
+          position: absolute;
+          bottom: 3px;
+
+          &:hover {
+            box-shadow: -12px -12px 24px rgba($color-white, 0.3),
+              inset -5px -5px 10px rgba($color-darkblue, 0.07),
+              inset 5px 5px 10px rgba($color-darkblue, 0.07),
+              12px 12px 24px rgba($color-darkblue, 0.06);
+          }
         }
 
         .transactions-searchbar {
@@ -100,14 +123,18 @@
             inset -5px -5px 10px rgba($color-darkblue, 0.07),
             inset 5px 5px 10px rgba($color-darkblue, 0.07),
             12px 12px 24px rgba($color-darkblue, 0.06);
-          border: 3px solid rgba($color-darkblue, 0.07);
-          background-color: rgba($color-darkblue, 0.06);
+          border: 3px solid rgba($color-darkblue, 0.08);
+          background-color: rgba($color-darkblue, 0.04);
         }
 
         ::placeholder {
           font-size: 0.75em;
           color: rgba($color-violet, 0.4);
         }
+      }
+
+      .recepient-container {
+        width: 90%;
       }
     }
   }
@@ -142,7 +169,7 @@
       border-left: none;
       border-right: none;
       margin-top: 5px;
-      font-size: 1em;
+      font-size: 1.05em;
 
       &:hover {
         border: 2px solid rgba($color-accentviolet, 0.2);

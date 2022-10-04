@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 //Icons//
 import { RiArrowDropDownLine } from "react-icons/ri";
-import { FaSearch } from "react-icons/fa";
+import { IoIosSearch } from "react-icons/io";
 
 const GlobalTransactions = () => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
@@ -21,6 +21,8 @@ const GlobalTransactions = () => {
   const [recipientSearch, setRecipientSearch] = useState("");
 
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showSenders, setShowSenders] = useState(false);
+  const [showRecepients, setShowRecepients] = useState(false);
 
   const handleChange = (type) => {
     setSenderSearch("");
@@ -77,7 +79,7 @@ const GlobalTransactions = () => {
           <div className="transaction-type">
             <h3 className="transactions-label">
               <RiArrowDropDownLine
-                className="dropdown-icon"
+                className="dropdown-icon icon"
                 onClick={() => {
                   setShowDropdown(!showDropdown);
                 }}
@@ -120,41 +122,54 @@ const GlobalTransactions = () => {
           <h3>AMOUNT</h3>
           <div className="sender-container">
             <h3>
-              <FaSearch className="search-icon" />
+              <IoIosSearch
+                className="search-icon"
+                onClick={() => {
+                  setShowSenders(!showSenders);
+                }}
+              />
               SENDER
             </h3>
-            <input
-              type="text"
-              maxLength="10"
-              className="transactions-searchbar"
-              placeholder="account number"
-              value={senderSearch}
-              onChange={(e) => handleSenderSearch(e.target.value)}
-              onFocus={() => {
-                setRecipientSearch("");
-                resetChecked();
-              }}
-            />
+            {showSenders && (
+              <input
+                type="text"
+                maxLength="10"
+                className="transactions-searchbar"
+                placeholder="Search"
+                value={senderSearch}
+                onChange={(e) => handleSenderSearch(e.target.value)}
+                onFocus={() => {
+                  setRecipientSearch("");
+                  resetChecked();
+                }}
+              />
+            )}
           </div>
           <div className="recepient-container">
             <h3>
               {" "}
-              <FaSearch className="search-icon" />
+              <IoIosSearch
+                className="search-icon"
+                onClick={() => {
+                  setShowRecepients(!showRecepients);
+                }}
+              />
               RECIPIENT
             </h3>
-
-            <input
-              type="text"
-              maxLength="10"
-              className="transactions-searchbar"
-              placeholder="account number"
-              value={recipientSearch}
-              onChange={(e) => handleRecipientSearch(e.target.value)}
-              onFocus={() => {
-                setSenderSearch("");
-                resetChecked();
-              }}
-            />
+            {showRecepients && (
+              <input
+                type="text"
+                maxLength="10"
+                className="transactions-searchbar"
+                placeholder="Search"
+                value={recipientSearch}
+                onChange={(e) => handleRecipientSearch(e.target.value)}
+                onFocus={() => {
+                  setSenderSearch("");
+                  resetChecked();
+                }}
+              />
+            )}
           </div>
           <h3>CHANNEL</h3>
         </div>
