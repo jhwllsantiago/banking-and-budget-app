@@ -7,24 +7,25 @@ import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useEffect } from "react";
 
+// const [editingValue, setEditingValue] = useState("");
+// const [editingIndex, setEditingIndex] = useState(-1);
+
 const Budget = ({ user }) => {
   const dataObj = {};
   const [budget, setBudget] = useState(user.balance);
   const [income, setIncome] = useState("0.00");
   const [incomeDisabled, setIncomeDisabled] = useState(false);
-  const data = [
-    ["Category", "Allocation"],
-    ["Savings", parseFloat(user.balance) + parseFloat(income)],
-  ];
-  const [chartData, setChartData] = useState(data);
+  const [savings, setSavings] = useState([
+    "Savings",
+    parseFloat(user.balance) + parseFloat(income),
+  ]);
+  const [budgetList, setBudgetList] = useState([]);
+  const [category, setCategory] = useState("");
   const [allocation, setAllocation] = useState("");
-  const categoryRef = useRef();
 
   const handleIncome = (value) => {
-    if (value) {
-      value = toTwoDecimal(value);
-      setIncome(value);
-    }
+    value = toTwoDecimal(value);
+    setIncome(value);
   };
   const handleIncomeClick = () => {
     if (income) {
@@ -37,38 +38,35 @@ const Budget = ({ user }) => {
     setAllocation(value);
   };
   const handleBudgetAdd = () => {
-    const category = categoryRef.current.value.trim();
+    if (parseFloat(income)) {
+      handleIncomeClick();
+      setIncome(parseFloat(income).toFixed(2));
+    }
     if (category && parseFloat(allocation) > 0) {
-      const newChartData = [...chartData, [category, parseFloat(allocation)]];
-      const newAllocation = parseFloat(budget) - parseFloat(allocation);
-      setBudget(newAllocation.toFixed(2));
-      setChartData(newChartData);
+      const newBudgetList = [...budgetList, [category, parseFloat(allocation)]];
+      const newBudget = parseFloat(budget) - parseFloat(allocation);
+      setBudget(newBudget.toFixed(2));
+      setBudgetList(newBudgetList);
       setIncomeDisabled(true);
     }
   };
   useEffect(() => {
-    setChartData((chartData) => {
-      const newChartData = [...chartData];
-      console.log("effect", newChartData);
-      newChartData[1] = [
-        "Savings",
-        parseFloat(budget) > 0 ? parseFloat(budget) : 0,
-      ];
-      return newChartData;
-    });
+    setSavings(["Savings", parseFloat(budget) > 0 ? parseFloat(budget) : 0]);
   }, [budget]);
+
   const handleBudgetReset = () => {
-    setBudget((parseFloat(user.balance) + parseFloat(income)).toFixed(2));
-    setChartData(data);
+    const parsedIncome = parseFloat(income) || 0;
+    setBudget((parseFloat(user.balance) + parsedIncome).toFixed(2));
+    setBudgetList([]);
     setIncomeDisabled(false);
   };
 
-  const handleCategoryEdit = (idx) => {};
-  const handleCategoryDelete = (idx) => {
+  const handleBudgetEdit = (idx) => {};
+  const handleBudgetDelete = (idx) => {
     setBudget((budget) =>
-      (parseFloat(budget) + parseFloat(chartData[idx][1])).toFixed(2)
+      (parseFloat(budget) + parseFloat(budgetList[idx][1])).toFixed(2)
     );
-    setChartData((item) => {
+    setBudgetList((item) => {
       return item.filter((_, index) => index !== idx);
     });
   };
@@ -85,24 +83,30 @@ const Budget = ({ user }) => {
       </div>
       <div className="expected-income">
         <h3>Expected Income</h3>
-        <input
-          type="text"
-          spellCheck="false"
-          autoComplete="false"
-          disabled={incomeDisabled}
-          value={income}
-          onFocus={() => setIncome("")}
-          onChange={(e) =>
-            handleIncome(
-              e.target.value
-                .replace(/[^0-9.]/g, "")
-                .replace(/(\..*?)\..*/g, "$1")
-            )
-          }
-        />
-        <button disabled={incomeDisabled} onClick={handleIncomeClick}>
-          OK
-        </button>
+        {incomeDisabled ? (
+          <h3>{parseFloat(income) ? parseFloat(income).toFixed(2) : "0.00"}</h3>
+        ) : (
+          <div>
+            <input
+              type="text"
+              spellCheck="false"
+              autoComplete="false"
+              disabled={incomeDisabled}
+              value={income}
+              onFocus={() => setIncome("")}
+              onChange={(e) =>
+                handleIncome(
+                  e.target.value
+                    .replace(/[^0-9.]/g, "")
+                    .replace(/(\..*?)\..*/g, "$1")
+                )
+              }
+            />
+            <button disabled={incomeDisabled} onClick={handleIncomeClick}>
+              OK
+            </button>
+          </div>
+        )}
       </div>
       <div className="budget-allocation">
         <h3>Budget Allocation</h3>
@@ -114,7 +118,8 @@ const Budget = ({ user }) => {
             autoComplete="false"
             placeholder="Transport"
             maxLength="20"
-            ref={categoryRef}
+            value={category}
+            onChange={(e) => setCategory(e.target.value.trimStart())}
           />
         </div>
         <div>
@@ -145,25 +150,21 @@ const Budget = ({ user }) => {
           <h4>Actions</h4>
         </div>
         <ul className="budget-list">
-          {chartData.map((data, idx) => {
-            if (idx === 0 || idx === 1) {
-              return null;
-            } else {
-              return (
-                <li key={idx}>
-                  <div>{data[0]}</div>
-                  <div>{data[1].toFixed(2)}</div>
-                  <div>
-                    <i onClick={() => handleCategoryEdit(idx)}>
-                      <AiFillEdit />
-                    </i>
-                    <i onClick={() => handleCategoryDelete(idx)}>
-                      <RiDeleteBinLine />
-                    </i>
-                  </div>
-                </li>
-              );
-            }
+          {budgetList.map((data, idx) => {
+            return (
+              <li key={idx}>
+                <div>{data[0]}</div>
+                <div>{data[1].toFixed(2)}</div>
+                <div>
+                  <i onClick={() => handleBudgetEdit(idx)}>
+                    <AiFillEdit />
+                  </i>
+                  <i onClick={() => handleBudgetDelete(idx)}>
+                    <RiDeleteBinLine />
+                  </i>
+                </div>
+              </li>
+            );
           })}
         </ul>
       </div>
@@ -172,7 +173,7 @@ const Budget = ({ user }) => {
           chartType="PieChart"
           width="400px"
           height="400px"
-          data={chartData}
+          data={[["Category", "Allocation"], savings, ...budgetList]}
           options={{
             title: `${user.firstName}'s Budget`,
             pieHole: 0.4,
