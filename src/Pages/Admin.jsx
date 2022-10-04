@@ -16,16 +16,19 @@ import { VscSignOut } from "react-icons/vsc";
 
 const Admin = () => {
   const navigate = useNavigate();
-  const ADMINS = localStorage.getItem("ADMINS")
-    ? JSON.parse(localStorage.getItem("ADMINS"))
+  const USERS = localStorage.getItem("USERS")
+    ? JSON.parse(localStorage.getItem("USERS"))
     : [];
   const LOGGED_IN = localStorage.getItem("LOGGED_IN")
     ? JSON.parse(localStorage.getItem("LOGGED_IN"))
     : {};
+  const ADMINS = localStorage.getItem("ADMINS")
+    ? JSON.parse(localStorage.getItem("ADMINS"))
+    : [];
   const loggedInAdmin = ADMINS.find(
     (admin) => admin.username === LOGGED_IN.user
   );
-  const [users, setUsers] = useState(ADMINS);
+  const [users, setUsers] = useState(USERS);
 
   useEffect(() => {
     if (!loggedInAdmin) navigate("/login/admin");

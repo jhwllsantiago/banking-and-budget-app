@@ -18,24 +18,11 @@
     border-radius: 25px;
     grid-column: 3/13;
     grid-row: 2/12;
-    overflow-y: scroll;
     overflow-x: hidden;
     position: relative;
     border-bottom: 10px;
-
-    &::-webkit-scrollbar {
-      margin: 3px;
-      width: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $color-darkblue;
-      border-radius: 20px;
-    }
-    &::-webkit-scrollbar-track {
-      margin-top: 15px;
-      margin-bottom: 15px;
-    }
+    display: flex;
+    flex-direction: column;
 
     .manage-header {
       display: grid;
@@ -44,12 +31,29 @@
       grid-template-columns: 25% 25% 20% 15% 15%;
       place-items: center;
       background-color: $color-lightgrey;
-      padding: 5px;
+      padding: .5%;
+      overflow-y: none;
     }
 
     ul {
-      margin-top: 50px;
+      margin-top: 40px;
       margin-bottom: 20px;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        margin: 3px;
+        width: 5px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: $color-darkblue;
+        border-radius: 20px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        margin-top: 5px;
+      }
+
 
       li {
         display: grid;
@@ -62,11 +66,18 @@
         border-left: none;
         border-right: none;
         margin-top: 5px;
+        font-size: 1.3em;
+
+        // &:hover {
+        //   border: 2px solid rgba($color-darkblue, 0.09);
+        //   color: $color-yellowgreen;
+        //   background-color: rgba($color-darkblue, 0.9);
+        // }
 
         &:hover {
           border: 2px solid rgba($color-darkblue, 0.09);
-          color: $color-yellowgreen;
-          background-color: rgba($color-darkblue, 0.9);
+          color: $color-lightgrey;
+          background-color: $color-accentviolet;
         }
 
         .name {
@@ -83,13 +94,13 @@
         .balance {
           display: flex;
           margin-left: auto;
-          margin-right: 35%;
+          margin-right: 20%;
         }
         .actions {
           display: flex;
           gap: 5px;
           margin-left: auto;
-          margin-right: 35%;
+          margin-right: 25%;
         }
       }
     }

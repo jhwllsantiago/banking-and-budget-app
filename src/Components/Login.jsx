@@ -2,6 +2,7 @@ import "./Login.scss";
 import Header from "../parts/Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import LoginModal from "./LoginModal";
 
 const Login = ({ data }) => {
   const navigate = useNavigate();
@@ -15,15 +16,17 @@ const Login = ({ data }) => {
     ? JSON.parse(localStorage.getItem(data))
     : [];
 
-  const [detailsValid, setDetailsValid] = useState(false);
+  const [detailsValid, setDetailsValid] = useState(null);
 
   const [details, setDetails] = useState({
     username: "",
     password: "",
   });
 
+
+  const user = location.pathname.split("/").pop();
+
   useEffect(() => {
-    const user = location.pathname.split("/").pop();
 
     if (detailsValid) {
       localStorage.setItem(
@@ -55,7 +58,7 @@ const Login = ({ data }) => {
       <Header />
       <div className="login">
         <form onSubmit={handleSubmit} className="login-form-container">
-          <h2>Hello!</h2>
+          <h2>Hello{user === "admin" && <span>, Admin</span> }!</h2>
           <div className="input-container">
             <label>Username:</label>
             <input
@@ -79,7 +82,7 @@ const Login = ({ data }) => {
             />
           </div>
           <button type="submit">Login</button>
-          {!detailsValid && <span>wrong username / password</span>}
+          { detailsValid === false && <span>wrong username / password</span>}
         </form>
       </div>
     </>

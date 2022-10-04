@@ -91,6 +91,7 @@ const SignUpForm = ({
   };
 
   return (
+    <div className="signUpContainer" >
     <form className={form} onSubmit={handleSubmit}>
       {showHeader && (
         <h3>{firstName.trim().length ? `Hello, ${firstName}!` : `Hello!`}</h3>
@@ -200,6 +201,7 @@ const SignUpForm = ({
         {buttonText}
       </button>
     </form>
+    </div>
   );
 };
 

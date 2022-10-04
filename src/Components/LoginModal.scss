@@ -11,27 +11,25 @@
   border-bottom-right-radius: 10px;
 
   .login-button {
-    padding: 0 7px;
     margin: 6px 2px;
     font-weight: 600;
+    padding: 0 7px;
+    border-radius: 10px;
     color: $color-violet;
     transition: 500ms ease;
-    border: 3px solid $color-yellowgreen;
     box-shadow: -3px -3px 6px rgba($color-white, 0.5),
       3px 3px 6px rgba($color-accentgreen, 0.6);
     border: 3px solid rgba($color-accentgreen, 0.06);
-    border-radius: 10px;
     background-color: $color-yellowgreen;
-
     cursor: pointer;
 
     &:hover {
       box-shadow: -12px -12px 24px rgba($color-white, 0.3),
-        inset -5px -5px 10px rgba($color-darkblue, 0.09),
-        inset 5px 5px 10px rgba($color-darkblue, 0.09),
-        12px 12px 24px rgba($color-darkblue, 0.06);
-      border: 3px solid rgba($color-accentgreen, 0.3);
-      background-color: rgba($color-accentgreen, 0.09);
+      inset -5px -5px 10px rgba($color-darkblue, 0.06),
+      inset 5px 5px 10px rgba($color-darkblue, 0.06),
+      12px 12px 24px rgba($color-darkblue, 0.06);
+    border: 3px solid #aec25c;
+    background-color: rgba($color-accentgreen, 0.45);
     }
   }
 }
