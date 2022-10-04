@@ -169,107 +169,120 @@ const MoneyTransfer = ({
   };
 
   return (
-    <div className="money-transfer">
-      <h3>Account No.: {accountNumber}</h3>
-      <h3>
-        Name: {user.firstName} {user.lastName}
-      </h3>
-      <h3>Balance: {user.balance}</h3>
-      <div>
-        <label>Deposit</label>
-        <input
-          type="text"
-          required
-          spellCheck="false"
-          autoComplete="false"
-          maxLength="9"
-          value={depositAmount}
-          onChange={(e) =>
-            handleDepositChange(
-              e.target.value
-                .replace(/[^0-9.]/g, "")
-                .replace(/(\..*?)\..*/g, "$1")
-            )
-          }
-        />
-      </div>
-      <div>
-        <label>Withdraw</label>
-        <input
-          type="text"
-          required
-          spellCheck="false"
-          autoComplete="false"
-          value={withdrawAmount}
-          onChange={(e) =>
-            handleWithdrawChange(
-              e.target.value
-                .replace(/[^0-9.]/g, "")
-                .replace(/(\..*?)\..*/g, "$1")
-            )
-          }
-          className={withdrawAmountValid ? "" : "red-outline"}
-        />
-      </div>
-      {showChannelSelect && (
-        <div>
-          <label>Channel</label>
-          <select
-            value={selectedChannel}
-            onChange={(e) => setSelectedChannel(e.target.value)}
-          >
-            <option value="GCASH">GCASH</option>
-            <option value="MAYA">MAYA</option>
-            <option value="PAYPAL">PAYPAL</option>
-            <option value="BDO">BDO</option>
-            <option value="BPI">BPI</option>
-          </select>
+    <div className="money-transfer-container">
+      <div className="money-transfer">
+        <div className="sender-details">
+          <h3>Account No. {accountNumber}</h3>
+          <h3>
+            Name: {user.firstName} {user.lastName}
+          </h3>
         </div>
-      )}
-      <button onClick={handleDepositClick}>Deposit</button>
-      <button onClick={handleWithdrawClick}>Withdraw</button>
-      <div>
-        <h4>Transfer Funds</h4>
-        <div>
-          <label>Account No</label>
-          <input
-            type="text"
-            required
-            maxLength="10"
-            spellCheck="false"
-            autoComplete="false"
-            value={transferAccountNo}
-            onChange={(e) => handleAccountNo(e.target.value.replace(/\D/g, ""))}
-            className={transferAccountNoValid ? "" : "red-outline"}
-          />
+        <h3 className="sender-balance">Balance: {user.balance}</h3>
+        <div className="deposit-and-withdraw-container">
+          <div className="deposit-container">
+            <label className="transfer-type-label">Deposit</label>
+            <input
+              type="text"
+              required
+              spellCheck="false"
+              autoComplete="false"
+              maxLength="9"
+              value={depositAmount}
+              onChange={(e) =>
+                handleDepositChange(
+                  e.target.value
+                    .replace(/[^0-9.]/g, "")
+                    .replace(/(\..*?)\..*/g, "$1")
+                )
+              }
+            />
+            <button onClick={handleDepositClick}>Deposit</button>
+          </div>
+          <div className="withdraw-container">
+            <label className="transfer-type-label">Withdraw</label>
+            <input
+              type="text"
+              required
+              spellCheck="false"
+              autoComplete="false"
+              value={withdrawAmount}
+              onChange={(e) =>
+                handleWithdrawChange(
+                  e.target.value
+                    .replace(/[^0-9.]/g, "")
+                    .replace(/(\..*?)\..*/g, "$1")
+                )
+              }
+              className={withdrawAmountValid ? "" : "red-outline"}
+            />
+            <button onClick={handleWithdrawClick}>Withdraw</button>
+          </div>
         </div>
-        <div>
-          <label>Amount</label>
-          <input
-            type="text"
-            required
-            spellCheck="false"
-            autoComplete="false"
-            value={transferAmount}
-            onChange={(e) =>
-              handleTransferAmount(
-                e.target.value
-                  .replace(/[^0-9.]/g, "")
-                  .replace(/(\..*?)\..*/g, "$1")
-              )
-            }
-            className={transferAmountValid ? "" : "red-outline"}
-          />
-        </div>
-        {!transferAccountNoValid && <p>Invalid account number.</p>}
-        {transferAccountNoValid && fundsRecipient && (
-          <p>
-            {`Transfering funds to ${fundsRecipient.firstName} ${fundsRecipient.lastName}`}
-          </p>
+        {showChannelSelect && (
+          <div>
+            <label>Channel</label>
+            <select
+              value={selectedChannel}
+              onChange={(e) => setSelectedChannel(e.target.value)}
+            >
+              <option value="GCASH">GCASH</option>
+              <option value="MAYA">MAYA</option>
+              <option value="PAYPAL">PAYPAL</option>
+              <option value="BDO">BDO</option>
+              <option value="BPI">BPI</option>
+            </select>
+          </div>
         )}
-        <button onClick={handleTransfer}>Transfer</button>
+        <div className="transfer-container">
+          <h4 className="transfer-type-label">Transfer Funds</h4>
+          <div className="receiver-details">
+            <label>Account No.</label>
+            <input
+              type="text"
+              required
+              maxLength="10"
+              spellCheck="false"
+              autoComplete="false"
+              value={transferAccountNo}
+              onChange={(e) =>
+                handleAccountNo(e.target.value.replace(/\D/g, ""))
+              }
+              className={transferAccountNoValid ? "" : "red-outline"}
+            />
+          </div>
+          <div className="receiver-details">
+            <label>Amount</label>
+            <input
+              type="text"
+              required
+              spellCheck="false"
+              autoComplete="false"
+              value={transferAmount}
+              onChange={(e) =>
+                handleTransferAmount(
+                  e.target.value
+                    .replace(/[^0-9.]/g, "")
+                    .replace(/(\..*?)\..*/g, "$1")
+                )
+              }
+              className={transferAmountValid ? "" : "red-outline"}
+            />
+          </div>
+          {!transferAccountNoValid && <p>Invalid account number.</p>}
+          {transferAccountNoValid && fundsRecipient && (
+            <p>
+              {`Transfering funds to ${fundsRecipient.firstName} ${fundsRecipient.lastName}`}
+            </p>
+          )}
+          <button onClick={handleTransfer}>Transfer</button>
+        </div>
+        <button
+          onClick={() => navigate(navigatePath)}
+          className="cancel-button"
+        >
+          Cancel
+        </button>
       </div>
-      <button onClick={() => navigate(navigatePath)}>Cancel</button>
     </div>
   );
 };

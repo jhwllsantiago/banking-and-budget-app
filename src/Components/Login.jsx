@@ -36,7 +36,7 @@ const Login = ({ data }) => {
       if (user === "client") {
         navigate(`/user`);
       } else if (user === "admin") {
-        navigate(`/admin/dashboard`);
+        navigate(`/admin`);
       }
     }
   }, [detailsValid]);

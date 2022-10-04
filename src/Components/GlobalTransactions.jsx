@@ -3,6 +3,10 @@ import "./GlobalTransactions.scss";
 import { TbMoodEmpty } from "react-icons/tb";
 import { useEffect } from "react";
 
+//Icons//
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { IoIosSearch } from "react-icons/io";
+
 const GlobalTransactions = () => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
     ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
@@ -15,6 +19,10 @@ const GlobalTransactions = () => {
 
   const [senderSearch, setSenderSearch] = useState("");
   const [recipientSearch, setRecipientSearch] = useState("");
+
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showSenders, setShowSenders] = useState(false);
+  const [showRecepients, setShowRecepients] = useState(false);
 
   const handleChange = (type) => {
     setSenderSearch("");
@@ -40,11 +48,6 @@ const GlobalTransactions = () => {
     setTransferChecked(true);
   };
 
-  const handleDelete = () => {
-    setTransactions([]);
-    localStorage.setItem("TRANSACTIONS", JSON.stringify([]));
-  };
-
   const handleSenderSearch = (value) => {
     setSenderSearch(value);
     const filtered = TRANSACTIONS.filter((transaction) =>
@@ -68,64 +71,100 @@ const GlobalTransactions = () => {
       <div className="transactions-table">
         <div className="transactions-header">
           <h3>TIME</h3>
-          <div>
-            <h3>TYPE</h3>
-            <div className="transactions-controls">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={depositChecked}
-                  onClick={() => setDepositChecked(!depositChecked)}
-                  onChange={() => handleChange("Deposit")}
-                />
-                <label>Deposits</label>
+          <div className="transaction-type">
+            <h3 className="transactions-label">
+              <RiArrowDropDownLine
+                className="dropdown-icon"
+                onClick={() => {
+                  setShowDropdown(!showDropdown);
+                }}
+              />
+              TYPE
+            </h3>
+            {showDropdown && (
+              <div className="transactions-controls">
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={depositChecked}
+                    onClick={() => setDepositChecked(!depositChecked)}
+                    onChange={() => handleChange("Deposit")}
+                  />
+                  <label>Deposits</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={withdrawChecked}
+                    onClick={() => setWithdrawChecked(!withdrawChecked)}
+                    onChange={() => handleChange("Withdraw")}
+                  />
+                  <label>Withdrawals</label>
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    checked={transferChecked}
+                    onClick={() => setTransferChecked(!transferChecked)}
+                    onChange={() => handleChange("Transfer")}
+                  />
+                  <label>Transfers</label>
+                </div>
               </div>
-              <div>
-                <input
-                  type="checkbox"
-                  checked={withdrawChecked}
-                  onClick={() => setWithdrawChecked(!withdrawChecked)}
-                  onChange={() => handleChange("Withdraw")}
-                />
-                <label>Withdrawals</label>
-              </div>
-              <div>
-                <input
-                  type="checkbox"
-                  checked={transferChecked}
-                  onClick={() => setTransferChecked(!transferChecked)}
-                  onChange={() => handleChange("Transfer")}
-                />
-                <label>Transfers</label>
-              </div>
-            </div>
+            )}
           </div>
+
           <h3>AMOUNT</h3>
-          <div>
-            <h3>SENDER</h3>
-            <input
-              type="text"
-              maxLength="10"
-              value={senderSearch}
-              onChange={(e) => handleSenderSearch(e.target.value)}
-              onFocus={() => {
-                setRecipientSearch("");
-                resetChecked();
-              }}
-            />
+          <div className="sender-container">
+            <h3>
+              <IoIosSearch
+                className="search-icon"
+                onClick={() => {
+                  setShowSenders(!showSenders);
+                }}
+              />
+              SENDER
+            </h3>
+            {showSenders && (
+              <input
+                type="text"
+                maxLength="10"
+                className="transactions-searchbar"
+                placeholder="Search"
+                value={senderSearch}
+                onChange={(e) => handleSenderSearch(e.target.value)}
+                onFocus={() => {
+                  setRecipientSearch("");
+                  resetChecked();
+                }}
+              />
+            )}
           </div>
-          <div>
-            <h3>RECIPIENT</h3>
-            <input
-              type="text"
-              maxLength="10"
-              value={recipientSearch}
-              onChange={(e) => handleRecipientSearch(e.target.value)}
-              onFocus={() => {
-                setSenderSearch("");
-                resetChecked();
-              }}
-            />
+          <div className="recepient-container">
+            <h3>
+              {" "}
+              <IoIosSearch
+                className="search-icon"
+                onClick={() => {
+                  setShowRecepients(!showRecepients);
+                }}
+              />
+              RECIPIENT
+            </h3>
+            {showRecepients && (
+              <input
+                type="text"
+                maxLength="10"
+                className="transactions-searchbar"
+                placeholder="Search"
+                value={recipientSearch}
+                onChange={(e) => handleRecipientSearch(e.target.value)}
+                onFocus={() => {
+                  setSenderSearch("");
+                  resetChecked();
+                }}
+              />
+            )}
           </div>
           <h3>CHANNEL</h3>
         </div>
@@ -142,19 +181,19 @@ const GlobalTransactions = () => {
           {transactions.map((transaction, idx) => {
             return (
               <li key={idx}>
-                <div>{transaction.time}</div>
+                <div className="float-value">{transaction.time}</div>
                 <div>{transaction.type}</div>
-                <div>{transaction.amount}</div>
-                <div>{transaction.sender}</div>
-                <div>{transaction.recipient}</div>
+                <div className="float-value transaction-amount">
+                  {transaction.amount}
+                </div>
+                <div className="float-value">{transaction.sender}</div>
+                <div className="float-value">{transaction.recipient}</div>
                 <div>{transaction.channel}</div>
               </li>
             );
           })}
         </ul>
       </div>
-
-      <button onClick={handleDelete}>Clear Transactions</button>
     </div>
   );
 };

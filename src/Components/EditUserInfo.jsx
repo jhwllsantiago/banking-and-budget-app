@@ -72,9 +72,10 @@ const EditUserInfo = ({ users, setUsers }) => {
   };
 
   return (
-    <div className="EditUserInfo">
+    <div className="edit-user-info-container">
+    <div className="edit-user-info">
       <h3>Account No. {accountNumber}</h3>
-      <div>
+      <div className="first-name-container details-container">
         <label>First Name</label>
         <input
           type="text"
@@ -86,7 +87,7 @@ const EditUserInfo = ({ users, setUsers }) => {
           onChange={(e) => handleFirstName(e.target.value)}
         />
       </div>
-      <div>
+      <div className="last-name-container details-container">
         <label>Last Name</label>
         <input
           type="text"
@@ -98,7 +99,7 @@ const EditUserInfo = ({ users, setUsers }) => {
           onChange={(e) => handleLastName(e.target.value)}
         />
       </div>
-      <div>
+      <div className="username-container details-container">
         <label>Username</label>
         <input
           type="text"
@@ -112,7 +113,7 @@ const EditUserInfo = ({ users, setUsers }) => {
           className={usernameValid ? "" : "red-outline"}
         />
       </div>
-      <div>
+      <div className="email-container details-container">
         <label>Email</label>
         <input
           type="email"
@@ -126,7 +127,7 @@ const EditUserInfo = ({ users, setUsers }) => {
           className={emailValid ? "" : "red-outline"}
         />
       </div>
-      <div>
+      <div className="password-container details-container">
         <label>Password</label>
         <input
           type="text"
@@ -140,9 +141,11 @@ const EditUserInfo = ({ users, setUsers }) => {
           className={passwordValid ? "" : "red-outline"}
         />
       </div>
-      <button onClick={handleButtonClick}>Save</button>
-      <button onClick={() => navigate("/admin/manage")}>Cancel</button>
+      <button onClick={handleButtonClick} className="save-button">Save</button>
+      <button onClick={() => navigate("/admin/manage")} className="cancel-button">Cancel</button>
     </div>
+    </div>
+
   );
 };
 
