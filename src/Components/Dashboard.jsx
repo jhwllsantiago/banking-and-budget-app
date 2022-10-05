@@ -117,7 +117,7 @@ const Dashboard = () => {
         )}
       </div>
       <div className="dashboard-graph transactions-graph">
-        <h3>TRANSACTIONS</h3>
+        <h3>Transactions</h3>
         <div className="transactions-text-container">
           <span className="transactions-number">{transactionsHistory.length}</span><br></br>
             <span className="transactions-span">
@@ -131,9 +131,8 @@ const Dashboard = () => {
         </h3>
         <ul className="vip-list">
           {savedUsers.map((user, idx) => {
-            const { ...users } = user;
-            const { firstName, lastName } = users;
-            if (user.balance >= 1000000) {
+            const { firstName, lastName }  = user;
+            if (user.balance >= 1000000 & user.status === "ACTIVE") {
               return (
                 <li key={idx}>
                   {" "}
