@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import "./MoneyTransfer.scss";
 import timestamp from "../utility/timestamp";
 import toTwoDecimal from "../utility/toTwoDecimal";
-
 
 const MoneyTransfer = ({
   users,
@@ -21,6 +20,7 @@ const MoneyTransfer = ({
   let userIndex = users.findIndex(
     (user) => user.accountNumber === accountNumber
   );
+  if (!user) user = { redirect: true }; //prevent errors //used for redirect
 
   const [depositAmount, setDepositAmount] = useState("");
   const [withdrawAmount, setWithdrawAmount] = useState("");
@@ -44,11 +44,11 @@ const MoneyTransfer = ({
   ) => {
     const channelToSave = showChannelSelect ? channel : "ADMIN";
     const transaction = {
-      type: type,
-      sender: sender,
-      senderName: senderName,
-      recipient: recipient,
-      recipientName: recipientName,
+      type,
+      sender,
+      senderName,
+      recipient,
+      recipientName,
       amount: parseFloat(amount).toFixed(2),
       time: timestamp(),
       channel: channelToSave,
@@ -169,6 +169,7 @@ const MoneyTransfer = ({
     }
   };
 
+  if (user.redirect) return <Navigate to="/" replace />;
   return (
     <div className="money-transfer-container">
       <div className="money-transfer">

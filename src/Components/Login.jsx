@@ -2,7 +2,6 @@ import "./Login.scss";
 import Header from "../parts/Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import LoginModal from "./LoginModal";
 
 const Login = ({ data }) => {
   const navigate = useNavigate();
@@ -23,11 +22,9 @@ const Login = ({ data }) => {
     password: "",
   });
 
-
   const user = location.pathname.split("/").pop();
 
   useEffect(() => {
-
     if (detailsValid) {
       localStorage.setItem(
         "LOGGED_IN",
@@ -38,13 +35,20 @@ const Login = ({ data }) => {
       } else if (user === "admin") {
         navigate(`/admin`);
       }
-    }
+    } // eslint-disable-next-line
   }, [detailsValid]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setDetailsValid(
       savedData.some((data) => {
+        if (user === "client") {
+          return (
+            data.username === details.username &&
+            data.password === details.password &&
+            data.status === "ACTIVE"
+          );
+        }
         return (
           data.username === details.username &&
           data.password === details.password
@@ -58,7 +62,7 @@ const Login = ({ data }) => {
       <Header />
       <div className="login">
         <form onSubmit={handleSubmit} className="login-form-container">
-          <h2>Hello{user === "admin" && <span>, Admin</span> }!</h2>
+          <h2>Hello{user === "admin" && <span>, Admin</span>}!</h2>
           <div className="input-container">
             <label>Username:</label>
             <input
@@ -82,7 +86,7 @@ const Login = ({ data }) => {
             />
           </div>
           <button type="submit">Login</button>
-          { detailsValid === false && <span>wrong username / password</span>}
+          {detailsValid === false && <span>wrong username / password</span>}
         </form>
       </div>
     </>

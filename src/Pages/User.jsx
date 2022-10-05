@@ -1,13 +1,17 @@
-import { Link, NavLink, Routes, Route, useNavigate } from "react-router-dom";
-import UserDashboard from "../components/UserDashboard";
+import {
+  Link,
+  NavLink,
+  Routes,
+  Route,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import PersonalTransactions from "../components/PersonalTransactions";
 import MoneyTransfer from "../components/MoneyTransfer";
 import Budget from "../components/Budget";
-import { useEffect } from "react";
 import "./User.scss";
 
 //Icons//
-import { MdOutlineDashboard } from "react-icons/md";
 import { AiOutlineFileSync } from "react-icons/ai";
 import { VscSignOut } from "react-icons/vsc";
 import { GiMoneyStack } from "react-icons/gi";
@@ -21,7 +25,7 @@ const User = () => {
   const LOGGED_IN = localStorage.getItem("LOGGED_IN")
     ? JSON.parse(localStorage.getItem("LOGGED_IN"))
     : {};
-  //const LOGGED_IN.user = "jhowell";
+
   const loggedInUser = USERS.find((user) => user.username === LOGGED_IN.user);
   let TRANSACTIONS = [];
   if (loggedInUser && localStorage.getItem("TRANSACTIONS")) {
@@ -31,14 +35,15 @@ const User = () => {
         transaction.recipient === loggedInUser.accountNumber
     );
   }
-  useEffect(() => {
-    if (!loggedInUser) navigate("/login/client");
-  });
 
   const logoutUser = () => {
     navigate("/");
     localStorage.removeItem("LOGGED_IN");
   };
+
+  if (!loggedInUser) {
+    return <Navigate to="/login/client" replace />;
+  }
 
   return (
     <div className="user">
@@ -50,11 +55,6 @@ const User = () => {
         </Link>
         <nav>
           <NavLink to="/user" end>
-            <p>
-              <MdOutlineDashboard className="logo" /> Dashboard
-            </p>
-          </NavLink>
-          <NavLink to="/user/budget">
             <p>
               <MdSavings className="logo" /> Budget
             </p>
@@ -76,8 +76,7 @@ const User = () => {
         </div>
       </header>
       <Routes>
-        <Route index element={<UserDashboard />} />
-        <Route path="budget" element={<Budget user={loggedInUser} />} />
+        <Route index element={<Budget user={loggedInUser} />} />
         <Route
           path="transfer/:accountNumber"
           element={
@@ -98,6 +97,7 @@ const User = () => {
             />
           }
         />
+        <Route path="*" element={<Navigate to="/user" replace />} />
       </Routes>
     </div>
   );

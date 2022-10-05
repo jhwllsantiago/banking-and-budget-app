@@ -1,4 +1,11 @@
-import { Routes, Route, Link, NavLink, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  NavLink,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Admin.scss";
 
@@ -29,13 +36,15 @@ const Admin = () => {
     (admin) => admin.username === LOGGED_IN.user
   );
   const [users, setUsers] = useState(USERS);
+  useEffect(() => {
+    localStorage.setItem("USERS", JSON.stringify(users));
+  }, [users]);
 
   useEffect(() => {
     if (!loggedInAdmin) navigate("/login/admin");
   });
 
   const logoutAdmin = () => {
-    console.log("working now");
     navigate("/");
     localStorage.removeItem("LOGGED_IN");
   };
@@ -86,6 +95,7 @@ const Admin = () => {
           element={<AddUser users={users} setUsers={setUsers} />}
         />
         <Route path="transactions" element={<GlobalTransactions />} />
+        <Route path="*" element={<Navigate to="/admin" replace />} />
       </Routes>
     </div>
   );

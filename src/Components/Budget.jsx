@@ -128,7 +128,7 @@ const Budget = ({ user }) => {
       sumOfBudgeted
     ).toFixed(2);
     setBudget(newBudget);
-    handleStateSaving();
+    handleStateSaving(); // eslint-disable-next-line
   }, [budgetList]);
 
   return (

@@ -1,4 +1,5 @@
 import { useNavigate, Routes, Route } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import "./Manage.scss";
 import EditUserInfo from "../components/EditUserInfo";
 import MoneyTransfer from "../components/MoneyTransfer";
@@ -13,8 +14,6 @@ import { FcMoneyTransfer } from "react-icons/fc";
 import { FaSort, FaSortDown, FaSortUp } from "react-icons/fa";
 import { RiVipCrownFill } from "react-icons/ri";
 import { RiStarFill } from "react-icons/ri";
-
-import { useState, useEffect, useRef } from "react";
 
 const Manage = ({ users, setUsers }) => {
   const navigate = useNavigate();
