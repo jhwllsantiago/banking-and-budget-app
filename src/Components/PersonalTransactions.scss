@@ -50,4 +50,10 @@
     grid-template-columns: 25% 15% 20% 20% 20%;
     place-items: center;
   }
+
+  .empty {
+    position: relative;
+    text-align: center;
+    top: 50px;
+  }
 }

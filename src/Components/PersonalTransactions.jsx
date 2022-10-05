@@ -2,6 +2,16 @@ import "./PersonalTransactions.scss";
 import { TbMoodEmpty } from "react-icons/tb";
 
 const PersonalTransactions = ({ user, transactions }) => {
+  const deposits = transactions.filter(
+    (transaction) => transaction.type === "Deposit"
+  );
+  const withdrawals = transactions.filter(
+    (transaction) => transaction.type === "Withdraw"
+  );
+  const transfers = transactions.filter(
+    (transaction) => transaction.type === "Transfer"
+  );
+
   return (
     <div className="personal-transactions">
       <div className="deposits-table table">
@@ -10,22 +20,20 @@ const PersonalTransactions = ({ user, transactions }) => {
           <h4>DATE &#38; TIME</h4>
           <h4>AMOUNT</h4>
         </div>
-        {false && (
+        {deposits.length === 0 && (
           <span className="empty">
             NO DEPOSITS <TbMoodEmpty />
           </span>
         )}
         <ul className="table-list">
-          {transactions
-            .filter((transaction) => transaction.type === "Deposit")
-            .map((transaction, idx) => {
-              return (
-                <li key={idx}>
-                  <div>{transaction.time}</div>
-                  <div>{transaction.amount}</div>
-                </li>
-              );
-            })}
+          {deposits.map((transaction, idx) => {
+            return (
+              <li key={idx}>
+                <div>{transaction.time}</div>
+                <div>{transaction.amount}</div>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="withdrawals-table table">
@@ -34,22 +42,20 @@ const PersonalTransactions = ({ user, transactions }) => {
           <h4>DATE &#38; TIME</h4>
           <h4>AMOUNT</h4>
         </div>
-        {false && (
+        {withdrawals.length === 0 && (
           <span className="empty">
-            NO DEPOSITS <TbMoodEmpty />
+            NO WITHDRAWALS <TbMoodEmpty />
           </span>
         )}
         <ul className="table-list">
-          {transactions
-            .filter((transaction) => transaction.type === "Withdraw")
-            .map((transaction, idx) => {
-              return (
-                <li key={idx}>
-                  <div>{transaction.time}</div>
-                  <div>{transaction.amount}</div>
-                </li>
-              );
-            })}
+          {withdrawals.map((transaction, idx) => {
+            return (
+              <li key={idx}>
+                <div>{transaction.time}</div>
+                <div>{transaction.amount}</div>
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className="transfers-table">
@@ -61,37 +67,35 @@ const PersonalTransactions = ({ user, transactions }) => {
           <h4>NAME</h4>
           <h4>ACCOUNT NO.</h4>
         </div>
-        {false && (
+        {transfers.length === 0 && (
           <span className="empty">
-            NO DEPOSITS <TbMoodEmpty />
+            NO TRANSFERS <TbMoodEmpty />
           </span>
         )}
         <ul className="transfers-list">
-          {transactions
-            .filter((transaction) => transaction.type === "Transfer")
-            .map((transaction, idx) => {
-              return (
-                <li key={idx}>
-                  <div>{transaction.time}</div>
-                  <div>
-                    {transaction.sender === user.accountNumber
-                      ? "OUTGOING"
-                      : "INCOMING"}
-                  </div>
-                  <div>{transaction.amount}</div>
-                  <div>
-                    {transaction.sender === user.accountNumber
-                      ? transaction.recipientName
-                      : transaction.senderName}
-                  </div>
-                  <div>
-                    {transaction.sender === user.accountNumber
-                      ? transaction.recipient
-                      : transaction.sender}
-                  </div>
-                </li>
-              );
-            })}
+          {transfers.map((transaction, idx) => {
+            return (
+              <li key={idx}>
+                <div>{transaction.time}</div>
+                <div>
+                  {transaction.sender === user.accountNumber
+                    ? "OUTGOING"
+                    : "INCOMING"}
+                </div>
+                <div>{transaction.amount}</div>
+                <div>
+                  {transaction.sender === user.accountNumber
+                    ? transaction.recipientName
+                    : transaction.senderName}
+                </div>
+                <div>
+                  {transaction.sender === user.accountNumber
+                    ? transaction.recipient
+                    : transaction.sender}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>

@@ -1,0 +1,26 @@
+.budget {
+  position: relative;
+  top: 50px;
+  left: 200px;
+
+  .chart {
+    position: absolute;
+    top: 50px;
+    right: 200px;
+  }
+  .budget-header,
+  .budget-list li {
+    display: grid;
+    grid-template-columns: 200px 200px 200px;
+    place-items: center;
+  }
+  .no-budget-list {
+    width: 600px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .actions-icons {
+    display: flex;
+    gap: 10px;
+  }
+}

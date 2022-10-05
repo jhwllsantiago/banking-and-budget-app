@@ -2,6 +2,7 @@ import { Link, NavLink, Routes, Route, useNavigate } from "react-router-dom";
 import UserDashboard from "../components/UserDashboard";
 import PersonalTransactions from "../components/PersonalTransactions";
 import MoneyTransfer from "../components/MoneyTransfer";
+import Budget from "../components/Budget";
 import { useEffect } from "react";
 import "./User.scss";
 
@@ -76,7 +77,7 @@ const User = () => {
       </header>
       <Routes>
         <Route index element={<UserDashboard />} />
-        <Route path="budget" element={<UserDashboard />} />
+        <Route path="budget" element={<Budget user={loggedInUser} />} />
         <Route
           path="transfer/:accountNumber"
           element={
