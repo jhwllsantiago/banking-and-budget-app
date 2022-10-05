@@ -19,8 +19,8 @@ const Dashboard = () => {
   const vipClients = [];
 
   const activeUsersDataOptions = {
-    legend: "none",
-    pieSliceText: "none",
+    legend: "name",
+    pieSliceText: "percent",
     pieHole: 0.5,
     is3D: false,
     backgroundColor: "#e3e3e3",
@@ -87,8 +87,8 @@ const Dashboard = () => {
           />
         </div>
         <p className="active-users-text">
-          <span>{activeUsersData.length - 1}</span> active users with
-          <span> ₱{activeUsersBalance}</span> total balance.
+          <span>{activeUsersData.length - 1}</span> active users with <br></br>
+          <span> ₱{activeUsersBalance.toFixed(2)}</span> total balance.
         </p>
       </div>
       <div className="dashboard-graph vip-shares-graph">

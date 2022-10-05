@@ -31,6 +31,10 @@ const Admin = () => {
   const [users, setUsers] = useState(USERS);
 
   useEffect(() => {
+    localStorage.setItem("USERS", JSON.stringify(users));
+  }, [users]);
+
+  useEffect(() => {
     if (!loggedInAdmin) navigate("/login/admin");
   });
 

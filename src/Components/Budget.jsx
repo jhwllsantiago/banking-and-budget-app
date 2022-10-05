@@ -133,6 +133,9 @@ const Budget = ({ user }) => {
 
   return (
     <div className="budget">
+      <div className="greeting">
+        <h1>Hello, {user.firstName}</h1>
+      </div>
       <div className="balance">
         <h1>BALANCE</h1>
         <h2>{user.balance}</h2>
