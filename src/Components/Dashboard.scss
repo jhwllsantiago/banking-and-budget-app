@@ -36,12 +36,30 @@
 
     h3 {
       text-align: center;
+      margin-top: 10px;
+      font-size: 1.4em;
+      font-weight: 500;
     }
   }
 
-  .graph-1 {
+  .active-users-graph {
+    color: $color-violet;
     grid-column: 3/8;
     grid-row: 2/8;
+    position: relative;
+
+    .active-users-text {
+      position: absolute;
+      left: 20%;
+      top: 75%;
+      width: 70%;
+      font-size: 1.1em;
+
+      span {
+        font-weight: 700;
+        font-size: 1.2em;
+      }
+    }
   }
 
   .graph-2 {
@@ -53,12 +71,64 @@
     grid-column: 3/7;
     grid-row: 8/12;
   }
-  .graph-4 {
+
+  .vip-graph {
     grid-column: 7/10;
     grid-row: 8/12;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .vip-list {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      
+      li {
+        padding: 5px;
+        font-size: 1.5em;
+        font-weight: 500;
+
+
+        white-space: pre;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
-  .graph-5 {
+
+  .pending-graph {
     grid-column: 10/13;
     grid-row: 8/12;
+    position: relative;
+
+    div {
+      position: absolute;
+      text-align: center;
+      top: 30%;
+      left: 20%;
+
+      .pending-number {
+        font-size: 3em;
+        font-weight: 900;
+      }
+
+      .activation-text {
+        font-size: 1.2em;
+
+      }
+    }
+
+    .no-requests-text {
+      position: absolute;
+      font-weight: 600;
+      font-size: 1.5em;
+      top: 40%;
+      text-align: center;
+    }
   }
 }
