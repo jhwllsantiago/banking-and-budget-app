@@ -36,29 +36,149 @@
 
     h3 {
       text-align: center;
+      margin-top: 10px;
+      font-size: 1.4em;
+      font-weight: 500;
     }
   }
 
-  .graph-1 {
-    grid-column: 3/8;
+  .active-users-graph {
+    color: $color-violet;
+    grid-column: 3/9;
     grid-row: 2/8;
+    position: relative;
+
+    .active-users-pie-chart {
+      display: flex;
+      justify-content: center;
+      transform: scale(1.3);
+      margin-top: 23px;
+    }
+    .active-users-text {
+      position: absolute;
+      left: 5%;
+      bottom: 5%;
+      width: 90%;
+      font-size: 1.3em;
+
+      span {
+        font-weight: 700;
+        font-size: 1.2em;
+      }
+    }
   }
 
-  .graph-2 {
-    grid-column: 8/13;
+  .vip-shares-graph {
+    grid-column: 9/13;
     grid-row: 2/8;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    position: relative;
+
+    .vip-shares-pie-chart {
+      transform: scale(1.8);
+      display: flex;
+      justify-content: center;
+    }
   }
 
-  .graph-3 {
-    grid-column: 3/7;
+  .pending-graph {
+    grid-column: 3/6;
     grid-row: 8/12;
+    position: relative;
+
+    div {
+      position: absolute;
+      text-align: center;
+      top: 30%;
+      left: 20%;
+
+      .pending-number {
+        font-size: 3em;
+        font-weight: 900;
+      }
+
+      .activation-text {
+        font-size: 1.2em;
+      }
+    }
+
+    .no-requests-text {
+      position: absolute;
+      font-weight: 600;
+      font-size: 1.5em;
+      top: 40%;
+      text-align: center;
+    }
   }
-  .graph-4 {
-    grid-column: 7/10;
+  .transactions-graph {
+    grid-column: 6/10;
     grid-row: 8/12;
+    display: flex;
+    flex-direction: column;
+
+    .transactions-text-container {
+      text-align: center;
+      margin-top: 10%;
+
+      .transactions-number {
+        font-size: 2.5em;
+        font-weight: 900;
+      }
+      .transactions-span {
+        font-size: 1.4em;
+      }
+    }
   }
-  .graph-5 {
+
+  .vip-graph {
     grid-column: 10/13;
     grid-row: 8/12;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      margin: 3px;
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-darkblue;
+      border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin: 10px 0;
+    }
+
+    h3 {
+      position: absolute;
+      background-color: $color-lightgrey;
+      width: 100%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vip-list {
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      margin-top: 45px;
+
+      li {
+        padding: 3px;
+        font-size: 1.3em;
+        font-weight: 500;
+        white-space: pre;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 }

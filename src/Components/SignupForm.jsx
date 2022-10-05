@@ -104,6 +104,7 @@ const SignUpForm = ({
           maxLength="50"
           spellCheck="false"
           autoComplete="false"
+          placeholder="Juan"
           value={firstName}
           onChange={(e) => handleFirstName(e.target.value)}
         />
@@ -116,6 +117,7 @@ const SignUpForm = ({
           maxLength="50"
           spellCheck="false"
           autoComplete="false"
+          placeholder="Dela Cruz"
           value={lastName}
           onChange={(e) => handleLastName(e.target.value)}
         />
@@ -129,6 +131,7 @@ const SignUpForm = ({
           maxLength="20"
           spellCheck="false"
           autoComplete="false"
+          placeholder="user_name"
           value={username}
           onChange={(e) => handleUsername(e.target.value.trim())}
           className={usernameValid ? "" : "red-outline"}
@@ -156,7 +159,7 @@ const SignUpForm = ({
           required
           spellCheck="false"
           autoComplete="false"
-          placeholder="minimum of eight characters"
+          placeholder="minimum of 8 characters"
           value={password}
           onChange={(e) => handlePassword(e.target.value.trim())}
           className={passwordValid ? "" : "red-outline"}
@@ -169,6 +172,7 @@ const SignUpForm = ({
           required
           spellCheck="false"
           autoComplete="false"
+          placeholder="000.00"
           maxLength="9"
           value={amount}
           onChange={(e) =>
