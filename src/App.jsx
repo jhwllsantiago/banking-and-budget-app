@@ -15,11 +15,13 @@ const App = () => {
         <Route path="/user/*" element={<User />} />
         <Route
           path="login/client"
-          element={<Login data="USERS" logged="user" />}
+          element={<Login data="USERS" logged="user" style="login-client-form" />}
         />
         <Route
           path="login/admin"
-          element={<Login data="ADMINS" logged="admin" />}
+          element={
+            <Login data="ADMINS" logged="admin" style="login-admin-form" />
+          }
         />
         <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<NotFound />} />

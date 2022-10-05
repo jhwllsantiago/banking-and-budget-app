@@ -179,7 +179,7 @@ const MoneyTransfer = ({
             Name: {user.firstName} {user.lastName}
           </h3>
         </div>
-        <h3 className="sender-balance">Balance: ₱{user.balance}</h3>
+        <h3 className="sender-balance">Balance:  ₱{user.balance}</h3>
         <div className="deposit-and-withdraw-container">
           <div className="deposit-container">
             <label className="transfer-type-label">Deposit</label>
@@ -221,7 +221,7 @@ const MoneyTransfer = ({
           </div>
         </div>
         {showChannelSelect && (
-          <div>
+          <div className="channel-div">
             <label>Channel</label>
             <select
               value={selectedChannel}

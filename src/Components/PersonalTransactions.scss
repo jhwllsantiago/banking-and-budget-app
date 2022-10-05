@@ -1,16 +1,33 @@
+@import "../assets/scss/styles";
+
 .personal-transactions {
   text-align: center;
   width: fit-content;
+
+  display: grid;
+  grid-template-columns: repeat(12, 6%);
+  column-gap: 2%;
+  grid-template-rows: repeat(12, 6%);
+  row-gap: 2%;
+  width: 100vw;
+  height: 100vh;
+  margin: 2% 3%;
 
   h3 {
     margin-bottom: 10px;
   }
   .table {
-    position: absolute;
     padding: 10px;
-    background-color: lightcyan;
-    width: 400px;
-    height: 300px;
+
+    border-radius: 20px;
+    background-color: rgba($color-violet, 0.29);
+    box-shadow: 2.5px 2.5px 1px rgba($color-lightgrey, 0.2),
+      3px 3px 1px rgba($color-lightgrey, 0.3),
+      4.5px 4.5px 1px rgba($color-lightgrey, 0.3),
+      5.5px 5.5px 1px rgba($color-lightgrey, 0.4),
+      6.5px 6.5px 1px rgba($color-lightgrey, 0.1),
+      8.5px 8.5px 1px rgba($color-violet, 0.9);
+    border: 3px solid rgba($color-violet, 0.1);
   }
   .table-header {
     display: grid;
@@ -23,22 +40,18 @@
     place-items: center;
   }
   .deposits-table {
-    top: 100px;
-    left: 300px;
+    grid-column: 4/8;
+    grid-row: 2/7;
   }
   .withdrawals-table {
-    top: 100px;
-    left: 800px;
+    grid-column: 8/12;
+    grid-row: 2/7;
   }
 
   .transfers-table {
-    position: absolute;
-    padding: 10px;
-    background-color: lightcyan;
-    width: 900px;
-    height: 400px;
-    top: 450px;
-    left: 300px;
+    width: 100%;
+    grid-column: 4/12;
+    grid-row: 7/12;
   }
   .transfers-header {
     display: grid;

@@ -5,108 +5,142 @@
   @include center-element-in-viewport(-1);
   accent-color: $color-yellowgreen;
 
-  .sign-up-form,
-  .add-user-form {
-    @include modal-and-signin-container;
-    padding: 30px;
+  .sign-up-form {
+    width: 35%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 15px;
     color: $color-white;
-    width: 30%;
+    padding: 15px 20px;
+    border-radius: 20px;
+    background-color: rgba($color-violet, 0.9);
+    box-shadow: 2.5px 2.5px 1px rgba($color-lightgrey, 0.2),
+      3px 3px 1px rgba($color-lightgrey, 0.3),
+      4.5px 4.5px 1px rgba($color-lightgrey, 0.3),
+      5.5px 5.5px 1px rgba($color-lightgrey, 0.4),
+      6.5px 6.5px 1px rgba($color-lightgrey, 0.1),
+      8.5px 8.5px 1px rgba($color-violet, 0.9);
+    border: 3px solid rgba($color-violet, 0.2);
+  }
 
-    h3 {
-      text-align: center;
+  .add-user-form {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    color: $color-darkblue;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba($color-darkblue, 0.09);
+    box-shadow: 2.5px 2.5px 1px rgba($color-white, 0.2),
+      3px 3px 1px rgba($color-lightgrey, 0.3),
+      4.5px 4.5px 1px rgba($color-lightgrey, 0.3),
+      5.5px 5.5px 1px rgba($color-lightgrey, 0.4),
+      6.5px 6.5px 1px rgba($color-white, 0.1),
+      8.5px 8.5px 1px rgba($color-darkblue, 0.2);
+    border: 3px solid rgba($color-darkblue, 0.04);
+
+    button {
+      background-color: rgba($color-darkblue, .05);
+      color: $color-darkblue;
     }
 
-    .form-control {
-      padding: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 5%;
-
-      label {
-        display: block;
-        margin-bottom: 5px;
-        white-space: pre;
-      }
-      input {
-        width: 80%;
-        border-radius: 10px;
-        border: none;
-        padding: 5px 5px;
-        color: $color-darkblue;
-      }
-
-      ::placeholder {
-        font-size: 0.8em;
-        color: rgba($color-darkblue, 0.4);
-        padding-left: 10px;
-      }
+    button:hover {
+      border: 3px solid rgba($color-darkblue, 0.09);
     }
-    .red-outline {
-      outline: 2px solid red;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .form-control {
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5%;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      white-space: pre;
     }
-
-    .checkbox-container {
-      display: flex;
-      align-items: baseline;
-      gap: 5%;
-
-      &:hover > .checkbox-label {
-        .terms-link {
-          color: $color-yellowgreen;
-          text-decoration: underline;
-        }
-      }
-
-      .checkbox {
-        width: 5%;
-        transform: scale(1.5);
-        margin-left: 2px;
-        cursor: pointer;
-        padding: 3px;
-
-        &:hover {
-          background-color: rgba($color-lightgrey, 0.9);
-        }
-      }
-
-      .checkbox-label {
-        font-size: 1em;
-      }
-
-      .terms-link {
-        cursor: pointer;
-      }
-    }
-
-    .sign-up-button {
-      margin-left: auto;
-      margin-right: auto;
-      width: 70%;
-      margin-top: 20px;
-      padding: 5px;
+    input {
+      width: 80%;
       border-radius: 10px;
+      border: none;
+      padding: 5px 5px;
+      color: $color-darkblue;
+    }
+
+    ::placeholder {
+      font-size: 0.8em;
+      color: rgba($color-darkblue, 0.4);
+      padding-left: 10px;
+    }
+  }
+  .red-outline {
+    outline: 2px solid red;
+  }
+
+  .checkbox-container {
+    display: flex;
+    align-items: baseline;
+    gap: 5%;
+
+    &:hover > .checkbox-label {
+      .terms-link {
+        color: $color-yellowgreen;
+        text-decoration: underline;
+      }
+    }
+
+    .checkbox {
+      width: 5%;
+      transform: scale(1.5);
+      margin-left: 2px;
       cursor: pointer;
-      transition: 300ms ease;
-      font-weight: 900;
-      color: $color-lightgrey;
-      letter-spacing: 1px;
-      background-color: rgba($color-violet, 0.95);
-      box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.3),
-        3px 3px 6px rgba($color-darkblue, 0.6);
-      border: 3px solid rgba($color-accentgreen, 0.06);
+      padding: 3px;
 
       &:hover {
-        box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.08),
-          inset -8px -8px 10px rgba($color-darkblue, 0.1),
-          inset 8px 8px 10px rgba($color-darkblue, 0.1),
-          12px 12px 24px rgba($color-darkblue, 0.06);
-        border: 3px solid rgba($color-violet, 0.5);
-        background-color: rgba($color-darkblue, 0.08);
+        background-color: rgba($color-lightgrey, 0.9);
       }
+    }
+
+    .checkbox-label {
+      font-size: 1em;
+    }
+
+    .terms-link {
+      cursor: pointer;
+    }
+  }
+
+  .sign-up-button {
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 300ms ease;
+    font-weight: 900;
+    color: $color-lightgrey;
+    letter-spacing: 1px;
+    background-color: rgba($color-violet, 0.95);
+    box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.3),
+      3px 3px 6px rgba($color-darkblue, 0.6);
+    border: 3px solid rgba($color-accentgreen, 0.06);
+
+    &:hover {
+      box-shadow: -3px -3px 6px rgba($color-lightgrey, 0.08),
+        inset -8px -8px 10px rgba($color-darkblue, 0.1),
+        inset 8px 8px 10px rgba($color-darkblue, 0.1),
+        12px 12px 24px rgba($color-darkblue, 0.06);
+      border: 3px solid rgba($color-violet, 0.5);
+      background-color: rgba($color-darkblue, 0.08);
     }
   }
 }

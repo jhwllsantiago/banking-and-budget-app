@@ -2,9 +2,8 @@ import "./Login.scss";
 import Header from "../parts/Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import LoginModal from "./LoginModal";
 
-const Login = ({ data }) => {
+const Login = ({ data, style }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const adminArray = [
@@ -57,7 +56,7 @@ const Login = ({ data }) => {
     <>
       <Header />
       <div className="login">
-        <form onSubmit={handleSubmit} className="login-form-container">
+        <form onSubmit={handleSubmit} className={style}>
           <h2>Hello{user === "admin" && <span>, Admin</span> }!</h2>
           <div className="input-container">
             <label>Username:</label>

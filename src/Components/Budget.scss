@@ -1,13 +1,160 @@
-.budget {
-  position: relative;
-  top: 50px;
-  left: 200px;
+@import "../assets/scss/styles";
 
-  .chart {
-    position: absolute;
-    top: 50px;
-    right: 200px;
+.budget {
+  display: grid;
+  grid-template-columns: repeat(12, 6%);
+  column-gap: 2%;
+  grid-template-rows: repeat(12, 6%);
+  row-gap: 2%;
+  width: 100vw;
+  height: 100vh;
+  margin: 2% 3%;
+  text-align: center;
+
+  .greeting {
+    grid-column: 3/7;
+    grid-row: 2/4;
+    text-align: left;
+    margin-left: 5px;
   }
+
+  .expected-income {
+    grid-column: 3/7;
+    grid-row: 7/8;
+    font-size: 0.95em;
+    align-items: center;
+    position: relative;
+
+    h3 {
+      position: absolute;
+      left: 9px;
+    }
+    .expected-income-input-container {
+      position: absolute;
+      right: 0;
+
+      input {
+        padding: 1px 2px;
+        border: transparent;
+        width: 75%;
+        border-radius: 5px;
+      }
+      button {
+        margin-left: 2px;
+        background-color: rgba($color-yellowgreen, 0.5);
+        border: transparent;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba($color-yellowgreen, 0.9);}
+      }
+    }
+  }
+  .balance {
+    grid-column: 3/7;
+    grid-row: 3/5;
+  }
+  .remaining-budget {
+    grid-column: 3/7;
+    grid-row: 5/7;
+  }
+
+  .budget-allocation {
+    grid-column: 3/7;
+    grid-row: 8/13;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 1%;
+    grid-template-rows: repeat(6, 1fr);
+    row-gap: 1%;
+    position: relative;
+
+    h3 {
+      grid-column: 1/5;
+      grid-row: 1/2;
+    }
+
+    .category-container {
+      grid-column: 1/7;
+      grid-row: 3/4;
+    }
+
+    .allocation-container {
+      grid-column: 1/7;
+      grid-row: 4/5;
+    }
+
+    .category-allocation-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      label {
+        font-size: 1.2em;
+      }
+      input {
+        border-radius: 10px;
+        padding: 0 5px;
+        border-color: transparent;
+      }
+    }
+
+    .add-budget-button {
+      grid-column: 3/5;
+      grid-row: 5/7;
+      border-radius: 15px;
+      padding: 2px;
+      font-size: 1em;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      width: 100%;
+      background-color: rgba($color-yellowgreen, 0.5);
+      transition: 300ms ease;
+      cursor: pointer;
+      border-color: transparent;
+
+      &:hover {
+        background-color: rgba($color-yellowgreen, 0.85);
+      }
+    }
+
+    .reset-button {
+      background-color: rgb(244, 139, 139, 0.5);
+      position: absolute;
+      top: 3px;
+      right: 3px;
+      cursor: pointer;
+      transition: 300ms ease;
+      border-color: transparent;
+      width: 10%;
+      aspect-ratio: 1;
+      font-weight: 900;
+      border-radius: 5px;
+      border-top-right-radius: 20px;
+
+      &:hover {
+        background-color: rgb(244, 139, 139);
+      }
+    }
+  }
+
+  .budget-table {
+    grid-column: 7/13;
+    grid-row: 8/13;
+  }
+  .chart {
+    grid-column: 7/13;
+    grid-row: 2/8;
+  }
+
+  .budget-header {
+    margin-top: 15px;
+  }
+
+  .budget-list {
+    margin-top: 10px;
+  }
+
   .budget-header,
   .budget-list li {
     display: grid;
@@ -16,11 +163,23 @@
   }
   .no-budget-list {
     width: 600px;
-    text-align: center;
     margin-top: 40px;
   }
   .actions-icons {
     display: flex;
     gap: 10px;
+  }
+
+  .budget-tile {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: rgba($color-violet, 0.29);
+    box-shadow: 2.5px 2.5px 1px rgba($color-lightgrey, 0.2),
+      3px 3px 1px rgba($color-lightgrey, 0.3),
+      4.5px 4.5px 1px rgba($color-lightgrey, 0.3),
+      5.5px 5.5px 1px rgba($color-lightgrey, 0.4),
+      6.5px 6.5px 1px rgba($color-lightgrey, 0.1),
+      8.5px 8.5px 1px rgba($color-violet, 0.9);
+    border: 3px solid rgba($color-violet, 0.1);
   }
 }
