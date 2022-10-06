@@ -1,16 +1,17 @@
 import "./Dashboard.scss";
-import { useState } from "react";
 import { Chart } from "react-google-charts";
 
 //Icons//
 import { RiVipCrownFill } from "react-icons/ri";
 
 const Dashboard = () => {
-  const USERS = JSON.parse(localStorage.getItem("USERS"));
-  const savedUsers = [...USERS];
+  const USERS = localStorage.getItem("USERS")
+    ? JSON.parse(localStorage.getItem("USERS"))
+    : [];
 
-  const TRANSACTIONS = JSON.parse(localStorage.getItem("TRANSACTIONS"));
-  const transactionsHistory = [...TRANSACTIONS];
+  const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
+    ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
+    : [];
 
   const activeUsersData = [["Client", "Balance"]];
 
@@ -43,7 +44,7 @@ const Dashboard = () => {
     cssClassNames: {},
   };
 
-  savedUsers.forEach((user) => {
+  USERS.forEach((user) => {
     const { ...users } = user;
     const { firstName, lastName, balance, status } = users;
     const fullName = `${firstName} ${lastName}`;
@@ -119,10 +120,11 @@ const Dashboard = () => {
       <div className="dashboard-graph transactions-graph">
         <h3>Transactions</h3>
         <div className="transactions-text-container">
-          <span className="transactions-number">{transactionsHistory.length}</span><br></br>
-            <span className="transactions-span">
-              total successful transactions.
-            </span>{" "}
+          <span className="transactions-number">{TRANSACTIONS.length}</span>
+          <br></br>
+          <span className="transactions-span">
+            total successful transactions.
+          </span>{" "}
         </div>
       </div>
       <div className="dashboard-graph vip-graph">
@@ -130,15 +132,17 @@ const Dashboard = () => {
           <RiVipCrownFill /> VIP
         </h3>
         <ul className="vip-list">
-          {savedUsers.map((user, idx) => {
-            const { firstName, lastName }  = user;
-            if (user.balance >= 1000000 & user.status === "ACTIVE") {
+          {USERS.map((user, idx) => {
+            const { firstName, lastName } = user;
+            if ((user.balance >= 1000000) & (user.status === "ACTIVE")) {
               return (
                 <li key={idx}>
                   {" "}
                   {lastName}, {firstName}
                 </li>
               );
+            } else {
+              return null;
             }
           })}
         </ul>

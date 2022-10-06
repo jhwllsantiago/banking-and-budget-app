@@ -38,7 +38,7 @@ const GlobalTransactions = () => {
     const filtered = TRANSACTIONS.filter((transaction) => {
       return filteredTypes.indexOf(transaction.type) === -1;
     });
-    setTransactions(filtered);
+    setTransactions(filtered); // eslint-disable-next-line
   }, [filteredTypes]);
 
   const resetChecked = () => {

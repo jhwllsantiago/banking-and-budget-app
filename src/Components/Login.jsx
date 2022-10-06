@@ -22,11 +22,9 @@ const Login = ({ data, style }) => {
     password: "",
   });
 
-
   const user = location.pathname.split("/").pop();
 
   useEffect(() => {
-
     if (detailsValid) {
       localStorage.setItem(
         "LOGGED_IN",
@@ -37,13 +35,20 @@ const Login = ({ data, style }) => {
       } else if (user === "admin") {
         navigate(`/admin`);
       }
-    }
+    } // eslint-disable-next-line
   }, [detailsValid]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setDetailsValid(
       savedData.some((data) => {
+        if (user === "client") {
+          return (
+            data.username === details.username &&
+            data.password === details.password &&
+            data.status === "ACTIVE"
+          );
+        }
         return (
           data.username === details.username &&
           data.password === details.password
@@ -81,7 +86,7 @@ const Login = ({ data, style }) => {
             />
           </div>
           <button type="submit">Login</button>
-          { detailsValid === false && <span>wrong username / password</span>}
+          {detailsValid === false && <span>wrong username / password</span>}
         </form>
       </div>
     </>
