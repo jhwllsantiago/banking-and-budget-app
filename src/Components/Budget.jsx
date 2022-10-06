@@ -179,7 +179,7 @@ const Budget = ({ user }) => {
             type="text"
             spellCheck="false"
             autoComplete="false"
-            placeholder="Transport"
+            placeholder="Transportation"
             maxLength="20"
             value={category}
             onChange={(e) => setCategory(e.target.value.trimStart())}
