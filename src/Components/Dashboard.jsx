@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   const activeUsersDataOptions = {
     legend: "name",
-    pieSliceText: "percent",
+    pieSliceText: "none",
     pieHole: 0.5,
     is3D: false,
     backgroundColor: "#e3e3e3",
@@ -33,7 +33,7 @@ const Dashboard = () => {
   const vipSharesGraphOptions = {
     legend: "none",
     pieSliceText: "VIP",
-    pieStartAngle: 135,
+    pieStartAngle: 110,
     tooltip: { trigger: "none" },
     slices: {
       0: { color: "brown" },
@@ -50,8 +50,8 @@ const Dashboard = () => {
     const fullName = `${firstName} ${lastName}`;
 
     if (status === "ACTIVE") {
-      const activeUserArray = [fullName, parseFloat(balance)];
-      activeUsersData.push(activeUserArray);
+      const activeUser = [fullName, parseFloat(balance)];
+      activeUsersData.push(activeUser);
       activeUsersBalance += parseFloat(balance);
     }
 
@@ -59,8 +59,9 @@ const Dashboard = () => {
       pendingRequests += 1;
     }
 
-    if (parseFloat(balance) >= 1000000) {
+    if ((status === "ACTIVE") & (parseFloat(balance) >= 1000000)) {
       vipShares += parseFloat(balance);
+      vipClients.push(fullName);
     } else {
       notVipShares += parseFloat(balance);
     }
@@ -76,30 +77,40 @@ const Dashboard = () => {
     ["Not VIP", notVipSharesPercentage],
   ];
 
+  console.log(vipClients);
+  console.log(vipShares);
   return (
     <div className="dashboard">
       <div className="dashboard-graph active-users-graph">
         <h3>Active Users</h3>
         <div className="active-users-pie-chart">
+          {USERS.length > 0 ? 
           <Chart
             chartType="PieChart"
             data={activeUsersData}
             options={activeUsersDataOptions}
           />
+          : <span className="no-users-span">No centavi users</span>}
         </div>
+        {USERS.lenth > 0 && 
         <p className="active-users-text">
-          <span>{activeUsersData.length - 1}</span> active users with <br></br>
-          <span> ₱{activeUsersBalance.toFixed(2)}</span> total balance.
-        </p>
+        <span>{activeUsersData.length - 1}</span> active users with <br></br>
+        <span> ₱{activeUsersBalance.toFixed(2)}</span> total balance.
+      </p>
+      }
       </div>
       <div className="dashboard-graph vip-shares-graph">
         <h3>VIP Shares</h3>
         <div className="vip-shares-pie-chart">
-          <Chart
-            chartType="PieChart"
-            data={vipSharesData}
-            options={vipSharesGraphOptions}
-          />
+          {vipClients.length > 0 ? (
+            <Chart
+              chartType="PieChart"
+              data={vipSharesData}
+              options={vipSharesGraphOptions}
+            />
+          ) : (
+            <span>none</span>
+          )}
         </div>
       </div>
       <div className="dashboard-graph pending-graph">
@@ -131,22 +142,27 @@ const Dashboard = () => {
         <h3>
           <RiVipCrownFill /> VIP
         </h3>
-        <ul className="vip-list">
-          {USERS.map((user, idx) => {
-            const { firstName, lastName } = user;
-            if ((user.balance >= 1000000) & (user.status === "ACTIVE")) {
-              return (
-                <li key={idx}>
-                  {" "}
-                  {lastName}, {firstName}
-                </li>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </ul>
-        <p> {vipClients}</p>
+        <div className="vip-list">
+          {vipClients.length > 0 ? (
+            <ul>
+              {USERS.map((user, idx) => {
+                const { firstName, lastName } = user;
+                if ((user.balance >= 1000000) & (user.status === "ACTIVE")) {
+                  return (
+                    <li key={idx}>
+                      {" "}
+                      {lastName}, {firstName}
+                    </li>
+                  );
+                } else {
+                  return null;
+                }
+              })}
+            </ul>
+          ) : (
+            <span>No VIPs</span>
+          )}
+        </div>
       </div>
     </div>
   );
