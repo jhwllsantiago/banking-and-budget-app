@@ -157,6 +157,7 @@ const Manage = ({ users, setUsers }) => {
               setUsers={setUsers}
               navigatePath="/admin/manage"
               showChannelSelect={false}
+              style="money-transfer-container"
             />
           }
         />

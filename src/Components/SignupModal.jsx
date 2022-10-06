@@ -13,7 +13,7 @@ const SignUpModal = () => {
         <p>Your request is under review.</p>
         <div className="sign-up-modal-buttons-container">
           <button onClick={() => navigateToHome("/")}>Home</button>
-          <button onClick={() => navigateToLogin("/login")}>Login</button>
+          <button onClick={() => navigateToLogin("/login/client")}>Login</button>
         </div>
       </div>
     </div>

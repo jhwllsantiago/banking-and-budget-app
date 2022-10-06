@@ -10,6 +10,7 @@ const MoneyTransfer = ({
   setUsers,
   navigatePath,
   showChannelSelect,
+  style
 }) => {
   const TRANSACTIONS = localStorage.getItem("TRANSACTIONS")
     ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
@@ -40,7 +41,7 @@ const MoneyTransfer = ({
     recipient = "N/A",
     recipientName = "N/A",
     amount,
-    channel
+    channel,
   ) => {
     const channelToSave = showChannelSelect ? channel : "ADMIN";
     const transaction = {
@@ -170,7 +171,7 @@ const MoneyTransfer = ({
   };
 
   return (
-    <div className="money-transfer-container">
+    <div className={style}>
       <div className="money-transfer">
         <div className="sender-details">
           <h3>Account No. {accountNumber}</h3>
@@ -178,7 +179,7 @@ const MoneyTransfer = ({
             Name: {user.firstName} {user.lastName}
           </h3>
         </div>
-        <h3 className="sender-balance">Balance: {user.balance}</h3>
+        <h3 className="sender-balance">Balance:  ₱{user.balance}</h3>
         <div className="deposit-and-withdraw-container">
           <div className="deposit-container">
             <label className="transfer-type-label">Deposit</label>
@@ -220,7 +221,7 @@ const MoneyTransfer = ({
           </div>
         </div>
         {showChannelSelect && (
-          <div>
+          <div className="channel-div">
             <label>Channel</label>
             <select
               value={selectedChannel}

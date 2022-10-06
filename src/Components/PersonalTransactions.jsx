@@ -58,7 +58,7 @@ const PersonalTransactions = ({ user, transactions }) => {
           })}
         </ul>
       </div>
-      <div className="transfers-table">
+      <div className="transfers-table table">
         <h3>TRANSFERS</h3>
         <div className="transfers-header">
           <h4>DATE &#38; TIME</h4>
