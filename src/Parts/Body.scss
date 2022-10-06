@@ -12,11 +12,28 @@
   margin-left: $margin-landing;
   margin-right: $margin-landing;
 
-  .centavi-image {
-    width: 100%;
-    grid-column: 2/5;
-    grid-row: 4/8;
-  }
+    .centavi-logo-container {
+      grid-column: 2;
+      grid-row: 4;
+      width: 250px;
+      height: 250px;
+      position: relative;
+      margin: 50px;
+
+      img, .centavi-logo-background  {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: 50%;
+      }
+
+      .centavi-logo-background {
+        background-image: linear-gradient(to bottom right, $color-lightpurple, $color-violet, $color-accentviolet );
+        transform: scale(.85);	
+        background-size: 400%;
+        animation: gradient 3000ms ease infinite;
+      }
+    }
 
   .p-content {
     grid-column: 7/12;
@@ -27,4 +44,16 @@
     line-height: 1.3em;
     color: $color-violet;
   }
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
