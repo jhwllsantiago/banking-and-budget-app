@@ -155,7 +155,7 @@ const Manage = ({ users, setUsers }) => {
               users={users}
               setUsers={setUsers}
               navigatePath="/admin/manage"
-              showChannelSelect={false}
+              showChannelSelect={false} // eslint-disable-next-line 
               style="money-transfer-container"
             />
           }

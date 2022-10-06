@@ -84,7 +84,7 @@ const User = () => {
               users={USERS}
               setUsers={() => {}}
               navigatePath="/user/transactions"
-              showChannelSelect={true}
+              showChannelSelect={true} // eslint-disable-next-line 
               style="money-transfer-container-user"
             />
           }
