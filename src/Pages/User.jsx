@@ -85,6 +85,7 @@ const User = () => {
               setUsers={() => {}}
               navigatePath="/user/transactions"
               showChannelSelect={true}
+              style="money-transfer-container-user"
             />
           }
         />

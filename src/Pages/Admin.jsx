@@ -41,6 +41,10 @@ const Admin = () => {
   }, [users]);
 
   useEffect(() => {
+    localStorage.setItem("USERS", JSON.stringify(users));
+  }, [users]);
+
+  useEffect(() => {
     if (!loggedInAdmin) navigate("/login/admin");
   });
 

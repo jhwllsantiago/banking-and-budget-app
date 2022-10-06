@@ -132,21 +132,24 @@ const Budget = ({ user }) => {
   }, [budgetList]);
 
   return (
-    <div className="budget">
-      <div className="balance">
+    <div className="budget budget-tile">
+      <div className="greeting tile">
+        <h1>Hello, {user.firstName}</h1>
+      </div>
+      <div className="balance budget-tile">
         <h1>BALANCE</h1>
-        <h2>{user.balance}</h2>
+        <h2>₱ {user.balance}</h2>
       </div>
-      <div className="remaining-budget">
+      <div className="remaining-budget budget-tile">
         <h1>BUDGET</h1>
-        <h2>{budget}</h2>
+        <h2>₱ {budget}</h2>
       </div>
-      <div className="expected-income">
+      <div className="expected-income budget-tile">
         <h3>Expected Income</h3>
         {incomeDisabled ? (
           <h3>{parseFloat(income) ? parseFloat(income).toFixed(2) : "0.00"}</h3>
         ) : (
-          <div>
+          <div className="expected-income-input-container">
             <input
               type="text"
               spellCheck="false"
@@ -168,9 +171,9 @@ const Budget = ({ user }) => {
           </div>
         )}
       </div>
-      <div className="budget-allocation">
+      <div className="budget-allocation budget-tile">
         <h3>Budget Allocation</h3>
-        <div>
+        <div className="category-container category-allocation-container">
           <label>Category</label>
           <input
             type="text"
@@ -182,7 +185,7 @@ const Budget = ({ user }) => {
             onChange={(e) => setCategory(e.target.value.trimStart())}
           />
         </div>
-        <div>
+        <div className="allocation-container category-allocation-container">
           <label>Allocation</label>
           <input
             type="text"
@@ -199,10 +202,10 @@ const Budget = ({ user }) => {
             }
           />
         </div>
-        <button onClick={handleBudgetAdd}>Add to budget</button>
-        <button onClick={handleReset}>Reset All</button>
+        <button onClick={handleBudgetAdd}  className="add-budget-button">Allocate</button>
+        <button onClick={handleReset} className="reset-button">X</button>
       </div>
-      <div className="budget-table">
+      <div className="budget-table budget-tile">
         <h3>Budget List</h3>
         <div className="budget-header">
           <h4>Category</h4>
@@ -262,10 +265,10 @@ const Budget = ({ user }) => {
           })}
         </ul>
       </div>
-      <div className="chart">
+      <div className="chart budget-tile">
         <Chart
           chartType="PieChart"
-          width="400px"
+          width="100%"
           height="400px"
           data={[["Category", "Allocation"], savings, ...budgetList]}
           options={{
