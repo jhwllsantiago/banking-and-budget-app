@@ -71,7 +71,7 @@ const EditUserInfo = ({ users, setUsers }) => {
       navigate("/admin/manage");
     }
   };
-  if (user.redirect) return <Navigate to="/admin/manage" replace />;
+  if (user.redirect) return <Navigate to="/404" replace />;
   return (
     <div className="edit-user-info-container">
       <form onSubmit={handleSubmit} className="edit-user-info">

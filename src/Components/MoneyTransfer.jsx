@@ -170,7 +170,7 @@ const MoneyTransfer = ({
     }
   };
 
-  if (user.redirect) return <Navigate to="/" replace />;
+  if (user.redirect) return <Navigate to="/404" replace />;
   return (
     <div className={style}>
       <div className="money-transfer">

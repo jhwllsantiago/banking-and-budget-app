@@ -1,4 +1,4 @@
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { useNavigate, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Manage.scss";
 import EditUserInfo from "../components/EditUserInfo";
@@ -162,6 +162,14 @@ const Manage = ({ users, setUsers }) => {
               style="money-transfer-container"
             />
           }
+        />
+        <Route
+          path="user/:accountNumber/*"
+          element={<Navigate to="/404" replace />}
+        />
+        <Route
+          path="transfer/user/:accountNumber/*"
+          element={<Navigate to="/404" replace />}
         />
       </Routes>
     </div>
