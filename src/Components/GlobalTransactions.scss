@@ -41,7 +41,6 @@
       top: 0;
       text-align: center;
       z-index: 2;
-      
 
       .transaction-type {
         position: relative;
@@ -164,6 +163,7 @@
       &::-webkit-scrollbar-track {
         margin: 70px 0 10px;
       }
+      
       li {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
@@ -176,13 +176,13 @@
         border-right: none;
         margin-top: 5px;
         font-size: 1.05em;
-  
+
         &:hover {
           border: 2px solid rgba($color-accentviolet, 0.2);
           color: $color-lightgrey;
           background-color: $color-accentviolet;
         }
-  
+
         .float-value {
           font-family: "Open Sans", sans-serif;
         }
@@ -194,11 +194,13 @@
       }
     }
 
-  .no-transactions {
-    display: grid;
-    height: 100%;
-    place-content: center;
-    font-size: 1.5em;
-  }
+    .no-transactions {
+      display: grid;
+      height: 100%;
+      place-content: center;
+      font-size: 1.5em;
+      margin-top: 10%;
+      pointer-events: none;
+    }
   }
 }

@@ -4,6 +4,8 @@
 .signUpContainer {
   @include center-element-in-viewport(-1);
   accent-color: $color-yellowgreen;
+  max-width: 1100px;
+  margin: 0 auto;
 
   .sign-up-form {
     width: 35%;
@@ -41,7 +43,7 @@
     border: 3px solid rgba($color-darkblue, 0.04);
 
     button {
-      background-color: rgba($color-darkblue, .05);
+      background-color: rgba($color-darkblue, 0.05);
       color: $color-darkblue;
     }
 

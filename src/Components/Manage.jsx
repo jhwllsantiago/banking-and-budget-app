@@ -1,5 +1,5 @@
 import { useNavigate, Routes, Route } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "./Manage.scss";
 import EditUserInfo from "../components/EditUserInfo";
 import MoneyTransfer from "../components/MoneyTransfer";
@@ -17,36 +17,8 @@ import { RiStarFill } from "react-icons/ri";
 
 const Manage = ({ users, setUsers }) => {
   const navigate = useNavigate();
-
-  const handleStatusChange = (idx, status) => {
-    let [userToBeUpdated] = users.filter((_, index) => index === idx);
-    const allUsers = [...users];
-    let accountNumber = "";
-    if (userToBeUpdated.status === "PENDING") {
-      for (let i = 0; i < 10; i++) {
-        accountNumber += Math.floor(Math.random() * 10);
-      }
-      userToBeUpdated = { ...userToBeUpdated, accountNumber };
-    }
-    allUsers[idx] = { ...userToBeUpdated, status };
-    setUsers(allUsers);
-  };
-
-  const handleDelete = (idx) => {
-    setUsers((users) => {
-      return users.filter((_, index) => index !== idx);
-    });
-  };
-
-  const handleEdit = (accountNumber) => {
-    navigate(`/admin/manage/user/${accountNumber}`);
-  };
-
-  let unsorted = useRef([...users]);
-  useEffect(() => {
-    unsorted.current = [...users];
-  }, [users]);
   const [balanceSort, setBalanceSort] = useState("none");
+
   const handleBalanceSort = () => {
     if (balanceSort === "none") {
       setBalanceSort("descending");
@@ -56,8 +28,37 @@ const Manage = ({ users, setUsers }) => {
       users.sort((a, b) => parseFloat(a.balance) - parseFloat(b.balance));
     } else {
       setBalanceSort("none");
-      setUsers([...unsorted.current]);
+      users.sort((a, b) => a.id - b.id);
     }
+  };
+  useEffect(() => {
+    setBalanceSort("none");
+    users.sort((a, b) => a.id - b.id);
+  }, [users]);
+
+  const handleStatusChange = (id, status) => {
+    let userToBeUpdated = users.find((user) => user.id === id);
+    const userIndex = users.findIndex((user) => user.id === id);
+    const allUsers = [...users];
+    let accountNumber = "";
+    if (userToBeUpdated.status === "PENDING") {
+      for (let i = 0; i < 10; i++) {
+        accountNumber += Math.floor(Math.random() * 10);
+      }
+      userToBeUpdated = { ...userToBeUpdated, accountNumber };
+    }
+    allUsers[userIndex] = { ...userToBeUpdated, status };
+    setUsers(allUsers);
+  };
+
+  const handleDelete = (id) => {
+    setUsers((users) => {
+      return users.filter((user) => user.id !== id);
+    });
+  };
+
+  const handleEdit = (accountNumber) => {
+    navigate(`/admin/manage/user/${accountNumber}`);
   };
 
   const handleTransfer = (accountNumber) => {
@@ -83,9 +84,9 @@ const Manage = ({ users, setUsers }) => {
         </div>
 
         <ul className="users-list">
-          {users.map((user, idx) => {
+          {users.map((user) => {
             return (
-              <li key={idx}>
+              <li key={user.id}>
                 <div className="name">
                   {parseFloat(user.balance) >= 1000000 &&
                     user.status === "ACTIVE" && <RiVipCrownFill />}
@@ -115,17 +116,19 @@ const Manage = ({ users, setUsers }) => {
                       <i onClick={() => handleEdit(user.accountNumber)}>
                         <AiFillEdit />
                       </i>
-                      <i onClick={() => handleStatusChange(idx, "INACTIVE")}>
+                      <i
+                        onClick={() => handleStatusChange(user.id, "INACTIVE")}
+                      >
                         <BiBlock />
                       </i>
                     </>
                   )}
                   {user.status !== "ACTIVE" && (
                     <>
-                      <i onClick={() => handleStatusChange(idx, "ACTIVE")}>
+                      <i onClick={() => handleStatusChange(user.id, "ACTIVE")}>
                         <GiConfirmed />
                       </i>
-                      <i onClick={() => handleDelete(idx)}>
+                      <i onClick={() => handleDelete(user.id)}>
                         <RiDeleteBinLine />
                       </i>
                     </>
@@ -155,7 +158,7 @@ const Manage = ({ users, setUsers }) => {
               users={users}
               setUsers={setUsers}
               navigatePath="/admin/manage"
-              showChannelSelect={false} // eslint-disable-next-line 
+              showChannelSelect={false} // eslint-disable-next-line
               style="money-transfer-container"
             />
           }

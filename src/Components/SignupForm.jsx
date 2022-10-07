@@ -72,6 +72,7 @@ const SignUpForm = ({
       const updatedUsers = [
         ...users,
         {
+          id: new Date().getTime(),
           firstName,
           lastName,
           username,

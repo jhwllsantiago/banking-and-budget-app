@@ -75,8 +75,6 @@ const Dashboard = () => {
     ["Not VIP", notVipSharesPercentage],
   ];
 
-  console.log(vipClients);
-  console.log(vipShares);
   return (
     <div className="dashboard">
       <div className="dashboard-graph active-users-graph">
