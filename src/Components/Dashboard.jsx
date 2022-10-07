@@ -31,8 +31,8 @@ const Dashboard = () => {
   let notVipShares = 0;
 
   const vipSharesGraphOptions = {
-    legend: "none",
-    pieSliceText: "VIP",
+    legend: "",
+    pieSliceText: "",
     pieStartAngle: 110,
     tooltip: { trigger: "none" },
     slices: {
@@ -40,8 +40,6 @@ const Dashboard = () => {
       1: { color: "white" },
     },
     backgroundColor: "transparent",
-    allowHtml: true,
-    cssClassNames: {},
   };
 
   USERS.forEach((user) => {
@@ -84,20 +82,23 @@ const Dashboard = () => {
       <div className="dashboard-graph active-users-graph">
         <h3>Active Users</h3>
         <div className="active-users-pie-chart">
-          {USERS.length > 0 ? 
-          <Chart
-            chartType="PieChart"
-            data={activeUsersData}
-            options={activeUsersDataOptions}
-          />
-          : <span className="no-users-span">No centavi users</span>}
+          {USERS.length > 0 ? (
+            <Chart
+              chartType="PieChart"
+              data={activeUsersData}
+              options={activeUsersDataOptions}
+            />
+          ) : (
+            <span className="no-users-span">No centavi users</span>
+          )}
         </div>
-        {USERS.lenth > 0 && 
-        <p className="active-users-text">
-        <span>{activeUsersData.length - 1}</span> active users with <br></br>
-        <span> ₱{activeUsersBalance.toFixed(2)}</span> total balance.
-      </p>
-      }
+        {USERS.lenth > 0 && (
+          <p className="active-users-text">
+            <span>{activeUsersData.length - 1}</span> active users with{" "}
+            <br></br>
+            <span> ₱{activeUsersBalance.toFixed(2)}</span> total balance.
+          </p>
+        )}
       </div>
       <div className="dashboard-graph vip-shares-graph">
         <h3>VIP Shares</h3>
