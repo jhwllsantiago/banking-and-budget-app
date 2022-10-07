@@ -147,7 +147,7 @@ const Budget = ({ user }) => {
       <div className="expected-income budget-tile">
         <h3>Expected Income</h3>
         {incomeDisabled ? (
-          <h3>{parseFloat(income) ? parseFloat(income).toFixed(2) : "0.00"}</h3>
+          <div className="expected-income-value">{parseFloat(income) ? `₱ ${parseFloat(income).toFixed(2)}` : "0.00"}</div>
         ) : (
           <div className="expected-income-input-container">
             <input
@@ -179,7 +179,7 @@ const Budget = ({ user }) => {
             type="text"
             spellCheck="false"
             autoComplete="false"
-            placeholder="Transport"
+            placeholder="Transportation"
             maxLength="20"
             value={category}
             onChange={(e) => setCategory(e.target.value.trimStart())}

@@ -32,12 +32,16 @@
     .transactions-header {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      place-items: center;
-      align-items: flex-end;
       background-color: antiquewhite;
       background-color: $color-lightgrey;
-      padding: 1.7%;
+      padding: 1.1%;
+      width: 100%;
+      height: 80px;
       overflow-y: none;
+      position: absolute;
+      top: 0;
+      text-align: center;
+      
 
       .transaction-type {
         position: relative;
@@ -47,6 +51,7 @@
           transform: translateX(-20px);
           display: flex;
           align-items: center;
+          justify-content: center;
 
           .dropdown-icon {
             font-size: 1.5em;
@@ -86,14 +91,15 @@
         width: 80%;
         text-align: center;
 
+        h3 {
+          display: flex;
+        }
         .search-icon {
           font-size: 0.9em;
           cursor: pointer;
           border-radius: 50%;
           box-sizing: content-box;
           padding: 6px;
-          display: flex;
-          position: absolute;
           bottom: 3px;
 
           &:hover {
@@ -138,54 +144,47 @@
         width: 90%;
       }
     }
+
+    .transactions-list {
+      margin-top: 5px;
+      margin-bottom: 20px;
+      overflow-y: scroll;
+  
+      li {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        place-items: center;
+        padding: 2px 5px;
+        cursor: pointer;
+        background-color: rgba($color-darkblue, 0.07);
+        border: 2px solid rgba($color-darkblue, 0.2);
+        border-left: none;
+        border-right: none;
+        margin-top: 5px;
+        font-size: 1.05em;
+  
+        &:hover {
+          border: 2px solid rgba($color-accentviolet, 0.2);
+          color: $color-lightgrey;
+          background-color: $color-accentviolet;
+        }
+  
+        .float-value {
+          font-family: "Open Sans", sans-serif;
+        }
+        .transaction-amount {
+          display: flex;
+          margin-left: auto;
+          margin-right: 20%;
+        }
+      }
+    }
+
+  .no-transactions {
+    display: grid;
+    height: 100%;
+    place-content: center;
+    font-size: 1.5em;
   }
-
-  .transactions-list {
-    margin-top: 15px;
-    margin-bottom: 20px;
-    overflow-y: scroll;
-
-    &::-webkit-scrollbar {
-      margin: 3px;
-      width: 5px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $color-darkblue;
-      border-radius: 20px;
-    }
-
-    &::-webkit-scrollbar-track {
-      margin-top: 5px;
-    }
-
-    li {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      place-items: center;
-      padding: 2px 5px;
-      cursor: pointer;
-      background-color: rgba($color-darkblue, 0.07);
-      border: 2px solid rgba($color-darkblue, 0.2);
-      border-left: none;
-      border-right: none;
-      margin-top: 5px;
-      font-size: 1.05em;
-
-      &:hover {
-        border: 2px solid rgba($color-accentviolet, 0.2);
-        color: $color-lightgrey;
-        background-color: $color-accentviolet;
-      }
-
-      .float-value {
-        font-family: "Open Sans", sans-serif;
-      }
-      .transaction-amount {
-        display: flex;
-        margin-left: auto;
-        margin-right: 20%;
-      }
-    }
   }
 }

@@ -24,10 +24,17 @@
     font-size: 0.95em;
     align-items: center;
     position: relative;
-
+    display: flex;
+  
     h3 {
       position: absolute;
       left: 9px;
+    }
+    .expected-income-value {
+      position: absolute;
+      right: 9px;
+      font-weight: 700;
+      font-size: 1.2em;
     }
     .expected-income-input-container {
       position: absolute;
@@ -46,7 +53,8 @@
         cursor: pointer;
 
         &:hover {
-          background-color: rgba($color-yellowgreen, 0.9);}
+          background-color: rgba($color-yellowgreen, 0.9);
+        }
       }
     }
   }
@@ -141,33 +149,53 @@
   .budget-table {
     grid-column: 7/13;
     grid-row: 8/13;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .budget-header {
+      margin-top: 15px;
+    }
+    .budget-header,
+    .budget-list li {
+      display: grid;
+      grid-template-columns: 200px 200px 200px;
+      place-items: center;
+    }
+
+    .no-budget-list {
+      text-align: center;
+      margin-top: 10%;
+    }
+    .budget-list {
+      margin-top: 10px;
+      overflow-y: scroll;
+      height: 100%;
+      position: relative;
+
+      &::-webkit-scrollbar {
+        margin: 3px;
+        width: 5px;
+      }
+  
+      &::-webkit-scrollbar-thumb {
+        background-color: $color-darkblue;
+        border-radius: 20px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        margin: 5px 0 15px;
+      }
+      .actions-icons {
+        display: flex;
+        gap: 10px;
+      }
+    }
   }
+
   .chart {
     grid-column: 7/13;
     grid-row: 2/8;
-  }
-
-  .budget-header {
-    margin-top: 15px;
-  }
-
-  .budget-list {
-    margin-top: 10px;
-  }
-
-  .budget-header,
-  .budget-list li {
-    display: grid;
-    grid-template-columns: 200px 200px 200px;
-    place-items: center;
-  }
-  .no-budget-list {
-    width: 600px;
-    margin-top: 40px;
-  }
-  .actions-icons {
-    display: flex;
-    gap: 10px;
   }
 
   .budget-tile {

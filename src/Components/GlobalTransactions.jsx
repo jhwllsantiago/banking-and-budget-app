@@ -168,31 +168,33 @@ const GlobalTransactions = () => {
           </div>
           <h3>CHANNEL</h3>
         </div>
-
-        <div className="no-transactions">
-          {transactions.length === 0 && (
-            <p>
-              NO TRANSACTIONS <TbMoodEmpty />
-            </p>
+        <div>
+          {" "}
+          {transactions.length === 0 ? (
+            <div className="no-transactions">
+              <p>
+                NO TRANSACTIONS <TbMoodEmpty />
+              </p>
+            </div>
+          ) : (
+            <ul className="transactions-list">
+              {transactions.map((transaction, idx) => {
+                return (
+                  <li key={idx}>
+                    <div className="float-value">{transaction.time}</div>
+                    <div>{transaction.type}</div>
+                    <div className="float-value transaction-amount">
+                      {transaction.amount}
+                    </div>
+                    <div className="float-value">{transaction.sender}</div>
+                    <div className="float-value">{transaction.recipient}</div>
+                    <div>{transaction.channel}</div>
+                  </li>
+                );
+              })}
+            </ul>
           )}
         </div>
-
-        <ul className="transactions-list">
-          {transactions.map((transaction, idx) => {
-            return (
-              <li key={idx}>
-                <div className="float-value">{transaction.time}</div>
-                <div>{transaction.type}</div>
-                <div className="float-value transaction-amount">
-                  {transaction.amount}
-                </div>
-                <div className="float-value">{transaction.sender}</div>
-                <div className="float-value">{transaction.recipient}</div>
-                <div>{transaction.channel}</div>
-              </li>
-            );
-          })}
-        </ul>
       </div>
     </div>
   );

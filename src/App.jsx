@@ -14,12 +14,12 @@ const App = () => {
         <Route path="/admin/*" element={<Admin />} />
         <Route path="/user/*" element={<User />} />
         <Route
-          path="login/client"
+          path="login/client" // eslint-disable-next-line 
           element={<Login data="USERS" logged="user" style="login-client-form" />}
         />
         <Route
           path="login/admin"
-          element={
+          element={ // eslint-disable-next-line 
             <Login data="ADMINS" logged="admin" style="login-admin-form" />
           }
         />
