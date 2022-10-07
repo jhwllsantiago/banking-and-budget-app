@@ -12,7 +12,7 @@ const Header = () => {
       <Link to="/" className="centavi" translate="no">
         centavi
       </Link>
-      <nav className="links">
+      <nav className="nav">
         <Link className="header-links" to="/">
           HOME
         </Link>
