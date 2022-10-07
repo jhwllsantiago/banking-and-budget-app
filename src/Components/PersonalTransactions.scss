@@ -34,6 +34,27 @@
     grid-template-columns: 55% 45%;
     place-items: center;
   }
+  .table-list {
+    overflow-y: scroll;
+    height: 70%;
+    width: 98%;
+    position: absolute;
+    font-family: "Open Sans", sans-serif;
+
+    &::-webkit-scrollbar {
+      margin: 3px;
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-darkblue;
+      border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-track {
+      margin: 5px 0 15px;
+    }
+  }
   .table-list li {
     display: grid;
     grid-template-columns: 55% 45%;
@@ -42,14 +63,17 @@
   .deposits-table {
     grid-column: 4/8;
     grid-row: 2/7;
+    position: relative;
   }
   .withdrawals-table {
     grid-column: 8/12;
     grid-row: 2/7;
+    position: relative;
   }
 
   .transfers-table {
     width: 100%;
+    position: relative;
     grid-column: 4/12;
     grid-row: 7/12;
   }
@@ -68,5 +92,9 @@
     position: relative;
     text-align: center;
     top: 50px;
+  }
+
+  .non-numerical-data {
+    font-family: "Poppins", sans-serif;
   }
 }

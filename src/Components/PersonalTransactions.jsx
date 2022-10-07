@@ -72,18 +72,18 @@ const PersonalTransactions = ({ user, transactions }) => {
             NO TRANSFERS <TbMoodEmpty />
           </span>
         )}
-        <ul className="transfers-list">
+        <ul className="table-list transfers-list">
           {transfers.map((transaction, idx) => {
             return (
               <li key={idx}>
                 <div>{transaction.time}</div>
-                <div>
+                <div className="non-numerical-data">
                   {transaction.sender === user.accountNumber
                     ? "OUTGOING"
                     : "INCOMING"}
                 </div>
                 <div>{transaction.amount}</div>
-                <div>
+                <div className="non-numerical-data">
                   {transaction.sender === user.accountNumber
                     ? transaction.recipientName
                     : transaction.senderName}

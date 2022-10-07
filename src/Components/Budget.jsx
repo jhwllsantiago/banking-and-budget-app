@@ -276,7 +276,7 @@ const Budget = ({ user }) => {
         <Chart
           chartType="PieChart"
           width="100%"
-          height="400px"
+          height="100%"
           data={[["Category", "Allocation"], savings, ...budgetList]}
           options={{
             title: `${user.firstName}'s Budget`,

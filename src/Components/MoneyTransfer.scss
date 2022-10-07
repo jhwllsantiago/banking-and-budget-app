@@ -160,13 +160,14 @@
   outline: 2px solid red;
 }
 
-
 .money-transfer-container-user {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 2%;
   grid-template-rows: repeat(12, 1fr);
   row-gap: 2%;
+  width: 100vw;
+  height: 100vh;
 
   .money-transfer {
     display: grid;
@@ -177,7 +178,7 @@
     column-gap: 2%;
     grid-template-rows: repeat(12, 1fr);
     row-gap: 2%;
-    
+
     background-color: rgba($color-violet, 0.29);
     box-shadow: 2.5px 2.5px 1px rgba($color-lightgrey, 0.2),
       3px 3px 1px rgba($color-lightgrey, 0.3),
@@ -189,7 +190,7 @@
     border-radius: 10px;
 
     .channel-div {
-      grid-column: 8/12;
+      grid-column: 3/7;
       grid-row: 3/4;
       padding: 0px 20px;
       label {
@@ -225,9 +226,25 @@
     flex-direction: column;
     border-radius: 20px;
     gap: 20px;
+  }
+
+  .transfer-container {
+    padding: 30px 5px;
+  }
 }
 
-.transfer-container {
-  padding: 30px 5px;
+@media only screen and (min-width: 1440px) {
+  .money-transfer-container-user {
+    place-content: center;
+    grid-template-columns: repeat(12, 5.5%);
+    grid-template-rows: repeat(12, 5.5%);
+  }
 }
+
+@media only screen and (min-width: 1920px) {
+  .money-transfer-container-user {
+    place-content: center;
+    grid-template-columns: repeat(12, 5%);
+    grid-template-rows: repeat(12, 5%);
+  }
 }
