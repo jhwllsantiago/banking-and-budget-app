@@ -13,7 +13,7 @@ const Dashboard = () => {
     ? JSON.parse(localStorage.getItem("TRANSACTIONS"))
     : [];
 
-  const activeUsersData = [["Client", "Balance"]];
+  const activeUsersData = [];
 
   let activeUsersBalance = 0;
   let pendingRequests = 0;
@@ -80,10 +80,10 @@ const Dashboard = () => {
       <div className="dashboard-graph active-users-graph">
         <h3>Active Users</h3>
         <div className="active-users-pie-chart">
-          {activeUsersData.length > 1 ? (
+          {activeUsersData.length > 0 ? (
             <Chart
               chartType="PieChart"
-              data={activeUsersData}
+              data={[["Client", "Balance"], ...activeUsersData]}
               options={activeUsersDataOptions}
             />
           ) : (
@@ -92,7 +92,7 @@ const Dashboard = () => {
         </div>
         {USERS.length > 0 && (
           <p className="active-users-text">
-            <span>{activeUsersData.length - 1}</span> active users with{" "}
+            <span>{activeUsersData.length}</span> active users with{" "}
             <br></br>
             <span> ₱{activeUsersBalance.toFixed(2)}</span> total balance.
           </p>
