@@ -12,7 +12,7 @@ const Header = () => {
       <Link to="/" className="centavi" translate="no">
         centavi
       </Link>
-      <div className="links">
+      <nav className="links">
         <Link className="header-links" to="/">
           HOME
         </Link>
@@ -29,7 +29,7 @@ const Header = () => {
           LOGIN
         </span>
         {showModal && <LoginModal />}
-      </div>
+      </nav>
     </header>
   );
 };
