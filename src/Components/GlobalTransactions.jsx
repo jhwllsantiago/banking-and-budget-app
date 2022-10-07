@@ -70,7 +70,7 @@ const GlobalTransactions = () => {
     <div className="global-transactions">
       <div className="transactions-table">
         <div className="transactions-header">
-          <h3>TIME</h3>
+          <h3>DATE &#38; TIME</h3>
           <div className="transaction-type">
             <h3 className="transactions-label">
               <RiArrowDropDownLine
