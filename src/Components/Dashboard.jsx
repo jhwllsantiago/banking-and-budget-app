@@ -75,8 +75,6 @@ const Dashboard = () => {
     ["Not VIP", notVipSharesPercentage],
   ];
 
-  console.log(vipClients);
-  console.log(vipShares);
   return (
     <div className="dashboard">
       <div className="dashboard-graph active-users-graph">
@@ -92,7 +90,7 @@ const Dashboard = () => {
             <span className="no-users-span">No centavi users</span>
           )}
         </div>
-        {USERS.lenth > 0 && (
+        {USERS.length > 0 && (
           <p className="active-users-text">
             <span>{activeUsersData.length - 1}</span> active users with{" "}
             <br></br>

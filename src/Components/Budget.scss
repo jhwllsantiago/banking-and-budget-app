@@ -12,6 +12,7 @@
   text-align: center;
 
   .greeting {
+    font-size: 0.85em;
     grid-column: 3/7;
     grid-row: 2/4;
     text-align: left;
@@ -25,7 +26,7 @@
     align-items: center;
     position: relative;
     display: flex;
-  
+
     h3 {
       position: absolute;
       left: 9px;
@@ -177,12 +178,12 @@
         margin: 3px;
         width: 5px;
       }
-  
+
       &::-webkit-scrollbar-thumb {
         background-color: $color-darkblue;
         border-radius: 20px;
       }
-  
+
       &::-webkit-scrollbar-track {
         margin: 5px 0 15px;
       }

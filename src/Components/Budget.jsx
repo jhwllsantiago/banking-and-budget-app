@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Budget.scss";
 import toTwoDecimal from "../utility/toTwoDecimal";
+import greeting from "../utility/greeting";
 import { Chart } from "react-google-charts";
 
 import { AiFillEdit, AiOutlineSave } from "react-icons/ai";
@@ -61,7 +62,7 @@ const Budget = ({ user }) => {
     setIncome(value);
   };
   const handleIncomeClick = () => {
-    if (income) {
+    if (income && !incomeDisabled) {
       setBudget((parseFloat(user.balance) + parseFloat(income)).toFixed(2));
     }
   };
@@ -134,7 +135,7 @@ const Budget = ({ user }) => {
   return (
     <div className="budget budget-tile">
       <div className="greeting tile">
-        <h1>Hello, {user.firstName}</h1>
+        <h1>{greeting()}, {user.firstName}!</h1>
       </div>
       <div className="balance budget-tile">
         <h1>BALANCE</h1>
@@ -147,7 +148,9 @@ const Budget = ({ user }) => {
       <div className="expected-income budget-tile">
         <h3>Expected Income</h3>
         {incomeDisabled ? (
-          <div className="expected-income-value">{parseFloat(income) ? `₱ ${parseFloat(income).toFixed(2)}` : "0.00"}</div>
+          <div className="expected-income-value">
+            {parseFloat(income) ? `₱ ${parseFloat(income).toFixed(2)}` : "0.00"}
+          </div>
         ) : (
           <div className="expected-income-input-container">
             <input
@@ -202,8 +205,12 @@ const Budget = ({ user }) => {
             }
           />
         </div>
-        <button onClick={handleBudgetAdd}  className="add-budget-button">Allocate</button>
-        <button onClick={handleReset} className="reset-button">X</button>
+        <button onClick={handleBudgetAdd} className="add-budget-button">
+          Allocate
+        </button>
+        <button onClick={handleReset} className="reset-button">
+          X
+        </button>
       </div>
       <div className="budget-table budget-tile">
         <h3>Budget List</h3>
