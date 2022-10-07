@@ -82,7 +82,7 @@ const Dashboard = () => {
       <div className="dashboard-graph active-users-graph">
         <h3>Active Users</h3>
         <div className="active-users-pie-chart">
-          {USERS.length > 0 ? (
+          {activeUsersData.length > 1 ? (
             <Chart
               chartType="PieChart"
               data={activeUsersData}
