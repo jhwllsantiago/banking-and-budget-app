@@ -13,7 +13,6 @@
   .transactions-table {
     grid-column: 3/13;
     grid-row: 2/12;
-    overflow-x: hidden;
     position: relative;
     border-bottom: 10px;
     display: flex;
@@ -41,6 +40,7 @@
       position: absolute;
       top: 0;
       text-align: center;
+      z-index: 2;
       
 
       .transaction-type {
@@ -146,10 +146,24 @@
     }
 
     .transactions-list {
-      margin-top: 5px;
-      margin-bottom: 20px;
+      margin-top: 20px;
       overflow-y: scroll;
+      position: absolute;
+      height: 90%;
+
+      &::-webkit-scrollbar {
+        margin: 3px;
+        width: 5px;
+      }
   
+      &::-webkit-scrollbar-thumb {
+        background-color: $color-darkblue;
+        border-radius: 20px;
+      }
+  
+      &::-webkit-scrollbar-track {
+        margin: 70px 0 10px;
+      }
       li {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
